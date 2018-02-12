@@ -1,12 +1,10 @@
 package sample;
 
-import javafx.application.Application;
-import javafx.event.ActionEvent;
+import javafx.application.*;
+import javafx.event.*;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.*;
+import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -38,8 +36,12 @@ public class Main extends Application {
             }
         });
 
-        StackPane root = new StackPane();
-        root.getChildren().addAll(btn,btn2);
+        StackPane v = new StackPane(btn2);
+        StackPane h = new StackPane(btn);
+
+        StackPane root = new StackPane(v, h);
+
+
 
         primaryStage.setTitle("SemesterOppgave");
         primaryStage.setScene(new Scene(root, 600, 500));
