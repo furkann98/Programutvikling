@@ -1,2 +1,0 @@
-# Programutvikling
-Semester Oppgave Programutvikling
