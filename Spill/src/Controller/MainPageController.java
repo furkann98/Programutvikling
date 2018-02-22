@@ -23,7 +23,7 @@ public class MainPageController implements Initializable {
 
     public void buttonHowToPlay(javafx.event.ActionEvent event) throws IOException {
 
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/view/HowToPlay.fxml"));
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/View/HowToPlay.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
         Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -34,7 +34,7 @@ public class MainPageController implements Initializable {
 
     public void buttonLoad(javafx.event.ActionEvent event) throws IOException {
 
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/view/HowToPlay.fxml"));
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/View/HowToPlay.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
         Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -45,7 +45,7 @@ public class MainPageController implements Initializable {
 
     public void buttonHighscores(javafx.event.ActionEvent event) throws IOException {
 
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/view/HowToPlay.fxml"));
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/View/HowToPlay.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
         Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
