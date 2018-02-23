@@ -1,6 +1,6 @@
-package Game;
+package Game.Game;
 
-import javax.swing.JPanel;
+import  javax.swing.JPanel;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -49,6 +49,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         running = true;
 
         image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+        g = (Graphics2D) image.getGraphics();
 
         player = new Player();
 
@@ -104,7 +105,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         g.setColor(new Color(0, 100,255));
         g.fillRect(0,0, WIDTH, HEIGHT);
         g.setColor(Color.BLACK);
-        g.drawString("FPS: " + averageFPS, 10, 10);
+        g.drawString("FPS: " + averageFPS, 100, 100);
 
         player.draw(g);
     }
@@ -117,6 +118,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
 
     public void keyTyped(KeyEvent key){}
+
     public void keyPressed(KeyEvent key){
         int keyCode = key.getKeyCode();
         if (keyCode == KeyEvent.VK_LEFT){

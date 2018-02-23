@@ -1,4 +1,4 @@
-package Game;
+package Game.Game;
 
 import java.awt.*;
 
@@ -56,14 +56,14 @@ public class Player {
             dx = speed;
         }
         if(up){
-            dx = -speed;
+            dy = -speed;
         }
         if(down){
-            dx = speed;
+            dy = speed;
         }
 
         x += dx;
-        y +=dy;
+        y += dy;
 
         if(x < r) x = r;
         if(y < r) y = r;
@@ -76,7 +76,7 @@ public class Player {
 
     public void draw(Graphics2D g){
         g.setColor(color1);
-        g.fillOval(x-r,y-r, 2*r,2*r);
+        g.fillOval(x-r,y-r, 2 * r,2 * r);
 
         g.setStroke(new BasicStroke(3));
         g.setColor(color1.darker());
