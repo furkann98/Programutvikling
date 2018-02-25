@@ -5,8 +5,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.*;
-
-
+import java.util.*;
 
 
 public class GamePanel extends JPanel implements Runnable, KeyListener {
@@ -24,7 +23,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     private int FPS = 30;
     private double averageFPS;
 
-    private Player player; 
+    public static Player player;
+
+    public static ArrayList<Bullet>bullets;
 
     //Konstruktør
     public GamePanel(){
@@ -52,6 +53,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         g = (Graphics2D) image.getGraphics();
 
         player = new Player();
+        bullets = new ArrayList<Bullet>();
 
         long startTime;
         long URDTimeMillis;
@@ -73,7 +75,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             gameRender();       // off-screen image  , double buffering
             gameDraw();         //  gamescreedn
 
-            URDTimeMillis = (System.nanoTime() - startTime)/1000000;
+            URDTimeMillis = (System.nanoTime() - startTime)/10000;
             waitTime = targetTime - URDTimeMillis; 
 
             try{
@@ -99,15 +101,30 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     private void gameUpdate(){
 
         player.update();
+
+        for (int i = 0; i < bullets.size(); i++){
+            boolean remove = bullets.get(i).update();
+            if(remove){
+                bullets.remove(i);
+                i--;
+            }
+        }
     }
 
     private void gameRender(){
         g.setColor(new Color(0, 100,255));
         g.fillRect(0,0, WIDTH, HEIGHT);
         g.setColor(Color.BLACK);
-        g.drawString("FPS: " + averageFPS, 100, 100);
+        g.drawString("FPS: " + averageFPS, 10, 10);
+        g.drawString("Number of bullets: " + bullets.size(), 10, 20);
 
         player.draw(g);
+
+
+        for (int i = 0; i < bullets.size(); i++){
+            bullets.get(i).draw(g);
+        }
+
     }
     
     private void gameDraw(){
@@ -133,6 +150,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         if (keyCode == KeyEvent.VK_DOWN){
             player.setDown(true);
         }
+        if(keyCode == KeyEvent.VK_SPACE){
+            player.setFiring(true);
+        }
+
+
+
     }
     public void keyReleased(KeyEvent key){
          int keyCode = key.getKeyCode();
@@ -149,6 +172,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
          if (keyCode == KeyEvent.VK_DOWN){ 
              player.setDown(false);
          }
+        if(keyCode == KeyEvent.VK_SPACE){
+            player.setFiring(false);
+        }
 
     }
 
