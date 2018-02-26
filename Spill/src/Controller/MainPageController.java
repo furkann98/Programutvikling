@@ -21,6 +21,17 @@ public class MainPageController implements Initializable {
 
     }
 
+    public void buttonPlay(javafx.event.ActionEvent event) throws IOException {
+
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/Game/Game/Game.java"));
+        Scene tableViewScene = new Scene(tableViewParent);
+
+        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
+        window.setScene(tableViewScene);
+        window.show();
+    }
+
     public void buttonHowToPlay(javafx.event.ActionEvent event) throws IOException {
 
         Parent tableViewParent = FXMLLoader.load(getClass().getResource("/View/HowToPlay.fxml"));
