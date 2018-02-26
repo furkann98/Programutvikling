@@ -1,4 +1,4 @@
-package Game.Game;
+package Game;
 
 
 import javax.swing.JFrame;
@@ -10,7 +10,7 @@ public class Game {
         JFrame window = new JFrame("First Game");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        window.setContentPane(new GamePanel());
+        window.setContentPane(new Game.GamePanel());
 
         window.pack();
         window.setVisible(true);
