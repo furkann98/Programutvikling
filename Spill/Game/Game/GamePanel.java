@@ -115,6 +115,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         g.setColor(new Color(0, 100,255));
         g.fillRect(0,0, WIDTH, HEIGHT);
         g.setColor(Color.BLACK);
+        //Dette må fjernes
         g.drawString("FPS: " + averageFPS, 10, 10);
         g.drawString("Number of bullets: " + bullets.size(), 10, 20);
 
