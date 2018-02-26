@@ -10,7 +10,7 @@ public class Game {
         JFrame window = new JFrame("First Game");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        window.setContentPane(new Game.GamePanel());
+        window.setContentPane(new GamePanel());
 
         window.pack();
         window.setVisible(true);
