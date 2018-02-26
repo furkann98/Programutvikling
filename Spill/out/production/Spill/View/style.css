@@ -1,0 +1,24 @@
+
+
+#bgMainPage{
+    -fx-background-image: url("/View/fut1.jpg");
+    -fx-background-size: 100% 100%;
+}
+
+#bgHowToPlay{
+    -fx-background-image: url("/View/fut2.jpg");
+    -fx-background-size: 100% 100%;
+}
+
+
+#PicKeys{
+    -fx-background-image: url("/View/keys.png");
+    -fx-background-size: 100% 100%;
+}
+
+#PicSpace{
+        -fx-background-image: url("/View/space.png");
+        -fx-background-size: 100%;
+
+
+}
