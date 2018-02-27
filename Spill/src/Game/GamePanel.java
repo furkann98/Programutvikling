@@ -11,8 +11,11 @@ import java.util.*;
 public class GamePanel extends JPanel implements Runnable, KeyListener {
 
     //DATAFELT
+
+    //DATA FELT MÅ BLI STØRRE FOR VERTIKAL SPILL
     public static int WIDTH = 400;
     public static int HEIGHT = 400;
+
 
     private Thread thread;
     private boolean running; 
@@ -87,7 +90,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             totalTime += System.nanoTime()-startTime;
             frameCount++;
             if (frameCount == maxFrameCount){
-                averageFPS = 200.0 / ((totalTime / frameCount)/1000000);
+                averageFPS = 1000.0 / ((totalTime / frameCount)/1000000);
                 frameCount = 0;
                 totalTime = 0;
 

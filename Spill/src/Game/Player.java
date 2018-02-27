@@ -37,13 +37,17 @@ public class Player {
         speed = 2;
 
         lives = 3;
+
+        //MÅ BYTTE TIL PNG FIL/////
         color1 = Color.WHITE;
+
+
         color2 = Color.RED;
 
 
         firing = false;
         firingTimer = System.nanoTime(); //Current time
-        firingDelay = 200;  //Shots per second
+        firingDelay = 120;  //Shots per second
 
     }
 
