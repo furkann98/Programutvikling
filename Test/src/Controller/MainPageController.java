@@ -1,6 +1,5 @@
 package Controller;
 
-import Game.GamePanel;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -26,18 +25,16 @@ public class MainPageController implements Initializable {
 
 
     }
+    public void buttonPlay(javafx.event.ActionEvent event) throws IOException {
 
-    public void buttonPlay() throws IOException {
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/View/HowToPlay.fxml"));
+        Scene tableViewScene = new Scene(tableViewParent);
 
-        JFrame window = new JFrame("Title?");
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
 
-        window.setContentPane(new GamePanel());
-
-        window.pack();
-        window.setVisible(true);
+        window.setScene(tableViewScene);
+        window.show();
     }
-
 
 
     public void buttonHowToPlay(javafx.event.ActionEvent event) throws IOException {

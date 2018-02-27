@@ -76,7 +76,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
             gameUpdate();      // Positioning
             gameRender();       // off-screen image  , double buffering
-            gameDraw();         //  gamescreedn
+            gameDraw();         //  gamescreen
 
             URDTimeMillis = (System.nanoTime() - startTime)/10000;
             waitTime = targetTime - URDTimeMillis; 
