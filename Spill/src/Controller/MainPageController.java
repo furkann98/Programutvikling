@@ -23,7 +23,7 @@ public class MainPageController implements Initializable {
 
     public void buttonPlay(javafx.event.ActionEvent event) throws IOException {
 
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/Game/Game/Game.java"));
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("../Game/Game.java"));
         Scene tableViewScene = new Scene(tableViewParent);
 
         Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();

@@ -87,7 +87,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             totalTime += System.nanoTime()-startTime;
             frameCount++;
             if (frameCount == maxFrameCount){
-                averageFPS = 1000.0 / ((totalTime / frameCount)/1000000);
+                averageFPS = 200.0 / ((totalTime / frameCount)/1000000);
                 frameCount = 0;
                 totalTime = 0;
 
@@ -112,9 +112,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     }
 
     private void gameRender(){
-        g.setColor(new Color(0, 100,255));
+        g.setColor(new Color(102, 178,255));
         g.fillRect(0,0, WIDTH, HEIGHT);
         g.setColor(Color.BLACK);
+
         //Dette må fjernes
         g.drawString("FPS: " + averageFPS, 10, 10);
         g.drawString("Number of bullets: " + bullets.size(), 10, 20);
