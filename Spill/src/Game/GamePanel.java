@@ -29,6 +29,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     public static Player player;
 
     public static ArrayList<Bullet>bullets;
+    public static ArrayList<Enemy>enemies;
+
 
     //Konstruktør
     public GamePanel(){
@@ -57,6 +59,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
         player = new Player();
         bullets = new ArrayList<Bullet>();
+        enemies = new ArrayList<Enemy>();
+        for(int i = 0; i < 5; i++){
+            enemies.add(new Enemy(1,1));
+        }
 
         long startTime;
         long URDTimeMillis;
@@ -103,8 +109,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
     private void gameUpdate(){
 
+        //Player update
         player.update();
 
+
+        //Bullet update
         for (int i = 0; i < bullets.size(); i++){
             boolean remove = bullets.get(i).update();
             if(remove){
@@ -112,6 +121,46 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
                 i--;
             }
         }
+        //Enemy Update
+        for(int i = 0; i < enemies.size(); i++){
+            enemies.get(i).update();
+        }
+
+
+        //Bullet-Enemy Collision
+        for(int i = 0; i < bullets.size(); i++){
+            Bullet b = bullets.get(i);
+            double bx = b.getx();
+            double by = b.gety();
+            double br = b.getr();
+
+            for(int j = 0; j < enemies.size(); j++){
+                Enemy e = enemies.get(j);
+                double ex = e.getx();
+                double ey = e.gety();
+                double er = e.getr();
+
+                double dx = bx - ex;
+                double dy = by - ey;
+                double dist = Math.sqrt( dx * dx + dy * dy);
+
+                if(dist < br + er){
+                    e.hit();
+                    bullets.remove(i);
+                    i--;
+                    break;
+                }
+            }
+        }
+
+        //CHECK  DEAD ENEMIES
+        for(int i = 0; i < enemies.size(); i++){
+            if(enemies.get(i).isDead()){
+                enemies.remove(i);
+                i--;
+            }
+        }
+
     }
 
     private void gameRender(){
@@ -123,12 +172,20 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         g.drawString("FPS: " + averageFPS, 10, 10);
         g.drawString("Number of bullets: " + bullets.size(), 10, 20);
 
+
+        //Draw Player
         player.draw(g);
 
-
+        //Draw Player
         for (int i = 0; i < bullets.size(); i++){
             bullets.get(i).draw(g);
         }
+
+        //Draw Enemy
+        for(int i = 0; i < enemies.size(); i++){
+            enemies.get(i).draw(g);
+        }
+
 
     }
     
