@@ -171,7 +171,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         //Dette må fjernes
         g.drawString("FPS: " + averageFPS, 10, 10);
         g.drawString("Number of bullets: " + bullets.size(), 10, 20);
-
+        g.drawString("Enemies: " +  enemies.size(), 10, 30);
 
         //Draw Player
         player.draw(g);
