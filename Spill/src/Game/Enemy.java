@@ -32,7 +32,7 @@ public class Enemy {
 
         //DEFAULT ENEMY TYPE
         if(type == 1){
-            color1 = Color.BLUE;
+            color1 = Color.BLACK;
             if(rank == 1){
                 speed = 5;
                 rad = 5;
@@ -43,7 +43,7 @@ public class Enemy {
         y = -r;
 
 
-        // MÅ BYTTE ANGEL
+        // MÅ BYTTE ANGLE
         double angle =  Math.random() * 140 + 20;
 
         rad = Math.toRadians(angle);
@@ -94,12 +94,12 @@ public class Enemy {
 
     public void draw(Graphics2D g){
         g.setColor(color1);
-        g.fillOval((int) (x - r), (int) (y - r) , 2 * r, 2 * r);
-
-
+        g.fillOval((int)(x - r), (int)(y - r) , 2 * r, 2 * r);
         g.setStroke(new BasicStroke(3));
+
+
         g.setColor(color1.darker());
-        g.drawOval((int) (x - r), (int) (y - r) , 2 * r, 2 * r);
+        g.drawOval((int)(x - r), (int)(y - r) , 2 * r, 2 * r);
         g.setStroke(new BasicStroke(1));
     }
 
