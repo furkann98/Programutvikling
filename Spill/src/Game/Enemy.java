@@ -34,8 +34,8 @@ public class Enemy {
         if(type == 1){
             color1 = Color.BLACK;
             if(rank == 1){
-                speed = 5;
-                rad = 5;
+                speed = 1;
+                r = 5;
                 health = 1;
             }
         }

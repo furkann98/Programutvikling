@@ -27,7 +27,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     private double averageFPS;
 
     public static Player player;
-
     public static ArrayList<Bullet>bullets;
     public static ArrayList<Enemy>enemies;
 
