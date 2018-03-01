@@ -194,10 +194,39 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         //CHECK  DEAD ENEMIES
         for(int i = 0; i < enemies.size(); i++){
             if(enemies.get(i).isDead()){
+                Enemy e  = enemies.get(i);
+                player.addScore(e.getType() + e.getRank());
                 enemies.remove(i);
                 i--;
             }
         }
+
+         //Player Enemy-Collision
+        if(!player.isRecovering()){
+            int px = player.getx();
+            int py = player.gety();
+            int pr = player.getr();
+
+            for(int i = 0; i < enemies.size(); i++){
+
+                Enemy e = enemies.get(i);
+                double ex = e.getx();
+                double ey = e.gety();
+                double er = e.getr();
+
+                double dx = px - ex;
+                double dy = py - ey;
+                double dist = Math.sqrt(dx * dx + dy * dy);
+
+                if(dist < pr + er){
+                    player.loseLife();
+                }
+
+
+            }
+        }
+
+
 
     }
 
@@ -249,6 +278,13 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             g.drawOval(20 + (20 * i), 20, player.getr() * 2, player.getr()*2);
             g.setStroke(new BasicStroke(1));
         }
+
+        //Draw player score
+        g.setColor(Color.WHITE);
+        g.setFont(new Font ("Century Gothic", Font.PLAIN, 14));
+        g.drawString("Score: " + player.getScore(), WIDTH - 100, 30);
+
+        
 
     }
     
