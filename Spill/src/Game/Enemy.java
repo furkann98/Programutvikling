@@ -64,6 +64,9 @@ public class Enemy {
     public double gety() {return y;}
     public double getr() {return r;}
 
+    public int getType() {return type;}
+    public int getRank() {return rank;}
+
     public boolean isDead(){ return dead; }
 
     public void hit(){
