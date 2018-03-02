@@ -29,6 +29,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     public static Player player;
     public static ArrayList<Bullet>bullets;
     public static ArrayList<Enemy>enemies;
+    public static ArrayList<PowerUp>powerups;
 
     private long waveStartTimer;
     private long waveStartTimerDiff;
@@ -75,6 +76,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             enemies.add(new Enemy(1,1));
         }
         */
+        powerups = new ArrayList<PowerUp>();
+
+
         waveStartTimer = 0;
         waveStartTimerDiff = 0;
         waveStart = true;
@@ -164,6 +168,15 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             enemies.get(i).update();
         }
 
+        //PowerUp Update
+        for(int i = 0; i < powerups.size(); i++){
+            boolean remove = powerups.get(i).update();
+            if(remove){
+                powerups.remove(i);
+                i--;
+            }
+        }
+
 
         //Bullet-Enemy Collision
         for(int i = 0; i < bullets.size(); i++){
@@ -193,8 +206,23 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
         //CHECK  DEAD ENEMIES
         for(int i = 0; i < enemies.size(); i++){
+            
             if(enemies.get(i).isDead()){
                 Enemy e  = enemies.get(i);
+
+                // ROll FOR POWER UP
+                double random = Math.random();
+                if(random < 0.5){
+                    powerups.add(new PowerUp(1, e.getx(), e.gety()));
+                }else if(random < 0.6){
+                    powerups.add(new PowerUp(2, e.getx(), e.gety()));
+                    
+                }else if(random < 0.9){
+                    powerups.add(new PowerUp(3, e.getx(), e.gety()));
+
+                 }
+
+                 
                 player.addScore(e.getType() + e.getRank());
                 enemies.remove(i);
                 i--;
@@ -256,6 +284,14 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         for(int i = 0; i < enemies.size(); i++){
             enemies.get(i).draw(g);
         }
+
+
+        //Draw PowerUps
+        for(int i = 0; i < powerups.size(); i++){
+            powerups.get(i).draw(g);
+        }
+
+
 
         //Draw Wave Number
         if(waveStartTimer != 0){
