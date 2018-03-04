@@ -150,8 +150,8 @@ public class Player {
                 }
                 else{
                     GamePanel.bullets.add(new Bullet(305, x , y));
-                    GamePanel.bullets.add(new Bullet(300, x, y));
-                    GamePanel.bullets.add(new Bullet(295, x , y));
+                    GamePanel.bullets.add(new Bullet(300, x + 5, y));
+                    GamePanel.bullets.add(new Bullet(295, x - 5 , y));
                 }
             }
         }

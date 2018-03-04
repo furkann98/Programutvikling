@@ -219,8 +219,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
                     
                 }else if(random < 0.9){
                     powerups.add(new PowerUp(3, e.getx(), e.gety()));
+                }
 
-                 }
+                //else powerups.add(new PowerUp(2, e.getx(), e.gety()));
 
                  
                 player.addScore(e.getType() + e.getRank());
@@ -259,7 +260,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         int px = player.getx();
         int py = player.gety();
         int pr = player.getr();
-        for(int i = 0; i<powerups.size(); i++){
+        for(int i = 0; i < powerups.size(); i++){
             PowerUp p = powerups.get(i);
             double x = p.getx();
             double y = p.gety();
