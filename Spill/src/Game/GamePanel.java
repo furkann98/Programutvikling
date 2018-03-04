@@ -1,5 +1,7 @@
 package Game;
 
+import sun.security.util.Length;
+
 import  javax.swing.JPanel;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -31,12 +33,18 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     public static ArrayList<Enemy>enemies;
     public static ArrayList<PowerUp>powerups;
     public static ArrayList<Explosion>explosions;
+    public static ArrayList<Text>texts;
 
     private long waveStartTimer;
     private long waveStartTimerDiff;
     private long waveNumber;
     private boolean waveStart;
     private int waveDelay = 2000;
+
+
+    private long slowDownTimer;
+    private long slowDownTimerDiff;
+    private int slowDownLength = 6000; // 6 sekunder
 
 
     //Konstruktør
@@ -79,6 +87,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         */
         powerups = new ArrayList<PowerUp>();
         explosions = new ArrayList<Explosion>();
+        texts = new ArrayList<Text>();
 
         waveStartTimer = 0;
         waveStartTimerDiff = 0;
@@ -126,6 +135,19 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             }
 
         }
+
+        g.setColor(new Color(0,100,255));
+        g.fillRect(0,0,WIDTH,HEIGHT);
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+
+        String s = "G A M E   O V E R ! ";
+        int length = (int)g.getFontMetrics().getStringBounds(s,g).getWidth();
+        g.drawString(s, (WIDTH - length)/2, HEIGHT/2);
+        s = "Final Score: " + player.getScore();
+        int length1 = (int)g.getFontMetrics().getStringBounds(s,g).getWidth();
+        g.drawString(s, (WIDTH - length1)/2, HEIGHT/2+30);
+        gameDraw();
         
     }
 
@@ -187,6 +209,15 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         }
 
 
+        //Text Update
+        for(int i = 0; i < texts.size(); i++){
+            boolean remove = texts.get(i).update();
+            if(remove){
+                texts.remove(i);
+                i--;
+            }
+        }
+
         //Bullet-Enemy Collision
         for(int i = 0; i < bullets.size(); i++){
             Bullet b = bullets.get(i);
@@ -221,14 +252,16 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
                 // ROll FOR POWER UP
                 double random = Math.random();
-                if(random < 0.5){
+                if(random < 0.001){
                     powerups.add(new PowerUp(1, e.getx(), e.gety()));
-                }else if(random < 0.6){
+                }else if(random < 0.020){
                     powerups.add(new PowerUp(2, e.getx(), e.gety()));
-                    
-                }else if(random < 0.9){
+                }else if(random < 0.120){
                     powerups.add(new PowerUp(3, e.getx(), e.gety()));
+                }else if(random < 0.130){
+                    powerups.add(new PowerUp(4, e.getx(), e.gety()));
                 }
+
 
 
                 player.addScore(e.getType() + e.getRank());
@@ -238,6 +271,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
                 e.explode();
                 explosions.add(new Explosion(e.getx(), e.gety(), e.getr(), e.getr() + 30));
             }
+        }
+
+        // Check dead Player
+        if(player.isDead()){
+            running = false;
         }
 
          //Player Enemy-Collision
@@ -283,16 +321,39 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
                 if(type == 1){
                     player.gainLife();
+                    texts.add(new Text(player.getx(), player.gety(), 2000, "Extra life"));
                 }
                 if(type == 2){
                     player.increasePower(1);
+                    texts.add(new Text(player.getx(), player.gety(), 2000, "Power"));
                 }
                 if(type == 3){
                     player.increasePower(2);
+                    texts.add(new Text(player.getx(), player.gety(), 2000, "Double Power"));
+                }
+                if(type == 4){
+                    slowDownTimer = System.nanoTime();
+                    for(int t = 0; t < enemies.size(); t++){
+                        enemies.get(t).setSlow(true);
+                    }
+                    texts.add(new Text(player.getx(), player.gety(), 2000, "Slow Down"));
                 }
 
                 powerups.remove(i);
                 i--;
+            }
+
+        }
+
+
+        //SlowDown Update
+        if(slowDownTimer != 0){
+            slowDownTimerDiff = (System.nanoTime() - slowDownTimer)/1000000;
+            if(slowDownTimerDiff > slowDownLength){
+                slowDownTimer = 0;
+                for(int t = 0; t < enemies.size(); t++){
+                    enemies.get(t).setSlow(false);
+                }
             }
 
         }
@@ -302,7 +363,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     private void gameRender(){
 
         // Draw Background
-        g.setColor(new Color(102, 178,255));
+        g.setColor(new Color(0, 100,255));
         g.fillRect(0,0, WIDTH, HEIGHT);
         g.setColor(Color.BLACK);
 
@@ -312,6 +373,14 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         g.drawString("Number of bullets: " + bullets.size(), 10, 20);
         g.drawString("Enemies: " +  enemies.size(), 10, 30);
          */
+
+        //Draw slowDown Screen
+        if(slowDownTimer != 0){
+            g.setColor(new Color(255,255,255,64));
+            g.fillRect(0,0,WIDTH, HEIGHT);
+        }
+
+
 
         //Draw Player
         player.draw(g);
@@ -335,6 +404,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         //Draw explosions
         for(int i = 0; i < explosions.size(); i++){
             explosions.get(i).draw(g);
+        }
+
+        //Draw Text
+        for(int i = 0; i < texts.size(); i++){
+            texts.get(i).draw(g);
         }
 
 
@@ -375,6 +449,17 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         g.setColor(Color.WHITE);
         g.setFont(new Font ("Century Gothic", Font.PLAIN, 14));
         g.drawString("Score: " + player.getScore(), WIDTH - 100, 30);
+
+
+        //Draw slowDown meter
+        if(slowDownTimer != 0){
+            g.setColor(Color.WHITE);
+            g.drawRect(20,60,100,8);
+            g.fillRect(20,60,(int)(100 - 100.0 * slowDownTimerDiff/slowDownLength), 8);
+        }
+
+
+
     }
     
     private void gameDraw(){
@@ -392,18 +477,52 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             }
         }
         if(waveNumber == 2){
+            for(int i = 0; i < 8; i++){
+                enemies.add(new Enemy(1,1));
+            }
+        }
+
+        if(waveNumber == 3){
             for(int i = 0; i < 4; i++){
                 enemies.add(new Enemy(1,1));
             }
             enemies.add(new Enemy(1,2));
             enemies.add(new Enemy(1,2));
         }
-
-        if(waveNumber == 3){
-            enemies.add(new Enemy(1,3));
+        if(waveNumber == 4){
             enemies.add(new Enemy(1,3));
             enemies.add(new Enemy(1,4));
+            for(int i = 0; i < 4; i++){
+                enemies.add(new Enemy(2,1));
+            }
         }
+
+        if(waveNumber == 5){
+            enemies.add(new Enemy(1,4));
+            enemies.add(new Enemy(1,3));
+            enemies.add(new Enemy(2,3));
+        }
+        if(waveNumber == 6){
+            enemies.add(new Enemy(1,3));
+            for(int i = 0; i < 4; i++){
+                enemies.add(new Enemy(2,1));
+                enemies.add(new Enemy(3,1));
+            }
+        }
+        if(waveNumber == 7){
+            enemies.add(new Enemy(1,3));
+            enemies.add(new Enemy(2,3));
+            enemies.add(new Enemy(3,3));
+        }
+        if(waveNumber == 8){
+            enemies.add(new Enemy(1,4));
+            enemies.add(new Enemy(2,4));
+            enemies.add(new Enemy(3,4));
+        }
+        if(waveNumber == 9){
+            running = false;
+        }
+
     }
 
 

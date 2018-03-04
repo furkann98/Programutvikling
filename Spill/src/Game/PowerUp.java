@@ -13,6 +13,7 @@ public class PowerUp {
     //type 1 = +1 life
     //type 2 = +1 power
     //type 3 = +2 power
+    //type 4 = slows down time
 
     private Color color1;
 
@@ -35,6 +36,10 @@ public class PowerUp {
         if(type == 3 ){
             color1 = Color.YELLOW;
             r = 5;
+        }
+        if(type == 4){
+            color1 = Color.BLUE;
+            r = 3;
         }
 
 
