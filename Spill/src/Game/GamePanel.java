@@ -125,7 +125,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             }
 
         }
-
         
     }
 
@@ -250,8 +249,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
                 if(dist < pr + er){
                     player.loseLife();
                 }
-
-
             }
         }
 
@@ -289,8 +286,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
         }
 
-
-
     }
 
     private void gameRender(){
@@ -325,7 +320,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         for(int i = 0; i < powerups.size(); i++){
             powerups.get(i).draw(g);
         }
-
 
 
         //Draw Wave Number
@@ -364,9 +358,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         g.setColor(Color.WHITE);
         g.setFont(new Font ("Century Gothic", Font.PLAIN, 14));
         g.drawString("Score: " + player.getScore(), WIDTH - 100, 30);
-
-        
-
     }
     
     private void gameDraw(){
@@ -382,7 +373,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             for(int i = 0; i < 4; i++){
                  enemies.add(new Enemy(1,1));
             }
-
         }
         if(waveNumber == 2){
             for(int i = 0; i < 4; i++){
@@ -390,15 +380,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             }
             enemies.add(new Enemy(1,2));
             enemies.add(new Enemy(1,2));
-
         }
 
         if(waveNumber == 3){
             enemies.add(new Enemy(1,3));
             enemies.add(new Enemy(1,3));
             enemies.add(new Enemy(1,4));
-
-
         }
     }
 

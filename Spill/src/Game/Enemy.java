@@ -157,7 +157,8 @@ public class Enemy {
         if(!ready){
             if(x > r && x < GamePanel.WIDTH - r &&
                     y > r && y < GamePanel.HEIGHT - r){
-                ready = true;
+                //HAN kommenterte på dette i video10, å bytte til false
+                ready = false;
             }
         }
 
