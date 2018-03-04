@@ -156,12 +156,14 @@ public class Player {
             }
         }
 
-        long elapsed = (System.nanoTime() - recoveryTimer) / 1000000;
-        if(elapsed > 2000){ //Invincible for 2 seconds when hit
-            recovering = false;
-            recoveryTimer = 0;
-        }
 
+        if(recovering) {
+            long elapsed = (System.nanoTime() - recoveryTimer) / 1000000;
+            if (elapsed > 2000) { //Invincible for 2 seconds when hit
+                recovering = false;
+                recoveryTimer = 0;
+            }
+        }
 
 
     }
