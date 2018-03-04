@@ -101,12 +101,24 @@ public class Player {
 
     public void increasePower(int i){
         //KOM FEIL, fikk fikset det i video11, måtte sette koden i en if.test
-        if(powerLevel<4){
+       /* if(powerLevel<4){
             power += i;
             if(power >= requiredPower[powerLevel]){
                 power -= requiredPower[powerLevel];
                 powerLevel++;
             }
+        }
+*///ELLER
+        power += i;
+        if(powerLevel == 4){
+            if(power > requiredPower[powerLevel]){
+                power = requiredPower[powerLevel];
+            }
+            return;
+        }
+        if(power >= requiredPower[powerLevel]){
+            power -= requiredPower[powerLevel];
+            powerLevel++;
         }
 
     }
