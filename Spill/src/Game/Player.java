@@ -104,7 +104,7 @@ public class Player {
        /* if(powerLevel<4){
             power += i;
             if(power >= requiredPower[powerLevel]){
-                power -= requiredPower[powerLevel];
+                power -= requiredPower[powerLevel];<
                 powerLevel++;
             }
         }
@@ -157,7 +157,7 @@ public class Player {
             long elapsed = (System.nanoTime() - firingTimer) / 1000000;
             if(elapsed > firingDelay){
                 firingTimer = System.nanoTime();
-
+                
                 if(powerLevel < 2) {
                     GamePanel.bullets.add(new Bullet(300, x, y));
                 }
@@ -166,10 +166,11 @@ public class Player {
                     GamePanel.bullets.add(new Bullet(300, x - 5, y));
                 }
                 else{
-                    GamePanel.bullets.add(new Bullet(305, x , y));
-                    GamePanel.bullets.add(new Bullet(300, x + 5, y));
-                    GamePanel.bullets.add(new Bullet(295, x - 5 , y));
+                GamePanel.bullets.add(new Bullet(300.2, x , y));
+                GamePanel.bullets.add(new Bullet(300, x , y));
+                GamePanel.bullets.add(new Bullet(299.8, x  , y));
                 }
+
             }
         }
 
