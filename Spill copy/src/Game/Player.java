@@ -42,7 +42,7 @@ public class Player {
 
         dx = 0;
         dy = 0;
-        speed = 2;
+        speed = 4;
 
         lives = 3;
 
@@ -159,16 +159,16 @@ public class Player {
                 firingTimer = System.nanoTime();
                 
                 if(powerLevel < 2) {
-                    GamePanel.bullets.add(new Bullet(300, x, y));
+                    GamePanel.bullets.add(new Bullet(0, x, y));
                 }
                 else if(powerLevel < 4) {
-                    GamePanel.bullets.add(new Bullet(300, x + 5, y));
-                    GamePanel.bullets.add(new Bullet(300, x - 5, y));
+                    GamePanel.bullets.add(new Bullet(0, x , y+5));
+                    GamePanel.bullets.add(new Bullet(0, x , y-5));
                 }
                 else{
-                GamePanel.bullets.add(new Bullet(300.2, x , y));
-                GamePanel.bullets.add(new Bullet(300, x , y));
-                GamePanel.bullets.add(new Bullet(299.8, x  , y));
+                GamePanel.bullets.add(new Bullet(0.2, x , y));
+                GamePanel.bullets.add(new Bullet(0, x , y));
+                GamePanel.bullets.add(new Bullet(-0.2, x  , y));
                 }
 
             }

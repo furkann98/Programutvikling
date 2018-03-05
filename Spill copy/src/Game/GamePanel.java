@@ -15,8 +15,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     //DATAFELT
 
     //DATA FELT MÅ BLI STØRRE FOR VERTIKAL SPILL
-    public static int WIDTH = 400;
-    public static int HEIGHT = 400;
+    public static int WIDTH = 1000;
+    public static int HEIGHT = 600;
 
 
     private Thread thread;

@@ -59,7 +59,7 @@ public class PowerUp {
     public boolean update(){
 
         //denne må byttes til x
-        y += 0.5;
+        x -= 0.5;
 
         if(y > GamePanel.HEIGHT + r){
             return true;

@@ -117,8 +117,8 @@ public class Enemy {
 
 
 
-        x = Math.random() * GamePanel.WIDTH / 2 + GamePanel.WIDTH / 4;
-        y = -r;
+        x = r;
+        y = Math.random() * GamePanel.HEIGHT / 2 + GamePanel.HEIGHT / 4;
 
 
         // MÅ BYTTE ANGLE
@@ -205,8 +205,8 @@ public class Enemy {
             x += dx * 0.3;
             y += dy * 0.3;
         }else{
-            x += dx;
-            y += dy;
+            x += 2 * dx;
+            y += 2* dy;
         }
 
 
