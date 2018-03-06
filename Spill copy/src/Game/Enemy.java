@@ -117,7 +117,7 @@ public class Enemy {
 
 
 
-        x = r;
+        x = -r + GamePanel.WIDTH;
         y = Math.random() * GamePanel.HEIGHT / 2 + GamePanel.HEIGHT / 4;
 
 
@@ -128,8 +128,8 @@ public class Enemy {
 
         // MÅ KANSKJE BYTTE HER OGSÅ
 
-        dx = Math.cos(rad) * speed;
-        dy = Math.sin(rad) * speed;
+        dx = Math.sin(rad) * speed;
+        dy = Math.cos(rad) * speed;
 
         ready = false;
         dead = false;
