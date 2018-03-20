@@ -55,7 +55,7 @@ public class Player {
 
         firing = false;
         firingTimer = System.nanoTime(); //Current time
-        firingDelay = 120;  //Shots per second
+        firingDelay = 12;  //Shots per second
 
         recovering = false;
         recoveryTimer =0;
@@ -100,15 +100,7 @@ public class Player {
     }
 
     public void increasePower(int i){
-        //KOM FEIL, fikk fikset det i video11, måtte sette koden i en if.test
-       /* if(powerLevel<4){
-            power += i;
-            if(power >= requiredPower[powerLevel]){
-                power -= requiredPower[powerLevel];<
-                powerLevel++;
-            }
-        }
-*///ELLER
+
         power += i;
         if(powerLevel == 4){
             if(power > requiredPower[powerLevel]){

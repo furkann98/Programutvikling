@@ -81,10 +81,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         player = new Player();
         bullets = new ArrayList<Bullet>();
         enemies = new ArrayList<Enemy>();
-        /*for(int i = 0; i < 5; i++){
-            enemies.add(new Enemy(1,1));
-        }
-        */
         powerups = new ArrayList<PowerUp>();
         explosions = new ArrayList<Explosion>();
         texts = new ArrayList<Text>();
@@ -92,7 +88,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         waveStartTimer = 0;
         waveStartTimerDiff = 0;
         waveStart = true;
-        waveNumber = 0;
+        waveNumber = 4;
 
 
 

@@ -122,7 +122,7 @@ public class Enemy {
 
 
         // MÅ BYTTE ANGLE
-        double angle =  Math.random() * 140 + 20;
+        double angle =  Math.random() * 340 + 200;
 
         rad = Math.toRadians(angle);
 
@@ -184,8 +184,9 @@ public class Enemy {
                 e.x = this.x;
                 e.y = this.y;
                 double angle = 0;
+
                 if(!ready){
-                    angle = Math.random() * 140 + 20;
+                    angle = Math.random() * 140+20;
                 }else{
                     angle =  Math.random() * 360;
                 }
