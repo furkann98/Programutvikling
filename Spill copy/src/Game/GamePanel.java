@@ -88,7 +88,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         waveStartTimer = 0;
         waveStartTimerDiff = 0;
         waveStart = true;
-        waveNumber = 4;
+        waveNumber = 0;
 
 
 
