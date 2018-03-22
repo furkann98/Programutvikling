@@ -26,7 +26,7 @@ public class Text {
 
 
     public boolean update(){
-        long elapsed  = (System.nanoTime() - start) / 1000000;
+        long elapsed  = (System.nanoTime() - start) /1000000;
         if(elapsed > time){
             return true;
 
