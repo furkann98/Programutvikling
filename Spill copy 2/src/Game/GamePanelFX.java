@@ -1,19 +1,30 @@
 package Game;
 
+import com.sun.javafx.tk.Toolkit;
+import javafx.application.Application;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.shape.Line;
 
-import sun.security.util.Length;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
-import  javax.swing.JPanel;
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.image.*;
 import java.util.*;
+import javafx.scene.*;
+import javafx.scene.paint.*;
+import javafx.scene.canvas.*;
+import javafx.scene.paint.Color;
+import javafx.scene.image.*;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.text.Font;
 
+public class GamePanelFX extends Application implements Runnable {
 
-import java.util.ArrayList;
-
-public class GamePanel extends JPanel implements Runnable, KeyListener {
 
     //DATAFELT
 
@@ -23,11 +34,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
 
     private Thread thread;
-    private boolean running; 
+    private boolean running;
 
-    private BufferedImage image;
-    private Graphics2D g;
-    
+    //private BufferedImage image;
+    private GraphicsContext g;
+
     private int FPS = 30;
     private double averageFPS;
 
@@ -50,14 +61,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     private int slowDownLength = 6000; // 6 sekunder
 
 
-    //Konstruktør
-    public GamePanel(){
-        super();
-        setPreferredSize(new Dimension( WIDTH, HEIGHT));
-        setFocusable(true);
-        requestFocus();
-    }
-
     //FUNKSJON
     //@Override
     public void addNotify(){
@@ -73,13 +76,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         running = true;
 
         image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-        g = (Graphics2D) image.getGraphics();
+        g = (GraphicsContext) image.getGraphics();
 
-        //Graphics
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-        //Texts
-        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
         player = new Player();
         bullets = new ArrayList<Bullet>();
@@ -116,7 +114,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             gameDraw();         //  gamescreen
 
             URDTimeMillis = (System.nanoTime() - startTime)/10000;
-            waitTime = targetTime - URDTimeMillis; 
+            waitTime = targetTime - URDTimeMillis;
 
             try{
                 Thread.sleep(waitTime);
@@ -147,7 +145,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         int length1 = (int)g.getFontMetrics().getStringBounds(s,g).getWidth();
         g.drawString(s, (WIDTH - length1)/2, HEIGHT/2+30);
         gameDraw();
-        
+
     }
 
     private void gameUpdate(){
@@ -245,7 +243,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
         //CHECK  DEAD ENEMIES
         for(int i = 0; i < enemies.size(); i++){
-            
+
             if(enemies.get(i).isDead()){
                 Enemy e  = enemies.get(i);
 
@@ -277,7 +275,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             running = false;
         }
 
-         //Player Enemy-Collision
+        //Player Enemy-Collision
         if(!player.isRecovering()){
             int px = player.getx();
             int py = player.gety();
@@ -362,9 +360,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     private void gameRender(){
 
         // Draw Background
-        g.setColor(new Color(0, 100,255));
+        g.setFill(new Color(0, 100,255));
         g.fillRect(0,0, WIDTH, HEIGHT);
-        g.setColor(Color.BLACK);
+        g.setFill(Color.BLACK);
 
         //Dette må fjernes
         /*
@@ -375,7 +373,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
         //Draw slowDown Screen
         if(slowDownTimer != 0){
-            g.setColor(new Color(255,255,255,64));
+            g.setFill(new Color(255,255,255,64));
             g.fillRect(0,0,WIDTH, HEIGHT);
         }
 
@@ -414,57 +412,58 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
         //Draw Wave Number
         if(waveStartTimer != 0){
-            g.setFont(new Font("Century Gothic", Font.PLAIN, 18));
+            g.setFont(Font.font("Century Gothic", 18));
             String s = "- W A V E " + waveNumber + " -";
-            int length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+            int length = (int) g.getFont().getSize(); // FEIL?
+
             //ALPHA?
             int alpha = (int) (255 * Math.sin(3.14 * waveStartTimerDiff / waveDelay));
             if(alpha > 255) alpha = 255;
-            g.setColor(new Color(255, 255, 255, alpha));
-            g.drawString(s, WIDTH / 2 - length / 2, HEIGHT / 2);
+            g.setFill(new Color(255, 255, 255, alpha));
+            g.strokeText(s, WIDTH / 2 - length / 2, HEIGHT / 2);
         }
 
         //draw player lives
         for(int i = 0; i < player.getLives(); i++){
-            g.setColor(Color.WHITE);
+            g.setFill(Color.WHITE);
             g.fillOval( 20 + (20 * i), 20, player.getr() * 2, player.getr()*2);
-            g.setStroke(new BasicStroke(3));
-            g.setColor(Color.WHITE.darker());
-            g.drawOval(20 + (20 * i), 20, player.getr() * 2, player.getr()*2);
-            g.setStroke(new BasicStroke(1));
+            //g.setStrokeWidth(3); // FEIL?
+            g.setFill(Color.WHITE.darker());
+            g.fillOval(20 + (20 * i), 20, player.getr() * 2, player.getr()*2); // FEIL?
+            //g.setStroke(new BasicStroke(1)); FEIL?
         }
 
         //draw player power
-        g.setColor(Color.YELLOW);
+        g.setFill(Color.YELLOW);
         g.fillRect(20,40,player.getPower()*8,8);
-        g.setColor(Color.YELLOW.darker());
-        g.setStroke(new BasicStroke(2));
+        g.setFill(Color.YELLOW.darker());
+        g.setStroke(Color.BLACK);
         for(int i = 0; i < player.getRequiredPower(); i++){
-            g.drawRect(20 + 8 * i, 40, 8,8);
+            Rectangle g = new Rectangle(20 + 8 * i, 40, 8,8);
         }
-        g.setStroke(new BasicStroke(1));
+        //g.setStroke(new BasicStroke(1)); //FEIL?
 
         //Draw player score
-        g.setColor(Color.WHITE);
-        g.setFont(new Font ("Century Gothic", Font.PLAIN, 14));
-        g.drawString("Score: " + player.getScore(), WIDTH - 100, 30);
+        g.setFill(Color.WHITE);
+        g.setFont(new Font ("Century Gothic", 14));
+        g.strokeText("Score: " + player.getScore(), WIDTH - 100, 30); //FEIL?
 
 
         //Draw slowDown meter
         if(slowDownTimer != 0){
-            g.setColor(Color.WHITE);
-            g.drawRect(20,60,100,8);
+            g.setFill(Color.WHITE);
+            g.fillRect(20,60,100,8); //FEIL?
             g.fillRect(20,60,(int)(100 - 100.0 * slowDownTimerDiff/slowDownLength), 8);
         }
 
 
 
     }
-    
+
     private void gameDraw(){
-         Graphics g2 = this.getGraphics();
-         g2.drawImage(image, 0,0,null);
-         g2.dispose();
+        GraphicsContext g2 = canvas.getGraphicsContext2D(); // FEIL?
+        g2.drawImage(image, 0,0,null);
+        g2.dispose();
     }
 
     private void createNewEnemies(){
@@ -472,7 +471,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         Enemy e;
         if(waveNumber == 1){
             for(int i = 0; i < 4; i++){
-                 enemies.add(new Enemy(1,1));
+                enemies.add(new Enemy(1,1));
             }
         }
         if(waveNumber == 2){
@@ -528,20 +527,20 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     public void keyTyped(KeyEvent key){}
 
     public void keyPressed(KeyEvent key){
-        int keyCode = key.getKeyCode();
-        if (keyCode == KeyEvent.VK_LEFT){
+        
+        if (key.getCode() == KeyCode.LEFT){
             player.setLeft(true);
         }
-        if (keyCode == KeyEvent.VK_RIGHT){
+        if (key.getCode() == KeyCode.RIGHT){
             player.setRight(true);
         }
-        if (keyCode == KeyEvent.VK_UP){
+        if (key.getCode() == KeyCode.UP){
             player.setUp(true);
         }
-        if (keyCode == KeyEvent.VK_DOWN){
+        if (key.getCode() == KeyCode.DOWN){
             player.setDown(true);
         }
-        if(keyCode == KeyEvent.VK_SPACE){
+        if(key.getCode() == KeyCode.SPACE){
             player.setFiring(true);
         }
 
@@ -549,25 +548,26 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
     }
     public void keyReleased(KeyEvent key){
-         int keyCode = key.getKeyCode();
 
-         if (keyCode == KeyEvent.VK_LEFT){
-             player.setLeft(false);
-         }                                 
-         if (keyCode == KeyEvent.VK_RIGHT){
-             player.setRight(false);
-         }                                 
-         if (keyCode == KeyEvent.VK_UP){   
-             player.setUp(false);
-         }                                 
-         if (keyCode == KeyEvent.VK_DOWN){ 
-             player.setDown(false);
-         }
-        if(keyCode == KeyEvent.VK_SPACE){
+        if (key.getCode() == KeyCode.LEFT){
+            player.setLeft(false);
+        }
+        if (key.getCode() == KeyCode.RIGHT){
+            player.setRight(false);
+        }
+        if (key.getCode() == KeyCode.UP){
+            player.setUp(false);
+        }
+        if (key.getCode() == KeyCode.DOWN){
+            player.setDown(false);
+        }
+        if(key.getCode() == KeyCode.SPACE){
             player.setFiring(false);
         }
 
     }
+
+
 
 
 }
