@@ -1,5 +1,7 @@
 package Game;
 
+import javafx.scene.canvas.GraphicsContext;
+
 import java.awt.*;
 
 public class Player {
@@ -181,7 +183,7 @@ public class Player {
 
 
 
-    public void draw(Graphics2D g){
+    public void draw(GraphicsContext g){
 
         if(recovering){
             g.setColor(color2);

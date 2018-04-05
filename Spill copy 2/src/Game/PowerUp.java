@@ -1,5 +1,7 @@
 package Game;
 
+import javafx.scene.canvas.GraphicsContext;
+
 import java.awt.*;
 
 public class PowerUp {
@@ -70,7 +72,7 @@ public class PowerUp {
 
     }
 
-    public void draw(Graphics2D g){
+    public void draw(GraphicsContext g){
 
     g.setColor(color1);
     g.fillRect((int)(x-r),(int) (y-r), 2*r, 2*r);

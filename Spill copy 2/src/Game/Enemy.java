@@ -1,6 +1,8 @@
 package Game;
 
 
+import javafx.scene.canvas.GraphicsContext;
+
 import java.awt.*;
 
 
@@ -236,7 +238,7 @@ public class Enemy {
 
     }
 
-    public void draw(Graphics2D g){
+    public void draw(GraphicsContext g){
 
         if(hit){
             g.setColor(Color.WHITE);

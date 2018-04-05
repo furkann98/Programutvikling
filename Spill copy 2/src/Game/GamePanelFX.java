@@ -133,10 +133,10 @@ public class GamePanelFX extends Application implements Runnable {
 
         }
 
-        g.setColor(new Color(0,100,255));
+        g.setFill(Color.GRAY);
         g.fillRect(0,0,WIDTH,HEIGHT);
-        g.setColor(Color.BLACK);
-        g.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+        g.setFill(Color.BLACK);
+        g.setFont(new Font("Century Gothic", 16));
 
         String s = "G A M E   O V E R ! ";
         int length = (int)g.getFontMetrics().getStringBounds(s,g).getWidth();
@@ -360,7 +360,7 @@ public class GamePanelFX extends Application implements Runnable {
     private void gameRender(){
 
         // Draw Background
-        g.setFill(new Color(0, 100,255));
+        g.setFill( Color.GRAY);
         g.fillRect(0,0, WIDTH, HEIGHT);
         g.setFill(Color.BLACK);
 
@@ -527,7 +527,7 @@ public class GamePanelFX extends Application implements Runnable {
     public void keyTyped(KeyEvent key){}
 
     public void keyPressed(KeyEvent key){
-        
+
         if (key.getCode() == KeyCode.LEFT){
             player.setLeft(true);
         }
@@ -568,6 +568,8 @@ public class GamePanelFX extends Application implements Runnable {
     }
 
 
+    @Override
+    public void start(Stage primaryStage) throws Exception {
 
-
+    }
 }

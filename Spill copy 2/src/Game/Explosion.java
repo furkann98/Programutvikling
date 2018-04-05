@@ -1,5 +1,7 @@
 package Game;
 
+import javafx.scene.canvas.GraphicsContext;
+
 import java.awt.*;
 
 public class Explosion {
@@ -28,7 +30,7 @@ public class Explosion {
 
     }
 
-    public void draw(Graphics2D g){
+    public void draw(GraphicsContext g){
         g.setColor(new Color(255,255,255,128));
         g.setStroke(new BasicStroke(3));
         g.drawOval((int) (x-r), (int)(y-r), 2*r, 2*r);
