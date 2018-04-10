@@ -183,6 +183,8 @@ public class Player {
 
     public void draw(Graphics2D g){
 
+        //lage en sirkel, med bestemt farge,
+
         if(recovering){
             g.setColor(color2);
             g.fillOval(x-r,y-r, 2 * r,2 * r);
