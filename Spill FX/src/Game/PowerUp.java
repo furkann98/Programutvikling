@@ -1,6 +1,10 @@
 package Game;
 
-import java.awt.*;
+import Controller.GamePanelController;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+
+
 
 public class PowerUp {
 
@@ -61,7 +65,7 @@ public class PowerUp {
         //denne må byttes til x
         x -= 0.5;
 
-        if(y > GamePanel.HEIGHT + r){
+        if(y > GamePanelController.HEIGHT + r){
             return true;
         }else{
             return false;
@@ -70,16 +74,13 @@ public class PowerUp {
 
     }
 
-    public void draw(Graphics2D g){
+    public void draw(GraphicsContext g){
 
-    g.setColor(color1);
     g.fillRect((int)(x-r),(int) (y-r), 2*r, 2*r);
-
-    //borderg
-    g.setStroke(new BasicStroke(3));
-    g.setColor(color1.darker());
-    g.drawRect((int)(x-r),(int) (y-r), 2*r, 2*r);
-    g.setStroke(new BasicStroke(1));
+    g.setFill(color1);
+    g.setStroke(color1.darker());
+    g.setLineWidth(2);
+    g.stroke();
 
     }
 

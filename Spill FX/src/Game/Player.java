@@ -1,7 +1,8 @@
 package Game;
 
-//import java.awt.*;
 
+
+import Controller.GamePanelController;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -39,8 +40,8 @@ public class Player {
 
     //KONSTRUKTØR
     public Player(){
-        x = GamePanel.WIDTH / 2;
-        y = GamePanel.HEIGHT / 2;
+        x = GamePanelController.WIDTH / 2;
+        y = GamePanelController.HEIGHT / 2;
         r = 5;
 
         dx = 0;
@@ -141,29 +142,29 @@ public class Player {
 
         if(x < r) x = r;
         if(y < r) y = r;
-        if(x > GamePanel.WIDTH - r) x = GamePanel.WIDTH - r;
-        if(y > GamePanel.HEIGHT - r) y = GamePanel.HEIGHT - r;
+        if(x > GamePanelController.WIDTH - r) x = GamePanelController.WIDTH - r;
+        if(y > GamePanelController.HEIGHT - r) y = GamePanelController.HEIGHT - r;
 
         dx = 0;
         dy = 0;
 
-        //Firing
+       //Firing
         if(firing){
             long elapsed = (System.nanoTime() - firingTimer) / 1000000;
             if(elapsed > firingDelay){
                 firingTimer = System.nanoTime();
                 
                 if(powerLevel < 2) {
-                    GamePanel.bullets.add(new Bullet(0, x, y));
+                    GamePanelController.bullets.add(new Bullet(0, x, y));
                 }
                 else if(powerLevel < 4) {
-                    GamePanel.bullets.add(new Bullet(0, x , y+5));
-                    GamePanel.bullets.add(new Bullet(0, x , y-5));
+                    GamePanelController.bullets.add(new Bullet(0, x , y+5));
+                    GamePanelController.bullets.add(new Bullet(0, x , y-5));
                 }
                 else{
-                GamePanel.bullets.add(new Bullet(0.2, x , y));
-                GamePanel.bullets.add(new Bullet(0, x , y));
-                GamePanel.bullets.add(new Bullet(-0.2, x  , y));
+                GamePanelController.bullets.add(new Bullet(0.2, x , y));
+                GamePanelController.bullets.add(new Bullet(0, x , y));
+                GamePanelController.bullets.add(new Bullet(-0.2, x  , y));
                 }
 
             }
@@ -186,29 +187,24 @@ public class Player {
 
     public void draw(GraphicsContext g){
 
-        //lage en sirkel, med bestemt farge,
-
         if(recovering){
 
 
-            g.setColor(color2);
             g.fillOval(x-r,y-r, 2 * r,2 * r);
+            g.setFill(color2);
+            g.setStroke(color2.darker());
+            g.setLineWidth(2);
+            g.stroke();
 
-            g.setStroke(new BasicStroke(3));
-            g.setColor(color2.darker());
-            g.drawOval(x-r,y-r, 2*r,2*r);
-            g.setStroke(new BasicStroke(1));
+
         }else{
-            g.setColor(color1);
             g.fillOval(x-r,y-r, 2 * r,2 * r);
-
-            g.setStroke(new BasicStroke(3));
-            g.setColor(color1.darker());
-            g.drawOval(x-r,y-r, 2*r,2*r);
-            g.setStroke(new BasicStroke(1));
+            g.setFill(color1);
+            g.setStroke(color1.darker());
+            g.setLineWidth(2);
+            g.stroke();
 
         }
-
 
 
     }

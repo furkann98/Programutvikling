@@ -1,7 +1,11 @@
 package Game;
 
 
-import java.awt.*;
+import Controller.GamePanelController;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+
+
 
 
 public class Enemy {
@@ -118,8 +122,8 @@ public class Enemy {
 
 
 
-        x = -r + GamePanel.WIDTH;
-        y = Math.random() * GamePanel.HEIGHT / 2 + GamePanel.HEIGHT / 4;
+        x = -r + GamePanelController.WIDTH;
+        y = Math.random() * GamePanelController.WIDTH / 2 + GamePanelController.HEIGHT / 4;
 
 
         // MÅ BYTTE ANGLE
@@ -193,7 +197,7 @@ public class Enemy {
                 }
                 e.rad = Math.toRadians(angle);
 
-                GamePanel.enemies.add(e);
+                GamePanelController.enemies.add(e);
             }
 
         }
@@ -214,8 +218,8 @@ public class Enemy {
 
 
         if(!ready){
-            if(x > r && x < GamePanel.WIDTH - r &&
-                    y > r && y < GamePanel.HEIGHT - r){
+            if(x > r && x < GamePanelController.WIDTH - r &&
+                    y > r && y < GamePanelController.HEIGHT - r){
                 //HAN kommenterte på dette i video10, å bytte til false
                 ready = false;
             }
@@ -223,8 +227,8 @@ public class Enemy {
 
         if(x < r && dx < 0) dx = -dx;
         if(y < r && dy < 0) dy = -dy;
-        if(x > GamePanel.WIDTH - r && dx > 0) dx = -dx;
-        if(y > GamePanel.HEIGHT - r && dy > 0) dy = -dy;
+        if(x > GamePanelController.WIDTH - r && dx > 0) dx = -dx;
+        if(y > GamePanelController.HEIGHT - r && dy > 0) dy = -dy;
 
         if(hit){
             long elapsed = (System.nanoTime() - hitTimer) / 1000000;
@@ -236,27 +240,27 @@ public class Enemy {
 
     }
 
-    public void draw(Graphics2D g){
+    public void draw(GraphicsContext g){
 
         if(hit){
-            g.setColor(Color.WHITE);
-            g.fillOval((int)(x - r), (int)(y - r) , 2 * r, 2 * r);
-            g.setStroke(new BasicStroke(3));
 
 
-            g.setColor(Color.WHITE.darker());
-            g.drawOval((int)(x - r), (int)(y - r) , 2 * r, 2 * r);
-            g.setStroke(new BasicStroke(1));
+            g.fillOval(x-r,y-r, 2 * r,2 * r);
+            g.setFill(color1);
+            g.setStroke(color1.darker());
+            g.setLineWidth(2);
+            g.stroke();
+
+
+
 
         }else{
-            g.setColor(color1);
-            g.fillOval((int)(x - r), (int)(y - r) , 2 * r, 2 * r);
-            g.setStroke(new BasicStroke(3));
+            g.fillOval(x-r,y-r, 2 * r,2 * r);
+            g.setFill(color1);
+            g.setStroke(color1.darker());
+            g.setLineWidth(2);
+            g.stroke();
 
-
-            g.setColor(color1.darker());
-            g.drawOval((int)(x - r), (int)(y - r) , 2 * r, 2 * r);
-            g.setStroke(new BasicStroke(1));
         }
 
     }

@@ -1,7 +1,7 @@
 package Game;
 
-import java.awt.*;
 
+import javafx.scene.canvas.GraphicsContext;
 
 public class Text {
 
@@ -34,7 +34,7 @@ public class Text {
         return false;
     }
 
-    public void draw(Graphics2D g){
+    public void draw(GraphicsContext g){
         g.setFont(new Font("Century Gothic", Font.PLAIN, 12));
         long elapsed  = (System.nanoTime() - start) / 1000000;
         int alpha= (int)(255 * Math.sin(3.14 * elapsed/time ));

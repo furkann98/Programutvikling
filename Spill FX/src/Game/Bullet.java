@@ -1,6 +1,9 @@
 package Game;
 
-import java.awt.*;
+import Controller.GamePanelController;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+
 
 public class Bullet {
 
@@ -43,14 +46,14 @@ public class Bullet {
         x += dx;
         y += dy;
 
-        if(x < -r || x > GamePanel.WIDTH + r || y < -r || y > GamePanel.HEIGHT + r ){
+        if(x < -r || x > GamePanelController.WIDTH + r || y < -r || y > GamePanelController.HEIGHT + r ){
             return true;
         }
         return false;
     }
 
-    public void draw(Graphics2D g){
-        g.setColor(color1);
+    public void draw(GraphicsContext g){
+        g.setFill(color1);
         g.fillOval((int)(x-r), (int)(y-r), 2*r, 2*r );
 
     }
