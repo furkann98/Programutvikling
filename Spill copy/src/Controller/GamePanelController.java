@@ -31,8 +31,12 @@ public class GamePanelController implements Initializable {
 
     //DATAFELT
 
-    @FXML private Canvas GamePanel;
-@FXML private Pane pane;
+    @FXML private Canvas canvas;
+    @FXML private Pane pane;
+
+    private double WIDTH = pane.getWidth();
+    private double HEIGHT = pane.getHeight();
+
 
     private Thread thread;
     private boolean running;
@@ -77,11 +81,8 @@ public class GamePanelController implements Initializable {
         //Google javaFX set key listner in initialize
 
 
-        GraphicsContext gc = GamePanel.getGraphicsContext2D();
-        gc.setFill(Color.BLUE);
-       
-        gc.fillOval();
-        gc.fillRect(23, 23, 25, 25);
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+
 
     }
 
@@ -90,7 +91,7 @@ public class GamePanelController implements Initializable {
     public void run(){
         running = true;
 
-        GraphicsContext g = GamePanel.getGraphicsContext2D();
+        GraphicsContext g = canvas.getGraphicsContext2D();
 
        /*
         //image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -404,6 +405,7 @@ public class GamePanelController implements Initializable {
 
         //Draw Player
         player.draw(g);
+
 
         //Draw Bullets
         for (int i = 0; i < bullets.size(); i++){
