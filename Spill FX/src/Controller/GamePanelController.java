@@ -2,6 +2,7 @@ package Controller;
 
 import Game.*;
 import View.*;
+import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.EventHandler;
@@ -25,8 +26,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import static java.lang.Enum.valueOf;
-import static javafx.scene.input.KeyCode.UP;
 
 
 public class GamePanelController implements Initializable {
@@ -44,39 +43,40 @@ public class GamePanelController implements Initializable {
     public static int WIDTH = 1000;
     public static int HEIGHT = 600;
 
+    //private Thread thread;
+    //private boolean running;
 
-    private Thread thread;
-    private boolean running;
-
-    //private BufferedImage image; // Erstatning for JAVAFX????
     private GraphicsContext g;
 
     private int FPS = 30;
     private double averageFPS;
 
-    public static Player player;
-    public static ArrayList<Bullet> bullets;
-    public static ArrayList<Enemy> enemies;
-    public static ArrayList<PowerUp> powerups;
-    public static ArrayList<Explosion> explosions;
-    public static ArrayList<Text> texts;
+    public static Player player = new Player();
+    public static ArrayList<Bullet> bullets = new ArrayList<Bullet>();;
+    public static ArrayList<Enemy> enemies = new ArrayList<Enemy>();;
+    public static ArrayList<PowerUp> powerups = new ArrayList<PowerUp>();;
+    public static ArrayList<Explosion> explosions = new ArrayList<Explosion>();;
+    public static ArrayList<Text> texts = new ArrayList<Text>();;
 
     private long waveStartTimer;
     private long waveStartTimerDiff;
     private long waveNumber;
     private boolean waveStart;
-    private int waveDelay = 2000;
-
+    private int waveDelay = 3000; // 3 Sekunder
 
     private long slowDownTimer;
     private long slowDownTimerDiff;
     private int slowDownLength = 6000; // 6 sekunder
 
+    private boolean gameOver = false;
+    private boolean pause = false;
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        // Keylistener
+        //Keylistener
         test.setOnKeyPressed(key -> {
             switch (key.getCode()) {
                 case UP:
@@ -99,13 +99,19 @@ public class GamePanelController implements Initializable {
                     player.setFiring(true);
                     System.out.println("SPACE");
                     break;
-                case A:
-                    run();
-                    System.out.println("Key typed");
+                case P:
+                    if(pause == true){
+                        pause = false;
+                    }
+                    else{
+                        pause = true;
+                    }
+                    break;
+                case Q:
+                    gameOver = true;
                     break;
             }
         });
-
         test.setOnKeyReleased(key -> {
             switch (key.getCode()) {
                 case UP:
@@ -126,110 +132,52 @@ public class GamePanelController implements Initializable {
             }
         });
 
-        //Google javaFX set key listner in initialize
-
-
+        //Grapichscontext
         g = canvas.getGraphicsContext2D();
 
-
-        player = new Player();
-        bullets = new ArrayList<Bullet>();
-        enemies = new ArrayList<Enemy>();
-        powerups = new ArrayList<PowerUp>();
-        explosions = new ArrayList<Explosion>();
-        texts = new ArrayList<Text>();
-
-        waveStartTimer = 0;
-        waveStartTimerDiff = 0;
-        waveStart = true;
-        waveNumber = 7;
-
-
-        player.draw(g);
-
-        System.out.println("Wavenumber:"+ waveNumber);
-
-        if (waveStart && enemies.size() == 0) {
-            createNewEnemies();
-        }
-
-        System.out.println(enemies.size());
-        //Draw Enemy
-        for (int i = 0; i < enemies.size(); i++) {
-            System.out.println("Draw enemies: " + i);
-            System.out.println("Color: " + enemies.get(i).getColor().toString());
-            enemies.get(i).draw(g);
-        }
-
-        //run();
-        //gameUpdate();      // Positioning
-        //gameRender();       // off-screen image  , double buffering
-
-
-    }
-
-    //Metoder
-
-    public void run() {
-        running = true;
-
-        player = new Player();
-        bullets = new ArrayList<Bullet>();
-        enemies = new ArrayList<Enemy>();
-        powerups = new ArrayList<PowerUp>();
-        explosions = new ArrayList<Explosion>();
-        texts = new ArrayList<Text>();
-
-
-
+        //Startverdier
         waveStartTimer = 0;
         waveStartTimerDiff = 0;
         waveStart = true;
         waveNumber = 0;
 
+        //Animation timer - Gameloop
+        AnimationTimer gameLoop = new GameLoop();
+        gameLoop.start();
 
-        long startTime;
-        long URDTimeMillis;
-        long waitTime;
-        long totalTime = 0;
+    }
 
-        int frameCount = 0;
-        int maxFrameCount = 30;
+    //METODER
 
-        long targetTime = 1000 / FPS; // Tiden for en loop-runde
-        gameUpdate();      // Positioning
-        gameRender();       // off-screen image  , double buffering
+    //Animation timer - Gameloop
+    private class GameLoop extends AnimationTimer {
 
-
-
-        //GAME LOOP
-        while (running) {
-
-            startTime = System.nanoTime();
-
-            gameUpdate();      // Positioning
-            gameRender();       // off-screen image  , double buffering
-
-
-            URDTimeMillis = (System.nanoTime() - startTime) / 10000;
-            waitTime = targetTime - URDTimeMillis;
-
-            try {
-                Thread.sleep(waitTime);
-            } catch (Exception e) {
+        @Override
+        public void handle(long now) {
+            if(gameOver == true){
+                pause = false;
+                test.setText("Game Over");
+            }
+            if(pause == true){
+                test.setText("Pause");
+            }
+            if(pause == false && gameOver == false){
+                run();
             }
 
-            totalTime += System.nanoTime() - startTime;
-            frameCount++;
-            if (frameCount == maxFrameCount) {
-                averageFPS = 100.0 / ((totalTime / frameCount) / 1000000);
-                frameCount = 0;
-                totalTime = 0;
-
-            }
 
         }
 
+        private void run() {
+                gameUpdate();      // Positioning
+                gameRender();       // off-screen image  , double buffering
+        }
+
+        //Game over
+        @Override
+        public void stop() {
+
+        }
     }
 
         private void gameUpdate(){
@@ -242,7 +190,7 @@ public class GamePanelController implements Initializable {
             if (waveStartTimer == 0 && enemies.size() == 0) {
                 waveNumber++;
                 waveStart = false;
-                waveStartTimer = System.nanoTime();
+                 waveStartTimer = System.nanoTime();
             } else {
                 waveStartTimerDiff = (System.nanoTime() - waveStartTimer) / 1000000; // millisekunder
                 if (waveStartTimerDiff > waveDelay) {
@@ -359,7 +307,7 @@ public class GamePanelController implements Initializable {
 
             // Check dead Player
             if (player.isDead()) {
-                running = false;
+                gameOver = true;
             }
 
             //Player Enemy-Collision
@@ -448,6 +396,9 @@ public class GamePanelController implements Initializable {
         private void gameRender(){
 
         System.out.println("Render");
+
+            //Clear the last drawn objects
+            g.clearRect(0,0, WIDTH, HEIGHT);
 
             //Draw Player
             player.draw(g);
@@ -582,13 +533,10 @@ public class GamePanelController implements Initializable {
                 enemies.add(new Enemy(3, 4));
             }
             if (waveNumber == 9) {
-                running = false;
+                gameOver = true;
             }
 
         }
-
-
-        // onKeyPressed="#GPOnKeyPressed" onKeyReleased="#GPOnKeyReleased" onKeyTyped="#GPOnKeyTyped" SATT INN I FXML FOR KEYEVENTS
 
 
 }

@@ -42,8 +42,7 @@ public class Player {
     public Player(){
         x = GamePanelController.WIDTH / 2;
         y = GamePanelController.HEIGHT / 2;
-        r = 30;
-        //r = 5;
+        r = 5;
 
         dx = 0;
         dy = 0;
@@ -192,7 +191,7 @@ public class Player {
 
             g.fillOval(x-r,y-r, 2 * r,2 * r);
             g.setFill(color2);
-            g.setStroke(color2.darker());
+            g.setStroke(color2);
             g.setLineWidth(2);
             g.stroke();
 
