@@ -33,7 +33,7 @@ public class Bullet {
 
 
 
-        color1 = Color.YELLOW;
+        color1 = Color.BLACK;
     }
 
     //FUNKSJON

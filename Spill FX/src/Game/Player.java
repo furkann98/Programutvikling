@@ -42,7 +42,7 @@ public class Player {
     public Player(){
         x = GamePanelController.WIDTH / 2;
         y = GamePanelController.HEIGHT / 2;
-        r = 5;
+        r = 10;
 
         dx = 0;
         dy = 0;
@@ -51,7 +51,7 @@ public class Player {
         lives = 3;
 
         //MÅ BYTTE TIL PNG FIL/////
-        //color1 = Color.PURPLE; /// KOBLA TIL SISTE ENEMY???
+        color1 = Color.PURPLE; /// KOBLA TIL SISTE ENEMY???
 
         color2 = Color.BLUE;
 
@@ -186,23 +186,30 @@ public class Player {
 
     public void draw(GraphicsContext g){
 
+        color1 = Color.RED; /// KOBLA TIL SISTE ENEMY???
+
+        color2 = Color.BLUE;
+
         if(recovering){
 
-
+            g.setFill(color1);
             g.fillOval(x-r,y-r, 2 * r,2 * r);
-            g.setFill(color2);
-            g.setStroke(color2);
+
+/*
+            g.setStroke(color1);
             g.setLineWidth(2);
             g.stroke();
-
+*/
 
         }else{
-            g.fillOval(x-r,y-r, 2 * r,2 * r);
             g.setFill(color2);
+            g.fillOval(x-r,y-r, 2 * r,2 * r);
+
+/*
             g.setStroke(color2);
             g.setLineWidth(2);
             g.stroke();
-
+*/
         }
 
 

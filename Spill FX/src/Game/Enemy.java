@@ -34,7 +34,6 @@ public class Enemy {
     private boolean slow;
 
 
-
     //CONSTRUCTOR
     public Enemy(int type, int rank){
         this.type = type;
@@ -43,33 +42,33 @@ public class Enemy {
 
         //DEFAULT ENEMY TYPE
         if(type == 1){
-            color1 = Color.GREEN;
+            color1 = Color.RED;
             //color1 = new Color(0,0,255,128);
             if(rank == 1){
                 speed = 1;
-                r = 5;
+                r = 7;
                 health = 1;
             }
             if(rank == 2){
                 speed = 2;
-                r = 10;
+                r = 14;
                 health = 2;
             }
             if(rank == 3){
                 speed = 1.5;
-                r = 20;
+                r = 28;
                 health = 3;
             }
             if(rank == 4){
                 speed = 1.5;
-                r = 30;
+                r = 56;
                 health = 4;
             }
         }
 
         //Stronger, faster default
         if(type == 2){
-            color1 = Color.RED;
+            color1 = Color.RED.darker();
             //color1 = new Color(255,0,0,128);
             if (rank == 1) {
                 speed = 3;
@@ -221,7 +220,6 @@ public class Enemy {
         if(!ready){
             if(x > r && x < GamePanelController.WIDTH - r &&
                     y > r && y < GamePanelController.HEIGHT - r){
-                //HAN kommenterte på dette i video10, å bytte til false
                 ready = false;
             }
         }
@@ -244,24 +242,28 @@ public class Enemy {
     public void draw(GraphicsContext g){
 
         if(hit){
-
-
+            g.setFill(color1.darker());
             g.fillOval(x-r,y-r, 2 * r,2 * r);
-            g.setFill(color1);
+
+/*
+            g.fillOval(x-r,y-r, 2 * r,2 * r);
+            g.setFill(color1.darker());
             g.setStroke(color1.darker());
             g.setLineWidth(2);
             g.stroke();
 
-
+*/
 
 
         }else{
-            g.fillOval(x-r,y-r, 2 * r,2 * r);
             g.setFill(color1);
-            g.setStroke(color1.darker());
+            g.fillOval(x-r,y-r, 2 * r,2 * r);
+
+/*
+            g.setStroke(color1);
             g.setLineWidth(2);
             g.stroke();
-
+*/
         }
 
     }

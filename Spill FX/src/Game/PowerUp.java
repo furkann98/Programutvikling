@@ -76,11 +76,12 @@ public class PowerUp {
 
     public void draw(GraphicsContext g){
 
-    g.fillRect((int)(x-r),(int) (y-r), 2*r, 2*r);
-    g.setFill(color1);
-    g.setStroke(color1.darker());
-    g.setLineWidth(2);
-    g.stroke();
+        g.setFill(color1);
+        g.fillRect((int)(x-r),(int) (y-r), 2*r, 2*r);
+
+        g.setStroke(color1.darker());
+        g.setLineWidth(2);
+        g.stroke();
 
     }
 

@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="bgHowToPlay" prefHeight="400.0" prefWidth="600.0" stylesheets="/View/style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HowToPlayController">
+<AnchorPane fx:id="bgHowToPlay" prefHeight="600" prefWidth="1000.0" stylesheets="/View/style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HowToPlayController">
    <children>
       <Button layoutX="498.0" layoutY="343.0" mnemonicParsing="false" onAction="#buttonBack" text="Back" />
       <VBox layoutX="43.0" layoutY="52.0" prefHeight="280.0" prefWidth="161.0">

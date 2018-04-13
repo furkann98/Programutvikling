@@ -18,6 +18,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -76,8 +77,9 @@ public class GamePanelController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        canvas.setFocusTraversable(true);
         //Keylistener
-        test.setOnKeyPressed(key -> {
+        canvas.setOnKeyPressed(key -> {
             switch (key.getCode()) {
                 case UP:
                     player.setUp(true);
@@ -112,7 +114,7 @@ public class GamePanelController implements Initializable {
                     break;
             }
         });
-        test.setOnKeyReleased(key -> {
+        canvas.setOnKeyReleased(key -> {
             switch (key.getCode()) {
                 case UP:
                     player.setUp(false);
@@ -132,6 +134,7 @@ public class GamePanelController implements Initializable {
             }
         });
 
+
         //Grapichscontext
         g = canvas.getGraphicsContext2D();
 
@@ -145,9 +148,24 @@ public class GamePanelController implements Initializable {
         AnimationTimer gameLoop = new GameLoop();
         gameLoop.start();
 
+        AnimationTimer gameLoo = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+
+            }
+        };
+
+        gameLoo.start();
+        gameLoo.stop();
+
     }
 
     //METODER
+
+    public void mouseclick(KeyEvent me){
+        System.out.println(me.getCode().getName());
+    }
+
 
     //Animation timer - Gameloop
     private class GameLoop extends AnimationTimer {
@@ -182,7 +200,7 @@ public class GamePanelController implements Initializable {
 
         private void gameUpdate(){
 
-            System.out.println("Update");
+            //System.out.println("Update");
 
 
 
@@ -395,7 +413,7 @@ public class GamePanelController implements Initializable {
 
         private void gameRender(){
 
-        System.out.println("Render");
+        //System.out.println("Render");
 
             //Clear the last drawn objects
             g.clearRect(0,0, WIDTH, HEIGHT);
@@ -538,5 +556,76 @@ public class GamePanelController implements Initializable {
 
         }
 
+/*
+        public void KeyPressed(KeyEvent key){
+            switch (key.getCode()) {
+                case UP:
+                    player.setUp(true);
+                    System.out.println("UP");
+                    break;
+                case DOWN:
+                    player.setDown(true);
+                    System.out.println("DOWN");
+                    break;
+                case LEFT:
+                    player.setLeft(true);
+                    System.out.println("LEFT");
+                    break;
+                case RIGHT:
+                    player.setRight(true);
+                    System.out.println("RIGHT");
+                    break;
+                case SPACE:
+                    player.setFiring(true);
+                    System.out.println("SPACE");
+                    break;
+                case P:
+                    if(pause == true){
+                        pause = false;
+                    }
+                    else{
+                        pause = true;
+                    }
+                    break;
+                case Q:
+                    gameOver = true;
+                    break;
+        }
+    }
 
+        public void KeyReleased(KeyEvent key) {
+        switch (key.getCode()) {
+            case UP:
+                player.setUp(true);
+                System.out.println("UP");
+                break;
+            case DOWN:
+                player.setDown(true);
+                System.out.println("DOWN");
+                break;
+            case LEFT:
+                player.setLeft(true);
+                System.out.println("LEFT");
+                break;
+            case RIGHT:
+                player.setRight(true);
+                System.out.println("RIGHT");
+                break;
+            case SPACE:
+                player.setFiring(true);
+                System.out.println("SPACE");
+                break;
+            case P:
+                if (pause == true) {
+                    pause = false;
+                } else {
+                    pause = true;
+                }
+                break;
+            case Q:
+                gameOver = true;
+                break;
+        }
+    }
+*/
 }

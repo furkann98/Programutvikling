@@ -13,10 +13,6 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-        public static void main(String[] args) {
-            launch(args);
-        }
-
         @Override
         public void start(Stage primaryStage) throws Exception {
             Parent root = FXMLLoader.load(getClass().getResource("/View/mainPage.fxml"));
@@ -27,19 +23,9 @@ public class Main extends Application {
             primaryStage.show();
         }
 
-/*
-    private EventHandler<KeyEvent> keyListener = new EventHandler<KeyEvent>() {
-        @Override
-        public void handle(KeyEvent event) {
-            if(event.getCode() == KeyCode.UP || event.getCode() == KeyCode.DOWN ||
-                    event.getCode() == KeyCode.RIGHT || event.getCode() == KeyCode.LEFT) {
-                //code for moving the ship
-            }
-            else if(event.getCode() == KeyCode.SPACE) {
-                //code for shooting the missile
-            }
-            event.consume();
-        }
-    };
-*/
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
 }
