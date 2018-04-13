@@ -42,7 +42,8 @@ public class Player {
     public Player(){
         x = GamePanelController.WIDTH / 2;
         y = GamePanelController.HEIGHT / 2;
-        r = 5;
+        r = 30;
+        //r = 5;
 
         dx = 0;
         dy = 0;
@@ -51,10 +52,9 @@ public class Player {
         lives = 3;
 
         //MÅ BYTTE TIL PNG FIL/////
-        color1 = Color.WHITE;
+        //color1 = Color.PURPLE; /// KOBLA TIL SISTE ENEMY???
 
-
-        color2 = Color.RED;
+        color2 = Color.BLUE;
 
 
         firing = false;
@@ -199,8 +199,8 @@ public class Player {
 
         }else{
             g.fillOval(x-r,y-r, 2 * r,2 * r);
-            g.setFill(color1);
-            g.setStroke(color1.darker());
+            g.setFill(color2);
+            g.setStroke(color2);
             g.setLineWidth(2);
             g.stroke();
 

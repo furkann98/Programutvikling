@@ -2,6 +2,8 @@ package Controller;
 
 import Game.*;
 import View.*;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,23 +13,24 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
-
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import static java.lang.Enum.valueOf;
 import static javafx.scene.input.KeyCode.UP;
 
 
 public class GamePanelController implements Initializable {
+
 
     //DATAFELT
 
@@ -35,6 +38,8 @@ public class GamePanelController implements Initializable {
     private Canvas canvas;
     @FXML
     private Pane pane;
+    @FXML
+    private TextField test;
 
     public static int WIDTH = 1000;
     public static int HEIGHT = 600;
@@ -71,42 +76,37 @@ public class GamePanelController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-
-        //Google javaFX set key listner in initialize
-
-
-        GraphicsContext g = canvas.getGraphicsContext2D();
-
-//        run();
-//        gameUpdate();      // Positioning
-//        gameRender();       // off-screen image  , double buffering
-        run();
-        player.draw(g);
-
-
-/*
-
-        pane.setOnKeyPressed(key -> {
+        // Keylistener
+        test.setOnKeyPressed(key -> {
             switch (key.getCode()) {
                 case UP:
                     player.setUp(true);
+                    System.out.println("UP");
                     break;
                 case DOWN:
                     player.setDown(true);
+                    System.out.println("DOWN");
                     break;
                 case LEFT:
                     player.setLeft(true);
+                    System.out.println("LEFT");
                     break;
                 case RIGHT:
                     player.setRight(true);
+                    System.out.println("RIGHT");
                     break;
                 case SPACE:
                     player.setFiring(true);
+                    System.out.println("SPACE");
+                    break;
+                case A:
+                    run();
+                    System.out.println("Key typed");
                     break;
             }
         });
 
-        pane.setOnKeyReleased(key -> {
+        test.setOnKeyReleased(key -> {
             switch (key.getCode()) {
                 case UP:
                     player.setUp(false);
@@ -125,16 +125,11 @@ public class GamePanelController implements Initializable {
                     break;
             }
         });
-*/
 
-    }
+        //Google javaFX set key listner in initialize
 
-    //Metoder
 
-    public void run() {
-        running = true;
-
-        GraphicsContext g = canvas.getGraphicsContext2D();
+        g = canvas.getGraphicsContext2D();
 
 
         player = new Player();
@@ -143,6 +138,49 @@ public class GamePanelController implements Initializable {
         powerups = new ArrayList<PowerUp>();
         explosions = new ArrayList<Explosion>();
         texts = new ArrayList<Text>();
+
+        waveStartTimer = 0;
+        waveStartTimerDiff = 0;
+        waveStart = true;
+        waveNumber = 7;
+
+
+        player.draw(g);
+
+        System.out.println("Wavenumber:"+ waveNumber);
+
+        if (waveStart && enemies.size() == 0) {
+            createNewEnemies();
+        }
+
+        System.out.println(enemies.size());
+        //Draw Enemy
+        for (int i = 0; i < enemies.size(); i++) {
+            System.out.println("Draw enemies: " + i);
+            System.out.println("Color: " + enemies.get(i).getColor().toString());
+            enemies.get(i).draw(g);
+        }
+
+        //run();
+        //gameUpdate();      // Positioning
+        //gameRender();       // off-screen image  , double buffering
+
+
+    }
+
+    //Metoder
+
+    public void run() {
+        running = true;
+
+        player = new Player();
+        bullets = new ArrayList<Bullet>();
+        enemies = new ArrayList<Enemy>();
+        powerups = new ArrayList<PowerUp>();
+        explosions = new ArrayList<Explosion>();
+        texts = new ArrayList<Text>();
+
+
 
         waveStartTimer = 0;
         waveStartTimerDiff = 0;
@@ -159,6 +197,10 @@ public class GamePanelController implements Initializable {
         int maxFrameCount = 30;
 
         long targetTime = 1000 / FPS; // Tiden for en loop-runde
+        gameUpdate();      // Positioning
+        gameRender();       // off-screen image  , double buffering
+
+
 
         //GAME LOOP
         while (running) {
@@ -188,8 +230,13 @@ public class GamePanelController implements Initializable {
 
         }
 
+    }
 
         private void gameUpdate(){
+
+            System.out.println("Update");
+
+
 
             //new Waves
             if (waveStartTimer == 0 && enemies.size() == 0) {
@@ -207,7 +254,7 @@ public class GamePanelController implements Initializable {
 
             //Create enemies
             if (waveStart && enemies.size() == 0) {
-                //           createNewEnemies();
+                createNewEnemies();
             }
 
 
@@ -400,6 +447,11 @@ public class GamePanelController implements Initializable {
 
         private void gameRender(){
 
+        System.out.println("Render");
+
+            //Draw Player
+            player.draw(g);
+
 
             //Draw Bullets
             for (int i = 0; i < bullets.size(); i++) {
@@ -427,6 +479,7 @@ public class GamePanelController implements Initializable {
                 texts.get(i).draw(g);
             }
 /*
+//Draw methods - må gjøres om
 
             //Draw Wave Number
             if (waveStartTimer != 0) {
@@ -538,5 +591,4 @@ public class GamePanelController implements Initializable {
         // onKeyPressed="#GPOnKeyPressed" onKeyReleased="#GPOnKeyReleased" onKeyTyped="#GPOnKeyTyped" SATT INN I FXML FOR KEYEVENTS
 
 
-    }
 }

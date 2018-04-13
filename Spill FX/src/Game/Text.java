@@ -35,6 +35,8 @@ public class Text {
     }
 
     public void draw(GraphicsContext g){
+
+        /*
         g.setFont(new Font("Century Gothic", Font.PLAIN, 12));
         long elapsed  = (System.nanoTime() - start) / 1000000;
         int alpha= (int)(255 * Math.sin(3.14 * elapsed/time ));
@@ -43,6 +45,7 @@ public class Text {
 
         int length = (int)g.getFontMetrics().getStringBounds(s,g).getWidth();
         g.drawString(s,(int)(x-(length/2)), (int)y);
+        */
     }
 
 }

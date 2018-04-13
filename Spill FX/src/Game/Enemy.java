@@ -43,8 +43,8 @@ public class Enemy {
 
         //DEFAULT ENEMY TYPE
         if(type == 1){
-            //color1 = Color.BLACK;
-            color1 = new Color(0,0,255,128);
+            color1 = Color.GREEN;
+            //color1 = new Color(0,0,255,128);
             if(rank == 1){
                 speed = 1;
                 r = 5;
@@ -69,8 +69,8 @@ public class Enemy {
 
         //Stronger, faster default
         if(type == 2){
-            //color1 = Color.RED;
-            color1 = new Color(255,0,0,128);
+            color1 = Color.RED;
+            //color1 = new Color(255,0,0,128);
             if (rank == 1) {
                 speed = 3;
                 r = 5;
@@ -94,8 +94,8 @@ public class Enemy {
         }
         //Slow, but hard to kill enemy
         if(type == 3){
-           //color1 = Color.GREEN;
-            color1 = new Color(0,255,0,128);
+            color1 = Color.RED;
+            //color1 = new Color(0,255,0,128);
 
             if(rank == 1){
                 speed = 1.5;
@@ -120,13 +120,12 @@ public class Enemy {
         }
 
 
-
-
         x = -r + GamePanelController.WIDTH;
         y = Math.random() * GamePanelController.WIDTH / 2 + GamePanelController.HEIGHT / 4;
 
 
-        // MÅ BYTTE ANGLE
+
+        // MÅ BYTTE ANGLE til et tall mellom 120-240
         double angle =  Math.random() * 340 + 200;
 
         rad = Math.toRadians(angle);
@@ -152,6 +151,8 @@ public class Enemy {
 
     public int getType() {return type;}
     public int getRank() {return rank;}
+
+    public Color getColor() { return color1; }
 
     public void setSlow(boolean b){slow = b;}
 

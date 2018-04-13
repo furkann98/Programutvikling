@@ -112,7 +112,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             gameDraw();         //  gamescreen
 
             URDTimeMillis = (System.nanoTime() - startTime)/10000;
-            waitTime = targetTime - URDTimeMillis; 
+            waitTime = targetTime - URDTimeMillis;
 
             try{
                 Thread.sleep(waitTime);
@@ -131,22 +131,103 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
         }
 
-        g.setColor(new Color(0,100,255));
-        g.fillRect(0,0,WIDTH,HEIGHT);
-        g.setColor(Color.BLACK);
-        g.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+            g.setColor(new Color(0, 100, 255));
+            g.fillRect(0, 0, WIDTH, HEIGHT);
+            g.setColor(Color.BLACK);
+            g.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 
-        String s = "G A M E   O V E R ! ";
-        int length = (int)g.getFontMetrics().getStringBounds(s,g).getWidth();
-        g.drawString(s, (WIDTH - length)/2, HEIGHT/2);
-        s = "Final Score: " + player.getScore();
-        int length1 = (int)g.getFontMetrics().getStringBounds(s,g).getWidth();
-        g.drawString(s, (WIDTH - length1)/2, HEIGHT/2+30);
-        gameDraw();
-        
+            String s = "G A M E   O V E R ! ";
+            int length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+            g.drawString(s, (WIDTH - length) / 2, HEIGHT / 2);
+            s = "Final Score: " + player.getScore();
+            int length1 = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+            g.drawString(s, (WIDTH - length1) / 2, HEIGHT / 2 + 30);
+            gameDraw();
+
+    }
+
+    //MÅ gjøres noe med!! - FEIL!
+    private void runPause(){
+
+        running = true;
+
+        image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+        g = (Graphics2D) image.getGraphics();
+
+        //Graphics
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        //Texts
+        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+
+        player = new Player();
+        bullets = new ArrayList<Bullet>();
+        enemies = new ArrayList<Enemy>();
+        powerups = new ArrayList<PowerUp>();
+        explosions = new ArrayList<Explosion>();
+        texts = new ArrayList<Text>();
+
+
+        long startTime;
+        long URDTimeMillis;
+        long waitTime;
+        long totalTime = 0;
+
+        int frameCount = 0;
+        int maxFrameCount = 30;
+
+        long targetTime = 1000 / FPS; // Tiden for en loop-runde
+
+        //GAME LOOP
+        while(running)  {
+
+            startTime = System.nanoTime();
+
+
+            gameUpdate();      // Positioning
+            gameRender();       // off-screen image  , double buffering
+            gameDraw();         //  gamescreen
+
+            URDTimeMillis = (System.nanoTime() - startTime)/10000;
+            waitTime = targetTime - URDTimeMillis;
+
+            try{
+                Thread.sleep(waitTime);
+            }
+            catch (Exception e) {
+            }
+
+            totalTime += System.nanoTime()-startTime;
+            frameCount++;
+            if (frameCount == maxFrameCount){
+                averageFPS = 100.0 / ((totalTime / frameCount)/1000000);
+                frameCount = 0;
+                totalTime = 0;
+
+            }
+
+        }
+
+        if(player.getLives() == 0) {
+            g.setColor(new Color(0, 100, 255));
+            g.fillRect(0, 0, WIDTH, HEIGHT);
+            g.setColor(Color.BLACK);
+            g.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+
+            String s = "G A M E   O V E R ! ";
+            int length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+            g.drawString(s, (WIDTH - length) / 2, HEIGHT / 2);
+            s = "Final Score: " + player.getScore();
+            int length1 = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+            g.drawString(s, (WIDTH - length1) / 2, HEIGHT / 2 + 30);
+            gameDraw();
+        }
+
     }
 
     private void gameUpdate(){
+
+        System.out.println("Update");
 
         //new Waves
         if(waveStartTimer == 0 && enemies.size() == 0){
@@ -357,6 +438,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
     private void gameRender(){
 
+        System.out.println("Render");
+
         // Draw Background
         g.setColor(new Color(0, 100,255));
         g.fillRect(0,0, WIDTH, HEIGHT);
@@ -457,7 +540,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
     }
 
-
     //FEIL?
     private void gameDraw(){
          Graphics g2 = this.getGraphics();
@@ -523,7 +605,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     }
 
 
-    public void keyTyped(KeyEvent key){}
+    public void keyTyped(KeyEvent key){
+
+    }
 
     public void keyPressed(KeyEvent key){
         int keyCode = key.getKeyCode();
@@ -542,7 +626,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         if(keyCode == KeyEvent.VK_SPACE){
             player.setFiring(true);
         }
-
 
 
     }

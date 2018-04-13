@@ -22,3 +22,8 @@
 
 
 }
+
+#GamePanel{
+    -fx-background-color: blue;
+    -fx-background-size: 100%;
+}

@@ -23,17 +23,15 @@ public class MainPageController implements Initializable {
 
     }
 
-    public void buttonPlay() throws IOException {
+    public void buttonPlay(javafx.event.ActionEvent event) throws IOException {
 
-/*
-        JFrame window = new JFrame("Title?");
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/View/GamePanel.fxml"));
+        Scene tableViewScene = new Scene(tableViewParent);
 
-        window.setContentPane(new GamePanel());
+        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
 
-        window.pack();
-        window.setVisible(true);
-*/
+        window.setScene(tableViewScene);
+        window.show();
     }
 
 
