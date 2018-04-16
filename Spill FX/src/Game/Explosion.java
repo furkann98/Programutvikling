@@ -31,11 +31,11 @@ public class Explosion {
     }
 
     public void draw(GraphicsContext g){
+        g.setGlobalAlpha(0.1);
         g.setFill(Color.WHITE);
-        g.setStroke(Color.WHITE.darker());
         g.fillOval((int) (x-r), (int)(y-r), 2*r, 2*r);
-        g.setLineWidth(1);
-        g.stroke();
+        g.setGlobalAlpha(1);
+
 
     }
 
