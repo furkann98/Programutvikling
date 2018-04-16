@@ -31,9 +31,9 @@ public class Explosion {
     }
 
     public void draw(GraphicsContext g){
-        g.setGlobalAlpha(0.1);
-        g.setFill(Color.WHITE);
-        g.fillOval((int) (x-r), (int)(y-r), 2*r, 2*r);
+        g.setStroke(Color.WHITE);
+        g.setGlobalAlpha(0.4);
+        g.strokeOval((int) (x-r), (int)(y-r), 2*r, 2*r);
         g.setGlobalAlpha(1);
 
 
