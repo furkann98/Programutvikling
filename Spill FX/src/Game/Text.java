@@ -2,9 +2,12 @@ package Game;
 
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 
 public class Text {
-
 
 
     //DATAFELT
@@ -16,7 +19,7 @@ public class Text {
     private long start;
 
     //CONSTRUCTOR
-    public Text(double x, double y, long time, String s){
+    public Text(double x, double y, long time, String s) {
         this.x = x;
         this.y = y;
         this.time = time;
@@ -25,27 +28,28 @@ public class Text {
     }
 
 
-    public boolean update(){
-        long elapsed  = (System.nanoTime() - start) /1000000;
-        if(elapsed > time){
+    public boolean update() {
+        long elapsed = (System.nanoTime() - start) / 1000000;
+        if (elapsed > time) {
             return true;
 
         }
         return false;
     }
 
-    public void draw(GraphicsContext g){
+    public void draw(GraphicsContext g) {
 
-        /*
-        g.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+
+        g.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 12 ));
         long elapsed  = (System.nanoTime() - start) / 1000000;
-        int alpha= (int)(255 * Math.sin(3.14 * elapsed/time ));
-        if(alpha > 255){ alpha = 255;}
-        g.setColor( new Color(255,255,255, alpha));
-
-        int length = (int)g.getFontMetrics().getStringBounds(s,g).getWidth();
-        g.drawString(s,(int)(x-(length/2)), (int)y);
-        */
+        //int alpha= (int)(255 * Math.sin(3.14 * elapsed/time ));
+        g.setGlobalAlpha(0.4);
+        g.setFill(Color.WHITE);
+       // int length = (int)g.getFontMetrics().getStringBounds(s,g).getWidth();
+        g.fillText(s,(int)(x), (int)y);
+        g.setGlobalAlpha(1);
     }
 
 }
+
+

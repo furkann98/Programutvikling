@@ -501,9 +501,6 @@ public class GamePanelController implements Initializable {
             if (slowDownTimer != 0) {
                 g.setFill(Color.WHITE);
                 g.setGlobalAlpha(0.4);
-                String s1 = "-SLOWTIME-";
-                g.fillText(s1, WIDTH / 2 - 60 , HEIGHT / 2);
-                g.setFill(Color.WHITE);
                 g.fillRect(20, 60, (int) (100 - 100.0 * slowDownTimerDiff / slowDownLength), 8);
                 g.setGlobalAlpha(1);
 
