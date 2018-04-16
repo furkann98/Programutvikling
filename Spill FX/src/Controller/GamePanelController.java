@@ -490,13 +490,13 @@ public class GamePanelController implements Initializable {
                 g.drawRect(20 + 8 * i, 40, 8, 8);
             }
             g.setStroke(new BasicStroke(1));
-
-            //Draw player score
-            g.setColor(Color.WHITE);
-            g.setFont(new Font("Century Gothic", Font.PLAIN, 14));
-            g.drawString("Score: " + player.getScore(), WIDTH - 100, 30);
-
 */
+            //Draw player score
+            g.setFill(Color.WHITE);
+            g.setFont(new Font("Century Gothic", 14));
+            g.fillText("Score: " + player.getScore(), WIDTH - 100, 30);
+
+
             //Draw slowDown meter
             if (slowDownTimer != 0) {
                 g.setFill(Color.WHITE);
@@ -504,9 +504,7 @@ public class GamePanelController implements Initializable {
                 g.fillRect(20, 60, (int) (100 - 100.0 * slowDownTimerDiff / slowDownLength), 8);
                 g.setGlobalAlpha(1);
 
-
             }
-
 
         }
 

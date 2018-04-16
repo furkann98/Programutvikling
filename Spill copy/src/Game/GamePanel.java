@@ -330,11 +330,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
                 double random = Math.random();
                 if(random < 0.001){
                     powerups.add(new PowerUp(1, e.getx(), e.gety()));
-                }else if(random < 0.020){
+                }else if(random < 1.120){
                     powerups.add(new PowerUp(2, e.getx(), e.gety()));
-                }else if(random < 0.120){
+                }else if(random < 1.120){
                     powerups.add(new PowerUp(3, e.getx(), e.gety()));
-                }else if(random < 0.130){
+                }else if(random < 1.130){
                     powerups.add(new PowerUp(4, e.getx(), e.gety()));
                 }
 
