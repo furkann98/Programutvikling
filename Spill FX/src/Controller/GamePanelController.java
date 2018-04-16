@@ -21,7 +21,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -155,6 +160,7 @@ public class GamePanelController implements Initializable {
             }
         };
 
+
         gameLoo.start();
         gameLoo.stop();
 
@@ -175,6 +181,7 @@ public class GamePanelController implements Initializable {
             if(gameOver == true){
                 pause = false;
                 test.setText("Game Over");
+                stop();
             }
             if(pause == true){
                 test.setText("Pause");
@@ -309,7 +316,7 @@ public class GamePanelController implements Initializable {
                         powerups.add(new PowerUp(2, e.getx(), e.gety()));
                     } else if (random < 0.120) {
                         powerups.add(new PowerUp(3, e.getx(), e.gety()));
-                    } else if (random < 0.130) {
+                    } else if (random < 1) {
                         powerups.add(new PowerUp(4, e.getx(), e.gety()));
                     }
 
@@ -447,28 +454,30 @@ public class GamePanelController implements Initializable {
             for (int i = 0; i < texts.size(); i++) {
                 texts.get(i).draw(g);
             }
-/*
-//Draw methods - må gjøres om
+
+        //Draw methods - må gjøres om
 
             //Draw Wave Number
             if (waveStartTimer != 0) {
-                g.setFont(new Font("Century Gothic", Font.PLAIN, 18));
+                g.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 22 ));
                 String s = "- W A V E " + waveNumber + " -";
-                int length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
-                //ALPHA?
-                int alpha = (int) (255 * Math.sin(3.14 * waveStartTimerDiff / waveDelay));
-                if (alpha > 255) alpha = 255;
-                g.setColor(new Color(255, 255, 255, alpha));
-                g.drawString(s, WIDTH / 2 - length / 2, HEIGHT / 2);
-            }
 
-            //draw player lives
+               // int length  = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+                //ALPHA?
+                //int alpha = (int) (255 * Math.sin(3.14 * waveStartTimerDiff / waveDelay));
+                //if (alpha > 255) alpha = 255;
+                g.setFill(Color.RED);
+                g.fillText(s, WIDTH / 2 - 60 , HEIGHT / 2);
+                // en how to use tekst
+            }
+/*
+              //draw player lives
             for (int i = 0; i < player.getLives(); i++) {
-                g.setColor(Color.WHITE);
+                g.setFill(Color.WHITE);
+                g.drawOval(20 + (20 * i), 20, player.getr() * 2, player.getr() * 2);
                 g.fillOval(20 + (20 * i), 20, player.getr() * 2, player.getr() * 2);
                 g.setStroke(new BasicStroke(3));
-                g.setColor(Color.WHITE.darker());
-                g.drawOval(20 + (20 * i), 20, player.getr() * 2, player.getr() * 2);
+                g.setFill(Color.WHITE.darker());
                 g.setStroke(new BasicStroke(1));
             }
 
@@ -487,15 +496,21 @@ public class GamePanelController implements Initializable {
             g.setFont(new Font("Century Gothic", Font.PLAIN, 14));
             g.drawString("Score: " + player.getScore(), WIDTH - 100, 30);
 
-
+*/
             //Draw slowDown meter
             if (slowDownTimer != 0) {
-                g.setColor(Color.WHITE);
-                g.drawRect(20, 60, 100, 8);
+                g.setFill(Color.WHITE);
+                g.setGlobalAlpha(0.4);
+                String s1 = "-SLOWTIME-";
+                g.fillText(s1, WIDTH / 2 - 60 , HEIGHT / 2);
+                g.setFill(Color.WHITE);
                 g.fillRect(20, 60, (int) (100 - 100.0 * slowDownTimerDiff / slowDownLength), 8);
+                g.setGlobalAlpha(1);
+
+
             }
 
-*/
+
         }
 
 
