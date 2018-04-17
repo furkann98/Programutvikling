@@ -502,8 +502,10 @@ public class GamePanelController implements Initializable {
                 g.setFill(Color.WHITE);
                 g.setGlobalAlpha(0.4);
                 g.fillRect(20, 60, (int) (100 - 100.0 * slowDownTimerDiff / slowDownLength), 8);
-                g.setGlobalAlpha(1);
 
+
+            }else{
+                g.setGlobalAlpha(1);
             }
 
         }
