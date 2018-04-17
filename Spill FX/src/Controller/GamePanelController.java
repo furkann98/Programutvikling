@@ -310,13 +310,13 @@ public class GamePanelController implements Initializable {
 
                     // ROll FOR POWER UP
                     double random = Math.random();
-                    if (random < 0.001) {
+                    if (random < 0.021) {
                         powerups.add(new PowerUp(1, e.getx(), e.gety()));
                     } else if (random < 0.020) {
                         powerups.add(new PowerUp(2, e.getx(), e.gety()));
                     } else if (random < 0.120) {
                         powerups.add(new PowerUp(3, e.getx(), e.gety()));
-                    } else if (random < 1) {
+                    } else if (random < 0.010) {
                         powerups.add(new PowerUp(4, e.getx(), e.gety()));
                     }
 
@@ -470,27 +470,27 @@ public class GamePanelController implements Initializable {
                 g.fillText(s, WIDTH / 2 - 60 , HEIGHT / 2);
                 // en how to use tekst
             }
-/*
+
               //draw player lives
             for (int i = 0; i < player.getLives(); i++) {
                 g.setFill(Color.WHITE);
-                g.drawOval(20 + (20 * i), 20, player.getr() * 2, player.getr() * 2);
-                g.fillOval(20 + (20 * i), 20, player.getr() * 2, player.getr() * 2);
-                g.setStroke(new BasicStroke(3));
+                //g.drawOval(20 + (20 * i), 20, player.getr() * 2, player.getr() * 2);
+                g.fillOval(30 + (20 * i), 10, player.getr() * 2, player.getr() * 2);
+               // g.setStroke(new BasicStroke(3));
                 g.setFill(Color.WHITE.darker());
-                g.setStroke(new BasicStroke(1));
+               // g.setStroke(new BasicStroke(1));
             }
 
             //draw player power
-            g.setColor(Color.YELLOW);
+            g.setFill(Color.YELLOW);
             g.fillRect(20, 40, player.getPower() * 8, 8);
-            g.setColor(Color.YELLOW.darker());
-            g.setStroke(new BasicStroke(2));
+            g.setFill(Color.YELLOW.darker());
+           // g.setStroke(new BasicStroke(2));
             for (int i = 0; i < player.getRequiredPower(); i++) {
-                g.drawRect(20 + 8 * i, 40, 8, 8);
+                g.fillRect(20 + 8 * i, 40, 8, 8);
             }
-            g.setStroke(new BasicStroke(1));
-*/
+           // g.setStroke(new BasicStroke(1));
+
             //Draw player score
             g.setFill(Color.WHITE);
             g.setFont(new Font("Century Gothic", 14));
@@ -502,12 +502,9 @@ public class GamePanelController implements Initializable {
                 g.setFill(Color.WHITE);
                 g.setGlobalAlpha(0.4);
                 g.fillRect(20, 60, (int) (100 - 100.0 * slowDownTimerDiff / slowDownLength), 8);
-
-
             }else{
                 g.setGlobalAlpha(1);
             }
-
         }
 
 

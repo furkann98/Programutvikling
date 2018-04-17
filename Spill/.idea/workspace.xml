@@ -171,7 +171,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="1">
     <option name="x" value="173" />
     <option name="y" value="25" />
     <option name="width" value="987" />
@@ -500,7 +500,7 @@
     <option name="totallyTimeSpent" value="1737000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="173" y="25" width="987" height="714" extended-state="0" />
+    <frame x="173" y="25" width="987" height="714" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />

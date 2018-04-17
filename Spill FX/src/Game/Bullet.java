@@ -24,7 +24,7 @@ public class Bullet {
     public Bullet(double angle, int x, int y){
         this.x = x;
         this.y = y;
-        r = 2;
+        r = 4;
 
         rad = Math.toRadians(angle);
         speed = 4;
@@ -33,7 +33,7 @@ public class Bullet {
 
 
 
-        color1 = Color.BLACK;
+        color1 = Color.LIGHTGREEN;
     }
 
     //FUNKSJON

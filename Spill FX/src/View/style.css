@@ -19,11 +19,10 @@
 #PicSpace{
         -fx-background-image: url("/View/space.png");
         -fx-background-size: 100%;
-
-
 }
 
 #pane{
-    -fx-background-color: #454644;
-    -fx-background-size: 100%;
+    -fx-background-image: url("bckg-space.jpg");
+   /*<!-- -fx-background-color: #454644; /--> */
+    -fx-background-size: 150%;
 }

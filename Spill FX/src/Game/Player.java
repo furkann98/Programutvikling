@@ -4,10 +4,14 @@ package Game;
 
 import Controller.GamePanelController;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 public class Player {
     //DATAFELT
+
+
+
     private int x;
     private int y;
     private int r; //radius
@@ -51,7 +55,7 @@ public class Player {
         lives = 3;
 
         //MÅ BYTTE TIL PNG FIL/////
-        color1 = Color.PURPLE; /// KOBLA TIL SISTE ENEMY???
+        color1 = Color.PURPLE;
 
         color2 = Color.BLUE;
 
@@ -161,9 +165,9 @@ public class Player {
                     GamePanelController.bullets.add(new Bullet(0, x , y-5));
                 }
                 else{
-                GamePanelController.bullets.add(new Bullet(0.2, x , y));
-                GamePanelController.bullets.add(new Bullet(0, x , y));
-                GamePanelController.bullets.add(new Bullet(-0.2, x  , y));
+                    GamePanelController.bullets.add(new Bullet(0.2, x , y));
+                    GamePanelController.bullets.add(new Bullet(0, x , y));
+                    GamePanelController.bullets.add(new Bullet(-0.2, x  , y));
                 }
 
             }
@@ -193,7 +197,11 @@ public class Player {
         if(recovering){
 
             g.setFill(color1);
-            g.fillOval(x-r,y-r, 2 * r,2 * r);
+            g.fillOval(x-r*3,y-r, 5 * r,2 * r);
+            //implementerte inn *3
+            Image spaceship = new Image("View/Ship3.png");
+            g.drawImage(spaceship, x-r*4.5,y-r*1.765, 7.5 * r,3.4 * r);
+
 
 /*
             g.setStroke(color1);
@@ -203,8 +211,9 @@ public class Player {
 
         }else{
             g.setFill(color2);
-            g.fillOval(x-r,y-r, 2 * r,2 * r);
-
+            g.fillOval(x-r*3,y-r, 5 * r,2 * r);
+            Image spaceship = new Image("View/Ship3.png");
+            g.drawImage(spaceship, x-r*4.5,y-r*1.765, 7.5 * r,3.4 * r);
 /*
             g.setStroke(color2);
             g.setLineWidth(2);
