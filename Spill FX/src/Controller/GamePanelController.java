@@ -172,8 +172,6 @@ public class GamePanelController implements Initializable {
             if(pause == false && gameOver == false){
                 run();
             }
-
-
         }
 
         private void run() {
