@@ -199,7 +199,7 @@ public class Player {
             g.setFill(color1);
             g.fillOval(x-r*3,y-r, 5 * r,2 * r);
             //implementerte inn *3
-            Image spaceship = new Image("View/Ship3.png");
+            Image spaceship = new Image("View/Ship4.png");
             g.drawImage(spaceship, x-r*4.5,y-r*1.765, 7.5 * r,3.4 * r);
 
 
