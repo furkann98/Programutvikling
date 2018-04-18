@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.canvas.Canvas?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-<?import javafx.scene.control.Label?>
-<Pane fx:id="pane"  stylesheets="/View/style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.GamePanelController">
+<Pane fx:id="pane" stylesheets="/View/style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.GamePanelController">
    <children>
-      <Canvas fx:id="canvas" height="600.0"  width="1000.0" />
+      <Canvas fx:id="canvas" focusTraversable="true" height="600.0" width="1000.0" />
       <!--TextField fx:id="test" /-->
    </children>
 </Pane>

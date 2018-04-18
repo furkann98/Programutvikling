@@ -42,6 +42,8 @@ public class Player {
     private int power;
     private int[] requiredPower = {1, 2, 3, 4, 5};
 
+
+
     //KONSTRUKTØR
     public Player(){
         x = GamePanelController.WIDTH / 2;
@@ -80,6 +82,7 @@ public class Player {
     public int getScore(){return score;}
 
     public int getLives() {return lives;}
+
 
     public boolean isDead(){return lives <= 0;}
     public boolean isRecovering(){ return recovering;}
@@ -120,11 +123,20 @@ public class Player {
             powerLevel++;
         }
 
+        System.out.println(powerLevel);
     }
 
     public int getPowerLevel() { return powerLevel;}
     public int getPower() {return power;}
     public int getRequiredPower() {return requiredPower[powerLevel];}
+
+    //Super power
+    private boolean checkNuke = false;
+    private boolean nuke = false;
+    public boolean getNuke(){ return checkNuke;}
+    public void setNukeTrue(){nuke = true;}
+
+
 
     public void update(){
         if(left){
@@ -160,18 +172,36 @@ public class Player {
                 if(powerLevel < 2) {
                     GamePanelController.bullets.add(new Bullet(0, x, y));
                 }
-                else if(powerLevel < 4) {
+                else if(powerLevel < 3) {
                     GamePanelController.bullets.add(new Bullet(0, x , y+5));
                     GamePanelController.bullets.add(new Bullet(0, x , y-5));
                 }
-                else{
-                    GamePanelController.bullets.add(new Bullet(0.2, x , y));
-                    GamePanelController.bullets.add(new Bullet(0, x , y));
-                    GamePanelController.bullets.add(new Bullet(-0.2, x  , y));
+                else {
+                        GamePanelController.bullets.add(new Bullet(0.2, x , y));
+                        GamePanelController.bullets.add(new Bullet(0, x , y));
+                        GamePanelController.bullets.add(new Bullet(-0.2, x  , y));
+
                 }
 
             }
         }
+
+
+        //NUKE
+        if(powerLevel > 3){
+            checkNuke = true;
+        }
+        if(nuke == true){
+            for (double i = 0; i < 360; i += 0.5){
+                GamePanelController.bullets.add(new Bullet(i, x , y));
+            }
+            power = 0;
+            powerLevel = 0;
+            checkNuke = false;
+            nuke = false;
+        }
+
+
 
 
         if(recovering) {
@@ -181,10 +211,7 @@ public class Player {
                 recoveryTimer = 0;
             }
         }
-
-
     }
-
 
 
 
@@ -199,7 +226,7 @@ public class Player {
             g.setFill(color1);
             g.fillOval(x-r*3,y-r, 5 * r,2 * r);
             //implementerte inn *3
-            Image spaceship = new Image("View/Ship4.png");
+            Image spaceship = new Image("View/img/Ship4.png");
             g.drawImage(spaceship, x-r*4.5,y-r*1.765, 7.5 * r,3.4 * r);
 
 
@@ -212,7 +239,7 @@ public class Player {
         }else{
             g.setFill(color2);
             g.fillOval(x-r*3,y-r, 5 * r,2 * r);
-            Image spaceship = new Image("View/Ship3.png");
+            Image spaceship = new Image("View/img/Ship3.png");
             g.drawImage(spaceship, x-r*4.5,y-r*1.765, 7.5 * r,3.4 * r);
 /*
             g.setStroke(color2);

@@ -1,28 +1,28 @@
 
 
 #bgMainPage{
-    -fx-background-image: url("/View/fut1.jpg");
+    -fx-background-image: url("/View/img/fut1.jpg");
     -fx-background-size: 100% 100%;
 }
 
 #bgHowToPlay{
-    -fx-background-image: url("/View/fut2.jpg");
+    -fx-background-image: url("/View/img/fut2.jpg");
     -fx-background-size: 100% 100%;
 }
 
 
 #PicKeys{
-    -fx-background-image: url("/View/keys.png");
+    -fx-background-image: url("/View/img/keys.png");
     -fx-background-size: 100% 100%;
 }
 
 #PicSpace{
-        -fx-background-image: url("/View/space.png");
+        -fx-background-image: url("/View/img/space.png");
         -fx-background-size: 100%;
 }
 
 #pane{
-    -fx-background-image: url("bckg-space.jpg");
+    -fx-background-image: url("img/bckg-space.jpg");
    /*<!-- -fx-background-color: #454644; /--> */
-    -fx-background-size: 150%;
+    -fx-background-size: cover;
 }
