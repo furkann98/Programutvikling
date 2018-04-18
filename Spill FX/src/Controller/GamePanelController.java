@@ -180,11 +180,10 @@ public class GamePanelController implements Initializable {
         public void handle(long now) {
             if(gameOver == true){
                 pause = false;
-                test.setText("Game Over");
                 stop();
             }
             if(pause == true){
-                test.setText("Pause");
+                stop();
             }
             if(pause == false && gameOver == false){
                 run();
@@ -196,6 +195,11 @@ public class GamePanelController implements Initializable {
         private void run() {
                 gameUpdate();      // Positioning
                 gameRender();       // off-screen image  , double buffering
+        }
+
+        private void gameOver(){
+            //text med score og restart knapp
+
         }
 
         //Game over
