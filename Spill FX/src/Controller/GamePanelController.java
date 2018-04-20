@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -47,6 +48,8 @@ public class GamePanelController implements Initializable {
     //Node
     @FXML private Canvas canvas;
     @FXML private Pane pane;
+
+    private Image imgLife = new Image("View/img/Heart.png");
 
     //Map Size
     public static int WIDTH = 1000;
@@ -474,19 +477,22 @@ public class GamePanelController implements Initializable {
             }
 
               //draw player lives
+            g.setFill(Color.WHITE);
+            g.setFont(new Font("Century Gothic", 14));
+            g.fillText("Life: ", 10, 25);
             for (int i = 0; i < player.getLives(); i++) {
-                g.setFill(Color.WHITE);
-                //g.drawOval(20 + (20 * i), 20, player.getr() * 2, player.getr() * 2);
-                g.fillOval(20 + (20 * i), 10, 15, 15);
-               // g.setStroke(new BasicStroke(3));
-                g.setFill(Color.WHITE.darker());
-               // g.setStroke(new BasicStroke(1));
+                g.drawImage(imgLife, 60 + (20 * i),10, 20,20);
+
+
             }
 
             //draw player power
+                 g.setFill(Color.WHITE);
+                 g.setFont(new Font("Century Gothic", 14));
+                 g.fillText("Power: ", 10, 50);
             for(int i = 0; i <player.getPowerLevel(); i++){
                 g.setFill(Color.YELLOW);
-                g.fillRect(20 + (20 * i) , 40, 15, 15);
+                g.fillRect( 60 + (20 * i) , 40, 12, 12);
             }
 
             //Draw player score
