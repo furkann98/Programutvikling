@@ -81,6 +81,15 @@ public class GamePanelController implements Initializable {
     private boolean gameOver = false;
     private boolean pause = false;
 
+    //Animation timer - Gameloop
+    AnimationTimer gameLoop = new AnimationTimer() {
+        @Override
+        public void handle(long now) {
+            gameUpdate();      //Positioning
+            gameRender();       //Image update
+        }
+    };
+
 
 
     @Override
@@ -106,14 +115,21 @@ public class GamePanelController implements Initializable {
                     player.setFiring(true);
                     break;
                 case P:
-                    if (pause == true) {
+                    if(gameOver == true){
+                        System.out.println("Du har tapt, kan ikke trykke på pause");
+                    }
+                    else if(pause == true) {
                         pause = false;
+                        gameLoop.start();
                     } else {
                         pause = true;
+                        gameLoop.stop();
                     }
                     break;
                 case Q:
                     gameOver = true;
+                    gameLoop.stop();
+                    gameOver();
                     break;
                 case B:
                     if (player.getNuke()) {
@@ -155,52 +171,25 @@ public class GamePanelController implements Initializable {
         waveStart = true;
         waveNumber = 0;
 
-        //Animation timer - Gameloop
-        AnimationTimer gameLoop = new GameLoop();
+        //Starts gameloop
         gameLoop.start();
     }
 
 //METODER
 
-    //Animation timer - Gameloop
-    private class GameLoop extends AnimationTimer {
+    // GameOver
+    private void gameOver(){
 
-        @Override
-        public void handle(long now) {
-            if(gameOver == true){
-                pause = false;
-                stop();
-                System.out.println("test");
-                gameOver();
-            }
-            if(pause == true){
-                stop();
-            }
-            if(pause == false && gameOver == false){
-                run();
-            }
-        }
+        //Background
+        g.setFill(Color.BLACK);
+        g.fillRect(0,0,WIDTH,HEIGHT);
 
-        private void run() {
-                gameUpdate();      // Positioning
-                gameRender();       // off-screen image  , double buffering
-        }
-
-        private void gameOver(){
-            //Background
-            g.setFill(Color.BLACK);
-            g.fillRect(0,0,WIDTH,HEIGHT);
-
-            //Gameover Text
-            g.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 22 ));
-            String s = "Y O U R    S C O R E :  " + player.getScore();
-            System.out.println("test 2");
-            g.setFill(Color.WHITE);
-            g.fillText(s, WIDTH / 2 - textWidth(s), HEIGHT / 2);
-            // en how to use tekst
-            //Restart knapp
-
-        }
+        //Gameover Text
+        g.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 22 ));
+        String s = "Y O U R    S C O R E :  " + player.getScore();
+        g.setFill(Color.WHITE);
+        g.fillText(s, WIDTH / 2 - textWidth(s), HEIGHT / 2);
+        //Restart knapp
 
     }
 
@@ -451,12 +440,37 @@ public class GamePanelController implements Initializable {
 
 
             //Draw Wave Number
-            if (waveStartTimer != 0) {
+            if(waveStartTimer != 0 && waveNumber == 1) {
+                //Wave Number
+                g.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 22 ));
+                String s = "- W A V E " + waveNumber + " -";
+                g.setFill(Color.RED);
+                g.fillText(s, WIDTH / 2 - textWidth(s) , HEIGHT / 2 - 60);
+
+                //How to play
+                g.setFont(Font.font("Verdana", FontPosture.REGULAR, 25 ));
+                String s1 = "Move with ARROWS";
+                g.setFill(Color.WHITE);
+                g.fillText(s1, WIDTH / 2 - textWidth(s) / .7, HEIGHT / 2 + 90);
+
+                g.setFont(Font.font("Verdana", FontPosture.REGULAR, 25 ));
+                String s2 = "Shoot with SPACE";
+                g.setFill(Color.WHITE);
+                g.fillText(s2, WIDTH / 2 - textWidth(s) / .7, HEIGHT / 2 + 130);
+
+                g.setFont(Font.font("Verdana", FontPosture.REGULAR, 25 ));
+                String s3 = "Pause with P";
+                g.setFill(Color.WHITE);
+                g.fillText(s3, WIDTH / 2 - textWidth(s) / .7, HEIGHT / 2 + 170);
+
+
+            }
+            else if (waveStartTimer != 0) {
+                //Wave Number
                 g.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 22 ));
                 String s = "- W A V E " + waveNumber + " -";
                 g.setFill(Color.RED);
                 g.fillText(s, WIDTH / 2 - textWidth(s), HEIGHT / 2);
-                // en how to use tekst
             }
 
               //draw player lives
@@ -553,6 +567,7 @@ public class GamePanelController implements Initializable {
             }
             if (waveNumber == 9) {
                 gameOver = true;
+                gameLoop.stop();
             }
 
         }
