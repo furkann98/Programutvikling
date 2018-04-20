@@ -55,8 +55,8 @@ public class Bullet {
     public void draw(GraphicsContext g){
         g.setFill(color1);
         g.fillOval((int)(x-r), (int)(y-r), 2*r, 2*r );
-
     }
+
 
 
 

@@ -1,36 +1,41 @@
 package Controller;
 
+
 import Game.*;
 import View.*;
 import javafx.animation.AnimationTimer;
-import javafx.application.Platform;
-import javafx.concurrent.Task;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
+//ubrukte
+import javafx.stage.Stage;
+import java.io.IOException;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-import javafx.stage.Stage;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 
 
@@ -164,6 +169,8 @@ public class GamePanelController implements Initializable {
         public void handle(long now) {
             if(gameOver == true){
                 pause = false;
+                stop();
+                System.out.println("test");
                 gameOver();
             }
             if(pause == true){
@@ -180,16 +187,21 @@ public class GamePanelController implements Initializable {
         }
 
         private void gameOver(){
-            //text med score og restart knapp
+            //Background
+            g.setFill(Color.BLACK);
+            g.fillRect(0,0,WIDTH,HEIGHT);
+
+            //Gameover Text
+            g.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 22 ));
+            String s = "Y O U R    S C O R E :  " + player.getScore();
+            System.out.println("test 2");
+            g.setFill(Color.WHITE);
+            g.fillText(s, WIDTH / 2 - textWidth(s), HEIGHT / 2);
+            // en how to use tekst
             //Restart knapp
 
         }
 
-        //Game over
-        @Override
-        public void stop() {
-            //Meny for save, restart, highscore og how to play.
-        }
     }
 
 
@@ -437,19 +449,13 @@ public class GamePanelController implements Initializable {
                 texts.get(i).draw(g);
             }
 
-        //Draw methods - må gjøres om
 
             //Draw Wave Number
             if (waveStartTimer != 0) {
                 g.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 22 ));
                 String s = "- W A V E " + waveNumber + " -";
-
-               // int length  = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
-                //ALPHA?
-                //int alpha = (int) (255 * Math.sin(3.14 * waveStartTimerDiff / waveDelay));
-                //if (alpha > 255) alpha = 255;
                 g.setFill(Color.RED);
-                g.fillText(s, WIDTH / 2 - 60 , HEIGHT / 2);
+                g.fillText(s, WIDTH / 2 - textWidth(s), HEIGHT / 2);
                 // en how to use tekst
             }
 
@@ -468,16 +474,6 @@ public class GamePanelController implements Initializable {
                 g.setFill(Color.YELLOW);
                 g.fillRect(20 + (20 * i) , 40, 15, 15);
             }
-          /*
-            g.setFill(Color.YELLOW);
-            g.fillRect(20 , 40, player.getPower() * 8, 8);
-            g.setFill(Color.YELLOW.darker());
-           // g.setStroke(new BasicStroke(2));
-            for (int i = 0; i < player.getRequiredPower(); i++) {
-                g.fillRect(20 + 8 * i, 40, 8, 8);
-            }
-           // g.setStroke(new BasicStroke(1));
-           */
 
             //Draw player score
             g.setFill(Color.WHITE);
@@ -493,10 +489,18 @@ public class GamePanelController implements Initializable {
             }else{
                 g.setGlobalAlpha(1);
             }
+
+        }
+
+        //Calculate Length of text
+        public double textWidth(String s){
+            javafx.scene.text.Text text = new javafx.scene.text.Text(s);
+            double width = text.getBoundsInLocal().getWidth();
+            return width;
         }
 
 
-        private void createNewEnemies(){
+    private void createNewEnemies(){
             enemies.clear();
             Enemy e;
             if (waveNumber == 1) {

@@ -22,7 +22,6 @@
 }
 
 #pane{
-    -fx-background-image: url("img/bckg-space.jpg");
-   /*<!-- -fx-background-color: #454644; /--> */
+    -fx-background-image: url("img/bckg-space2.jpg");
     -fx-background-size: cover;
 }

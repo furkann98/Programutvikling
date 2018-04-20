@@ -6,6 +6,7 @@ import Controller.GamePanelController;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Ellipse;
 
 public class Player {
     //DATAFELT
@@ -33,8 +34,7 @@ public class Player {
     private long recoveryTimer;
 
     private int lives;
-    private Color color1; // Regular
-    private Color color2; // When Hit
+    private Color color;
 
     private int score;
 
@@ -42,13 +42,16 @@ public class Player {
     private int power;
     private int[] requiredPower = {1, 2, 3, 4, 5};
 
+    private Image img = new Image("View/img/spaceShip.png");
+    private Image imgRecovering = new Image("View/img/spaceShip2.png");
+
 
 
     //KONSTRUKTØR
     public Player(){
         x = GamePanelController.WIDTH / 2;
         y = GamePanelController.HEIGHT / 2;
-        r = 10;
+        r = 30;
 
         dx = 0;
         dy = 0;
@@ -56,11 +59,7 @@ public class Player {
 
         lives = 3;
 
-        //MÅ BYTTE TIL PNG FIL/////
-        color1 = Color.PURPLE;
-
-        color2 = Color.BLUE;
-
+        color = Color.TRANSPARENT;
 
         firing = false;
         firingTimer = System.nanoTime(); //Current time
@@ -192,14 +191,15 @@ public class Player {
             checkNuke = true;
         }
         if(nuke == true){
-            for (double i = 0; i < 360; i += 0.5){
+            for (double i = 0; i < 360; i += 0.05){
                 GamePanelController.bullets.add(new Bullet(i, x , y));
+
             }
-            power = 0;
             powerLevel = 0;
             checkNuke = false;
             nuke = false;
         }
+
 
 
 
@@ -216,36 +216,17 @@ public class Player {
 
 
     public void draw(GraphicsContext g){
-
-        color1 = Color.RED; /// KOBLA TIL SISTE ENEMY???
-
-        color2 = Color.BLUE;
-
         if(recovering){
 
-            g.setFill(color1);
-            g.fillOval(x-r*3,y-r, 5 * r,2 * r);
-            //implementerte inn *3
-            Image spaceship = new Image("View/img/Ship4.png");
-            g.drawImage(spaceship, x-r*4.5,y-r*1.765, 7.5 * r,3.4 * r);
+            g.setFill(color);
+            g.fillOval(x-r,y-r, 2 * r,2 * r);
+            g.drawImage(imgRecovering, x-r,y-r, 2 * r,2 * r);
 
-
-/*
-            g.setStroke(color1);
-            g.setLineWidth(2);
-            g.stroke();
-*/
 
         }else{
-            g.setFill(color2);
-            g.fillOval(x-r*3,y-r, 5 * r,2 * r);
-            Image spaceship = new Image("View/img/Ship3.png");
-            g.drawImage(spaceship, x-r*4.5,y-r*1.765, 7.5 * r,3.4 * r);
-/*
-            g.setStroke(color2);
-            g.setLineWidth(2);
-            g.stroke();
-*/
+            g.setFill(color);
+            g.fillOval(x-r,y-r, 2 * r,2 * r);
+            g.drawImage(img, x-r,y-r, 2 * r,2 * r);
         }
 
 
