@@ -57,7 +57,7 @@ public class Player {
         dy = 0;
         speed = 4;
 
-        lives = 3;
+        lives = 1;
 
         color = Color.TRANSPARENT;
 
@@ -187,7 +187,7 @@ public class Player {
 
 
         //NUKE
-        if(powerLevel > 3){
+        if(powerLevel > 1){
             checkNuke = true;
         }
         if(nuke == true){
@@ -195,7 +195,7 @@ public class Player {
                 GamePanelController.bullets.add(new Bullet(i, x , y));
 
             }
-            powerLevel = 0;
+            powerLevel--;
             checkNuke = false;
             nuke = false;
         }

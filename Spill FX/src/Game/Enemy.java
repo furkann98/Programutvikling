@@ -120,12 +120,14 @@ public class Enemy {
 
 
         x = -r + GamePanelController.WIDTH;
-        y = Math.random() * GamePanelController.WIDTH / 2 + GamePanelController.HEIGHT / 4;
+        y = Math.random() * (GamePanelController.HEIGHT-GamePanelController.HEIGHT/8)+GamePanelController.HEIGHT / 8;
 
 
 
         // MÅ BYTTE ANGLE til et tall mellom 120-240
-        double angle =  Math.random() * 340 + 200;
+        //double angle =  Math.random() * 340 + 200;
+        double angle =  Math.random() * 240 + 120;
+
 
         rad = Math.toRadians(angle);
 

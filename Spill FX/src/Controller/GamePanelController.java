@@ -49,7 +49,6 @@ public class GamePanelController implements Initializable {
     @FXML private Canvas canvas;
     @FXML private Pane pane;
 
-    private Image imgLife = new Image("View/img/Heart.png");
 
     //Map Size
     public static int WIDTH = 1000;
@@ -57,7 +56,6 @@ public class GamePanelController implements Initializable {
 
     //GrapichsContext
     private GraphicsContext g;
-
 
     //Objects and arrays
     public static Player player = new Player();
@@ -79,10 +77,12 @@ public class GamePanelController implements Initializable {
     private long slowDownTimerDiff;
     private int slowDownLength = 6000; // 6 sekunder
 
-
     //Pause and gamover
     private boolean gameOver = false;
     private boolean pause = false;
+
+    //Image
+    private Image imgLife = new Image("View/img/Heart.png");
 
     //Animation timer - Gameloop
     AnimationTimer gameLoop = new AnimationTimer() {
@@ -90,9 +90,9 @@ public class GamePanelController implements Initializable {
         public void handle(long now) {
             gameUpdate();      //Positioning
             gameRender();       //Image update
+            if (player.isDead()) gameOver();
         }
     };
-
 
 
     @Override
@@ -130,8 +130,6 @@ public class GamePanelController implements Initializable {
                     }
                     break;
                 case Q:
-                    gameOver = true;
-                    gameLoop.stop();
                     gameOver();
                     break;
                 case B:
@@ -178,27 +176,12 @@ public class GamePanelController implements Initializable {
         gameLoop.start();
     }
 
-//METODER
 
-    // GameOver
-    private void gameOver(){
 
-        //Background
-        g.setFill(Color.BLACK);
-        g.fillRect(0,0,WIDTH,HEIGHT);
-
-        //Gameover Text
-        g.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 22 ));
-        String s = "Y O U R    S C O R E :  " + player.getScore();
-        g.setFill(Color.WHITE);
-        g.fillText(s, WIDTH / 2 - textWidth(s), HEIGHT / 2);
-        //Restart knapp
-
-    }
+        //METODER
 
 
         private void gameUpdate(){
-
             //new Waves
             if (waveStartTimer == 0 && enemies.size() == 0) {
                 waveNumber++;
@@ -298,13 +281,13 @@ public class GamePanelController implements Initializable {
 
                     // POWER UP - Sannsynlighet
                     double random = Math.random();
-                    if (random < 0.021) {
+                    if (random < 0.030) {
                         powerups.add(new PowerUp(1, e.getx(), e.gety()));
-                    } else if (random < 0.020) {
+                    } else if (random < 0.130) {
                         powerups.add(new PowerUp(2, e.getx(), e.gety()));
-                    } else if (random < 1) {
+                    } else if (random < 0.180) {
                         powerups.add(new PowerUp(3, e.getx(), e.gety()));
-                    } else if (random < 0.010) {
+                    } else if (random < 0.200) {
                         powerups.add(new PowerUp(4, e.getx(), e.gety()));
                     }
 
@@ -318,10 +301,12 @@ public class GamePanelController implements Initializable {
                 }
             }
 
-            // Check dead Player
-            if (player.isDead()) {
-                gameOver = true;
-            }
+            // Check dead Player - Funker ikke
+            /*if (player.isDead()) {
+                System.out.println("test - player dead");
+                gameLoop.stop();
+                gameOver();
+            }*/
 
             //Player Enemy-Collision
             if (!player.isRecovering()) {
@@ -457,7 +442,7 @@ public class GamePanelController implements Initializable {
                 g.fillText(s1, WIDTH / 2 - textWidth(s) / .7, HEIGHT / 2 + 90);
 
                 g.setFont(Font.font("Verdana", FontPosture.REGULAR, 25 ));
-                String s2 = "Shoot with SPACE";
+                String s2 = "Shoot with SPACE & B";
                 g.setFill(Color.WHITE);
                 g.fillText(s2, WIDTH / 2 - textWidth(s) / .7, HEIGHT / 2 + 130);
 
@@ -465,8 +450,6 @@ public class GamePanelController implements Initializable {
                 String s3 = "Pause with P";
                 g.setFill(Color.WHITE);
                 g.fillText(s3, WIDTH / 2 - textWidth(s) / .7, HEIGHT / 2 + 170);
-
-
             }
             else if (waveStartTimer != 0) {
                 //Wave Number
@@ -490,7 +473,7 @@ public class GamePanelController implements Initializable {
                  g.setFill(Color.WHITE);
                  g.setFont(new Font("Century Gothic", 14));
                  g.fillText("Power: ", 10, 50);
-            for(int i = 0; i <player.getPowerLevel(); i++){
+            for(int i = 0; i <player.getPowerLevel() -  1; i++){
                 g.setFill(Color.YELLOW);
                 g.fillRect( 60 + (20 * i) , 40, 12, 12);
             }
@@ -504,10 +487,10 @@ public class GamePanelController implements Initializable {
             //Draw slowDown meter
             if (slowDownTimer != 0) {
                 g.setFill(Color.WHITE);
-                g.setGlobalAlpha(0.4);
-                g.fillRect(20, 60, (int) (100 - 100.0 * slowDownTimerDiff / slowDownLength), 8);
-            }else{
+                g.setGlobalAlpha(0.15);
+                g.fillRect(0,0,WIDTH,HEIGHT);
                 g.setGlobalAlpha(1);
+                g.fillRect(20, 80, (int) (100 - 100.0 * slowDownTimerDiff / slowDownLength), 8);
             }
 
         }
@@ -519,7 +502,7 @@ public class GamePanelController implements Initializable {
             return width;
         }
 
-
+    //Create enemies
     private void createNewEnemies(){
             enemies.clear();
             Enemy e;
@@ -572,10 +555,34 @@ public class GamePanelController implements Initializable {
                 enemies.add(new Enemy(3, 4));
             }
             if (waveNumber == 9) {
-                gameOver = true;
-                gameLoop.stop();
+                gameOver();
             }
 
         }
+
+    // GameOver
+    private void gameOver(){
+        System.out.println("Test gameover");
+
+        //Background
+        g.setFill(Color.BLACK);
+        g.fillRect(0,0,canvas.getWidth(),canvas.getHeight());
+
+        //Gameover Text
+        g.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 22 ));
+        String s = "Y O U R    S C O R E :  " + player.getScore();
+        g.setFill(Color.WHITE);
+        g.fillText(s, canvas.getWidth() / 2 - textWidth(s), canvas.getHeight() / 2);
+        //Restart knapp
+
+        //Stops the loop
+        gameOver = true;
+        gameLoop.stop();
+
+
+        System.out.println("Test gameover end");
+    }
+
+    //File handling
 
 }
