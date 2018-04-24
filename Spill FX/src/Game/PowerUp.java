@@ -83,6 +83,8 @@ public class PowerUp {
         g.setLineWidth(2);
         g.stroke();
 
+
+
     }
 
 

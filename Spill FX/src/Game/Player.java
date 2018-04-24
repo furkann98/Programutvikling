@@ -7,6 +7,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 
 public class Player {
     //DATAFELT
@@ -57,7 +60,7 @@ public class Player {
         dy = 0;
         speed = 4;
 
-        lives = 1;
+        lives = 3;
 
         color = Color.TRANSPARENT;
 
@@ -187,7 +190,7 @@ public class Player {
 
 
         //NUKE
-        if(powerLevel > 1){
+        if(powerLevel > 3){
             checkNuke = true;
         }
         if(nuke == true){
@@ -230,6 +233,12 @@ public class Player {
         }
 
 
+        //Draw nuke Ready
+        if( powerLevel == 4){
+            g.setFill(Color.YELLOW);
+            g.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 22 ));
+            g.fillText(" - NUKE READY -  ", 150, 50);
+        }
     }
 
 

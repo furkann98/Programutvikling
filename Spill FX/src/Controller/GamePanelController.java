@@ -283,11 +283,11 @@ public class GamePanelController implements Initializable {
                     double random = Math.random();
                     if (random < 0.030) {
                         powerups.add(new PowerUp(1, e.getx(), e.gety()));
-                    } else if (random < 0.130) {
+                    } else if (random < 1.130) {
                         powerups.add(new PowerUp(2, e.getx(), e.gety()));
-                    } else if (random < 0.180) {
+                    } else if (random < 1.180) {
                         powerups.add(new PowerUp(3, e.getx(), e.gety()));
-                    } else if (random < 0.200) {
+                    } else if (random < 1.200) {
                         powerups.add(new PowerUp(4, e.getx(), e.gety()));
                     }
 
@@ -478,6 +478,14 @@ public class GamePanelController implements Initializable {
                 g.fillRect( 60 + (20 * i) , 40, 12, 12);
             }
 
+            /*  //Draw nuke Ready
+            if( powerLevel == 4){
+                g.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 25 ));
+                String s = "- NUKE READY -";
+                g.setFill(Color.YELLOW);
+                g.fillText(s, GamePanelController.WIDTH / 3, GamePanelController.HEIGHT / 2.5);
+            }
+            */
             //Draw player score
             g.setFill(Color.WHITE);
             g.setFont(new Font("Century Gothic", 14));

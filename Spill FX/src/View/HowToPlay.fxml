@@ -8,7 +8,7 @@
 
 <AnchorPane fx:id="bgHowToPlay" prefHeight="600" prefWidth="1000.0" stylesheets="/View/style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HowToPlayController">
    <children>
-      <Button layoutX="498.0" layoutY="343.0" mnemonicParsing="false" onAction="#buttonBack" text="Back" />
+      <Button layoutX="872.0" layoutY="525.0" mnemonicParsing="false" onAction="#buttonBack" text="Back" />
       <VBox layoutX="43.0" layoutY="52.0" prefHeight="280.0" prefWidth="161.0">
          <children>
             <Region fx:id="PicKeys" prefHeight="143.0" prefWidth="148.0" stylesheets="/View/style.css" />
