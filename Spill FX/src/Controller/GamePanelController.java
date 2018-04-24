@@ -138,24 +138,7 @@ public class GamePanelController implements Initializable {
                     }
                     break;
                 case R:
-                    //Objects and arrays
-                    player = new Player();
-                    bullets = new ArrayList<Bullet>();;
-                    enemies = new ArrayList<Enemy>();;
-                    powerups = new ArrayList<PowerUp>();;
-                    explosions = new ArrayList<Explosion>();;
-                    texts = new ArrayList<Text>();;
-
-                    //Pause and gamover
-                    gameOver = false;
-                    pause = false;
-
-                    //Startverdier
-                    waveStartTimer = 0;
-                    waveStartTimerDiff = 0;
-                    waveStart = true;
-                    waveNumber = 0;
-                    
+                    restart();
                     break;
 
 
@@ -589,6 +572,27 @@ public class GamePanelController implements Initializable {
 
         }
 
+    //Restart
+    private void restart(){
+        //Objects and arrays
+        player = new Player();
+        bullets = new ArrayList<Bullet>();;
+        enemies = new ArrayList<Enemy>();;
+        powerups = new ArrayList<PowerUp>();;
+        explosions = new ArrayList<Explosion>();;
+        texts = new ArrayList<Text>();;
+
+        //Pause and gamover
+        gameOver = false;
+        pause = false;
+
+        //Startverdier
+        waveStartTimer = 0;
+        waveStartTimerDiff = 0;
+        waveStart = true;
+        waveNumber = 0;
+    }
+
     // GameOver
     private void gameOver(){
         System.out.println("Test gameover");
@@ -611,6 +615,7 @@ public class GamePanelController implements Initializable {
 
         System.out.println("Test gameover end");
     }
+
 
     //File handling
 
