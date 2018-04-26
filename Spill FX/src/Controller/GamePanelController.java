@@ -2,6 +2,7 @@ package Controller;
 
 
 import Game.*;
+import Game.GameSave;
 import View.*;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -84,6 +86,10 @@ public class GamePanelController implements Initializable {
     //Image
     private Image imgLife = new Image("View/img/Heart.png");
 
+    //File handling
+    private GameSave save = new GameSave();
+
+
     //Animation timer - Gameloop
     AnimationTimer gameLoop = new AnimationTimer() {
         @Override
@@ -91,6 +97,7 @@ public class GamePanelController implements Initializable {
             gameUpdate();      //Positioning
             gameRender();       //Image update
             if (player.isDead()) gameOver();
+            if (waveNumber == 2) victory();
         }
     };
 
@@ -130,7 +137,8 @@ public class GamePanelController implements Initializable {
                     }
                     break;
                 case Q:
-                    gameOver();
+                    //gameOver();
+                    player.kill();
                     break;
                 case B:
                     if (player.getNuke()) {
@@ -140,8 +148,14 @@ public class GamePanelController implements Initializable {
                 case R:
                     restart();
                     break;
-
-
+                case T:
+                    try {
+                        save.makeFile("test");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    save.save(player, (int) waveNumber);
+                    break;
 
             }
         });
@@ -514,107 +528,131 @@ public class GamePanelController implements Initializable {
             return width;
         }
 
-    //Create enemies
-    private void createNewEnemies(){
-            enemies.clear();
-            Enemy e;
-            if (waveNumber == 1) {
-                for (int i = 0; i < 4; i++) {
-                    enemies.add(new Enemy(1, 1));
+        //Create enemies
+        private void createNewEnemies(){
+                enemies.clear();
+                Enemy e;
+                if (waveNumber == 1) {
+                    for (int i = 0; i < 4; i++) {
+                        enemies.add(new Enemy(1, 1));
+                    }
                 }
-            }
-            if (waveNumber == 2) {
-                for (int i = 0; i < 8; i++) {
-                    enemies.add(new Enemy(1, 1));
+                if (waveNumber == 2) {
+                    for (int i = 0; i < 8; i++) {
+                        enemies.add(new Enemy(1, 1));
+                    }
                 }
+
+                if (waveNumber == 3) {
+                    for (int i = 0; i < 4; i++) {
+                        enemies.add(new Enemy(1, 1));
+                    }
+                    enemies.add(new Enemy(1, 2));
+                    enemies.add(new Enemy(1, 2));
+                }
+                if (waveNumber == 4) {
+                    enemies.add(new Enemy(1, 3));
+                    enemies.add(new Enemy(1, 4));
+                    for (int i = 0; i < 4; i++) {
+                        enemies.add(new Enemy(2, 1));
+                    }
+                }
+
+                if (waveNumber == 5) {
+                    enemies.add(new Enemy(1, 4));
+                    enemies.add(new Enemy(1, 3));
+                    enemies.add(new Enemy(2, 3));
+                }
+                if (waveNumber == 6) {
+                    enemies.add(new Enemy(1, 3));
+                    for (int i = 0; i < 4; i++) {
+                        enemies.add(new Enemy(2, 1));
+                        enemies.add(new Enemy(3, 1));
+                    }
+                }
+                if (waveNumber == 7) {
+                    enemies.add(new Enemy(1, 3));
+                    enemies.add(new Enemy(2, 3));
+                    enemies.add(new Enemy(3, 3));
+                }
+                if (waveNumber == 8) {
+                    enemies.add(new Enemy(1, 4));
+                    enemies.add(new Enemy(2, 4));
+                    enemies.add(new Enemy(3, 4));
+                }
+                if (waveNumber == 9) {
+                }
+
             }
 
-            if (waveNumber == 3) {
-                for (int i = 0; i < 4; i++) {
-                    enemies.add(new Enemy(1, 1));
-                }
-                enemies.add(new Enemy(1, 2));
-                enemies.add(new Enemy(1, 2));
-            }
-            if (waveNumber == 4) {
-                enemies.add(new Enemy(1, 3));
-                enemies.add(new Enemy(1, 4));
-                for (int i = 0; i < 4; i++) {
-                    enemies.add(new Enemy(2, 1));
-                }
-            }
+        //Restart
+        private void restart(){
+            //Objects and arrays
+            player = new Player();
+            bullets = new ArrayList<Bullet>();;
+            enemies = new ArrayList<Enemy>();;
+            powerups = new ArrayList<PowerUp>();;
+            explosions = new ArrayList<Explosion>();;
+            texts = new ArrayList<Text>();;
 
-            if (waveNumber == 5) {
-                enemies.add(new Enemy(1, 4));
-                enemies.add(new Enemy(1, 3));
-                enemies.add(new Enemy(2, 3));
-            }
-            if (waveNumber == 6) {
-                enemies.add(new Enemy(1, 3));
-                for (int i = 0; i < 4; i++) {
-                    enemies.add(new Enemy(2, 1));
-                    enemies.add(new Enemy(3, 1));
-                }
-            }
-            if (waveNumber == 7) {
-                enemies.add(new Enemy(1, 3));
-                enemies.add(new Enemy(2, 3));
-                enemies.add(new Enemy(3, 3));
-            }
-            if (waveNumber == 8) {
-                enemies.add(new Enemy(1, 4));
-                enemies.add(new Enemy(2, 4));
-                enemies.add(new Enemy(3, 4));
-            }
-            if (waveNumber == 9) {
-                gameOver();
-            }
+            //Pause and gamover
+            gameOver = false;
+            pause = false;
 
+            //Startverdier
+            waveStartTimer = 0;
+            waveStartTimerDiff = 0;
+            waveStart = true;
+            waveNumber = 0;
         }
 
-    //Restart
-    private void restart(){
-        //Objects and arrays
-        player = new Player();
-        bullets = new ArrayList<Bullet>();;
-        enemies = new ArrayList<Enemy>();;
-        powerups = new ArrayList<PowerUp>();;
-        explosions = new ArrayList<Explosion>();;
-        texts = new ArrayList<Text>();;
+        // GameOver
+        private void gameOver(){
+            player.kill();
+            System.out.println("Test gameover");
 
-        //Pause and gamover
-        gameOver = false;
-        pause = false;
+            //Background
+            g.setFill(Color.BLACK);
+            g.fillRect(0,0,canvas.getWidth(),canvas.getHeight());
 
-        //Startverdier
-        waveStartTimer = 0;
-        waveStartTimerDiff = 0;
-        waveStart = true;
-        waveNumber = 0;
-    }
+            //Gameover Text
+            g.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 22 ));
+            String s = "Y O U R    S C O R E :  " + player.getScore();
+            g.setFill(Color.WHITE);
+            g.fillText(s, canvas.getWidth() / 2 - textWidth(s), canvas.getHeight() / 2);
+            //Restart knapp
 
-    // GameOver
-    private void gameOver(){
-        System.out.println("Test gameover");
-
-        //Background
-        g.setFill(Color.BLACK);
-        g.fillRect(0,0,canvas.getWidth(),canvas.getHeight());
-
-        //Gameover Text
-        g.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 22 ));
-        String s = "Y O U R    S C O R E :  " + player.getScore();
-        g.setFill(Color.WHITE);
-        g.fillText(s, canvas.getWidth() / 2 - textWidth(s), canvas.getHeight() / 2);
-        //Restart knapp
-
-        //Stops the loop
-        gameOver = true;
-        gameLoop.stop();
+            //Stops the loop
+            gameOver = true;
+            gameLoop.stop();
 
 
-        System.out.println("Test gameover end");
-    }
+            System.out.println("Test gameover end");
+        }
+
+        // Victory
+        private void victory(){
+            System.out.println("Test victory");
+
+            //Background
+            g.setFill(Color.BLACK);
+            g.fillRect(0,0,canvas.getWidth(),canvas.getHeight());
+
+            //Gameover Text
+            g.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 25 ));
+            String s = "V I C T O R Y !  Y o u r  s c o r e : " + player.getScore();
+            g.setFill(Color.WHITE);
+            g.fillText(s, canvas.getWidth() / 2 - textWidth(s), canvas.getHeight() / 2);
+
+            //Restart knapp
+
+            //Stops the loop
+            gameOver = true;
+            gameLoop.stop();
+
+
+            System.out.println("Test vixtory end");
+        }
 
 
     //File handling

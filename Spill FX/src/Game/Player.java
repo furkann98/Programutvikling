@@ -94,6 +94,8 @@ public class Player {
     public void setUp(boolean b) {up = b;}
     public void setDown(boolean b) {down = b;}
 
+    public void kill(){lives = 0;}
+
     public void setFiring(boolean b){
         firing = b;
     }
