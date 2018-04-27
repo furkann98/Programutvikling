@@ -15,14 +15,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
-import java.io.PrintWriter;
+
+import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 //ubrukte
 import javafx.stage.Stage;
-import java.io.IOException;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
@@ -88,7 +88,7 @@ public class GamePanelController implements Initializable {
 
     //File handling
     private GameSave save = new GameSave();
-
+    private GameLoad load = new GameLoad();
 
     //Animation timer - Gameloop
     AnimationTimer gameLoop = new AnimationTimer() {
@@ -148,13 +148,37 @@ public class GamePanelController implements Initializable {
                 case R:
                     restart();
                     break;
-                case T:
+                case S:
                     try {
                         save.makeFile("test");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                     save.save(player, (int) waveNumber);
+                    break;
+                case L:
+                    try (BufferedReader reader = new BufferedReader(new FileReader(new File("/Users/furkan/Desktop/Github/Programutvikling/Spill FX/test")))) {
+                        int lives = 0;
+                        int score = 0;
+                        int wave = 0;
+                        int i = 0;
+                        String line;
+                        while ((line = reader.readLine()) != null){
+                            i++;
+                            if(i == 1){
+                                lives = Integer.parseInt(line);
+                            }
+                            if(i == 2){
+                                score = Integer.parseInt(line);
+                            }
+                            if(i == 3){
+                                wave = Integer.parseInt(line);
+                            }
+                        }
+                        load(lives,score,wave);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     break;
 
             }
@@ -604,6 +628,29 @@ public class GamePanelController implements Initializable {
             waveStartTimerDiff = 0;
             waveStart = true;
             waveNumber = 0;
+        }
+
+        public void load(int lives, int score, int wave){
+            //Objects and arrays
+            player = new Player();
+            bullets = new ArrayList<Bullet>();;
+            enemies = new ArrayList<Enemy>();;
+            powerups = new ArrayList<PowerUp>();;
+            explosions = new ArrayList<Explosion>();;
+            texts = new ArrayList<Text>();;
+
+            player.setLives(lives);
+            player.setScore(score);
+
+            //Pause and gamover
+            gameOver = false;
+            pause = false;
+
+            //Startverdier
+            waveStartTimer = 0;
+            waveStartTimerDiff = 0;
+            waveStart = true;
+            waveNumber = wave;
         }
 
         // GameOver

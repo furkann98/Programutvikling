@@ -1,10 +1,13 @@
 package Game;
 
 
+import Controller.GamePanelController;
 import com.sun.xml.internal.fastinfoset.util.StringArray;
 import javafx.stage.FileChooser;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,19 +20,11 @@ import java.util.List;
 
 
 public class GameLoad {
+
+
+
 /*
-    FileChooser chooser = new FileChooser();
 
-    FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Text files", "txt");
-        chooser.addChoosableFileFilter(filter);
-        chooser.addChoosableFileFilter(new GameLoad("Image files","jpg", "gif", "png"));
-    File returnVal = chooser.showOpenDialog(null);
-    if(returnVal == FileChooser.APPROVE_OPTION) {
-        System.out.println("You have chosen the file: " + chooser.getExtensionFilters().add(filter));
-    }
-
-
-*/
     public List<String> stringArray;
     public Path p;
     public List<String> list;
@@ -93,7 +88,7 @@ public class GameLoad {
 
     }
 
-
+*/
 
 
 }

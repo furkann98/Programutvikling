@@ -82,6 +82,7 @@ public class Player {
     public int getr() {return r;}
 
     public int getScore(){return score;}
+    public void setScore(int score){this.score = score;}
 
     public int getLives() {return lives;}
 
@@ -94,6 +95,7 @@ public class Player {
     public void setUp(boolean b) {up = b;}
     public void setDown(boolean b) {down = b;}
 
+    public void setLives(int lives){ this.lives = lives;}
     public void kill(){lives = 0;}
 
     public void setFiring(boolean b){
