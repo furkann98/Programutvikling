@@ -2,10 +2,11 @@
 
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
 <Pane fx:id="pane" stylesheets="/View/style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.GamePanelController">
    <children>
       <Canvas fx:id="canvas" focusTraversable="true" height="600.0" width="1000.0" />
-      <!--TextField fx:id="test" /-->
+      <VBox layoutX="321.0" layoutY="222.0" prefHeight="200.0" prefWidth="100.0" />
    </children>
 </Pane>

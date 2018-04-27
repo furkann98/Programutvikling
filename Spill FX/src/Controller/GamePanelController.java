@@ -97,7 +97,7 @@ public class GamePanelController implements Initializable {
             gameUpdate();      //Positioning
             gameRender();       //Image update
             if (player.isDead()) gameOver();
-            if (waveNumber == 2) victory();
+            if (waveNumber == 9) victory();
         }
     };
 
