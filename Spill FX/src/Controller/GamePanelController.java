@@ -11,6 +11,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
@@ -50,6 +51,7 @@ public class GamePanelController implements Initializable {
     //Node
     @FXML private Canvas canvas;
     @FXML private Pane pane;
+    @FXML private VBox pauseMenu;
 
 
     //Map Size
@@ -131,10 +133,16 @@ public class GamePanelController implements Initializable {
                     else if(pause == true) {
                         pause = false;
                         gameLoop.start();
+                        pauseMenu.setVisible(false);
+
+
                     } else {
                         pause = true;
+                        pauseMenu.setVisible(true);
                         gameLoop.stop();
+                        drawPause();
                     }
+
                     break;
                 case Q:
                     //gameOver();
@@ -200,6 +208,7 @@ public class GamePanelController implements Initializable {
 
 
         private void gameUpdate(){
+
             //new Waves
             if (waveStartTimer == 0 && enemies.size() == 0) {
                 waveNumber++;
@@ -213,6 +222,8 @@ public class GamePanelController implements Initializable {
                     waveStartTimerDiff = 0;
                 }
             }
+
+
 
             //Create enemies
             if (waveStart && enemies.size() == 0) {
@@ -657,4 +668,65 @@ public class GamePanelController implements Initializable {
 
     //File handling
 
+
+
+    public void restartBtn(javafx.event.ActionEvent event) throws IOException {
+
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/View/HowToPlay.fxml"));
+        Scene tableViewScene = new Scene(tableViewParent);
+
+        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
+        window.setScene(tableViewScene);
+        window.show();
+    }
+
+    public void saveBtn(javafx.event.ActionEvent event) throws IOException {
+
+        try {
+            save.makeFile("test");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        save.save(player, (int) waveNumber);
+
+    }
+
+    public void loadBtn(javafx.event.ActionEvent event) throws IOException {
+
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/View/HowToPlay.fxml"));
+        Scene tableViewScene = new Scene(tableViewParent);
+
+        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
+        window.setScene(tableViewScene);
+        window.show();
+    }
+
+    public void mainMenuBtn(javafx.event.ActionEvent event) throws IOException {
+        restart();
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/View/mainPage.fxml"));
+        Scene tableViewScene = new Scene(tableViewParent);
+
+        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
+        window.setScene(tableViewScene);
+        window.show();
+    }
+
+    public void drawPause(){
+
+
+        g.setGlobalAlpha(0.76);
+        g.setFill(Color.BLACK);
+        g.fillRect(0.0, 0.0,WIDTH,HEIGHT);
+
+        g.setGlobalAlpha(1);
+        g.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 25 ));
+        String s = "P A U S E";
+        g.setFill(Color.WHITE);
+        g.fillText(s, canvas.getWidth() / 2 - textWidth(s), canvas.getHeight() / 2);
+
+
+    }
 }
