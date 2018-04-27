@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 //ubrukte
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Button;
@@ -39,8 +40,7 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-
-
+import javafx.stage.Window;
 
 
 public class GamePanelController implements Initializable {
@@ -90,7 +90,7 @@ public class GamePanelController implements Initializable {
 
     //File handling
     private GameSave save = new GameSave();
-    private GameLoad load = new GameLoad();
+    private FileChooser filehandling = new FileChooser();
 
     //Animation timer - Gameloop
     AnimationTimer gameLoop = new AnimationTimer() {
@@ -111,20 +111,25 @@ public class GamePanelController implements Initializable {
         //Keylistener
         canvas.setOnKeyPressed(key -> {
             switch (key.getCode()) {
-                case UP:
+                case UP: case W:
                     player.setUp(true);
                     break;
-                case DOWN:
+                case DOWN: case S:
                     player.setDown(true);
                     break;
-                case LEFT:
+                case LEFT: case A:
                     player.setLeft(true);
                     break;
-                case RIGHT:
+                case RIGHT: case D:
                     player.setRight(true);
                     break;
                 case SPACE:
                     player.setFiring(true);
+                    break;
+                case B:
+                    if (player.getNuke()) {
+                        player.setNukeTrue();
+                    }
                     break;
                 case P:
                     if(gameOver == true){
@@ -144,70 +149,28 @@ public class GamePanelController implements Initializable {
                     }
 
                     break;
-                case Q:
-                    //gameOver();
-                    player.kill();
-                    break;
-                case B:
-                    if (player.getNuke()) {
-                        player.setNukeTrue();
-                    }
-                    break;
                 case R:
                     restart();
                     break;
-                case S:
-                    try {
-                        save.makeFile("test");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    save.save(player, (int) waveNumber);
-                    break;
-                case L:
-                    try (BufferedReader reader = new BufferedReader(new FileReader(new File("/Users/furkan/Desktop/Github/Programutvikling/Spill FX/test")))) {
-                        int lives = 0;
-                        int score = 0;
-                        int wave = 0;
-                        int power = 0;
-                        int i = 0;
-                        String line;
-                        while ((line = reader.readLine()) != null){
-                            i++;
-                            if(i == 1){
-                                lives = Integer.parseInt(line);
-                            }
-                            if(i == 2){
-                                score = Integer.parseInt(line);
-                            }
-                            if(i == 3){
-                                wave = Integer.parseInt(line);
-                            }
-                            if(i == 4){
-                                power = Integer.parseInt(line);
-                            }
-
-                        }
-                        load(lives,score,wave, power);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                case Q:
+                    player.kill();
                     break;
 
-            }
-        });
+                }
+            });
+
         canvas.setOnKeyReleased(key -> {
             switch (key.getCode()) {
-                case UP:
+                case UP: case W:
                     player.setUp(false);
                     break;
-                case DOWN:
+                case DOWN: case S:
                     player.setDown(false);
                     break;
-                case LEFT:
+                case LEFT: case A:
                     player.setLeft(false);
                     break;
-                case RIGHT:
+                case RIGHT: case D:
                     player.setRight(false);
                     break;
                 case SPACE:
@@ -714,7 +677,7 @@ public class GamePanelController implements Initializable {
             waveStartTimer = 0;
             waveStartTimerDiff = 0;
             waveStart = true;
-            waveNumber = wave;
+            waveNumber = wave - 1;
         }
 
 
@@ -748,7 +711,7 @@ public class GamePanelController implements Initializable {
         public void saveBtn(javafx.event.ActionEvent event) throws IOException {
 
             try {
-                save.makeFile("test");
+                save.makeFile(filehandling.showSaveDialog(null));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -758,7 +721,7 @@ public class GamePanelController implements Initializable {
 
         public void loadBtn(javafx.event.ActionEvent event) throws IOException {
 
-            try (BufferedReader reader = new BufferedReader(new FileReader(new File("test")))) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(new File(String.valueOf(filehandling.showOpenDialog(null)))))) {
                 int lives = 0;
                 int score = 0;
                 int wave = 0;

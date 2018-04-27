@@ -135,7 +135,7 @@ public class Player {
     public int getPowerLevel() { return powerLevel;}
     public int getPower() {return power;}
     public int getRequiredPower() {return requiredPower[powerLevel];}
-    public void setPower(int power){this.power = power;}
+    public void setPower(int power){powerLevel = power;}
 
     //Super power
     private boolean checkNuke = false;
