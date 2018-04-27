@@ -641,29 +641,6 @@ public class GamePanelController implements Initializable {
             waveNumber = 0;
         }
 
-        public void load(int lives, int score, int wave){
-            //Objects and arrays
-            player = new Player();
-            bullets = new ArrayList<Bullet>();;
-            enemies = new ArrayList<Enemy>();;
-            powerups = new ArrayList<PowerUp>();;
-            explosions = new ArrayList<Explosion>();;
-            texts = new ArrayList<Text>();;
-
-            player.setLives(lives);
-            player.setScore(score);
-
-            //Pause and gamover
-            gameOver = false;
-            pause = false;
-
-            //Startverdier
-            waveStartTimer = 0;
-            waveStartTimerDiff = 0;
-            waveStart = true;
-            waveNumber = wave;
-        }
-
         // GameOver
         private void gameOver(){
             player.kill();
@@ -713,67 +690,103 @@ public class GamePanelController implements Initializable {
         }
 
 
-    //File handling
+        //File handling
+        public void load(int lives, int score, int wave){
+            //Objects and arrays
+            player = new Player();
+            bullets = new ArrayList<Bullet>();;
+            enemies = new ArrayList<Enemy>();;
+            powerups = new ArrayList<PowerUp>();;
+            explosions = new ArrayList<Explosion>();;
+            texts = new ArrayList<Text>();;
 
+            player.setLives(lives);
+            player.setScore(score);
 
+            //Pause and gamover
+            gameOver = false;
+            pause = false;
 
-    public void restartBtn(javafx.event.ActionEvent event) throws IOException {
-
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/View/HowToPlay.fxml"));
-        Scene tableViewScene = new Scene(tableViewParent);
-
-        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-
-        window.setScene(tableViewScene);
-        window.show();
-    }
-
-    public void saveBtn(javafx.event.ActionEvent event) throws IOException {
-
-        try {
-            save.makeFile("test");
-        } catch (IOException e) {
-            e.printStackTrace();
+            //Startverdier
+            waveStartTimer = 0;
+            waveStartTimerDiff = 0;
+            waveStart = true;
+            waveNumber = wave;
         }
-        save.save(player, (int) waveNumber);
-
-    }
-
-    public void loadBtn(javafx.event.ActionEvent event) throws IOException {
-
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/View/HowToPlay.fxml"));
-        Scene tableViewScene = new Scene(tableViewParent);
-
-        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-
-        window.setScene(tableViewScene);
-        window.show();
-    }
-
-    public void mainMenuBtn(javafx.event.ActionEvent event) throws IOException {
-        restart();
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/View/mainPage.fxml"));
-        Scene tableViewScene = new Scene(tableViewParent);
-
-        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-
-        window.setScene(tableViewScene);
-        window.show();
-    }
-
-    public void drawPause(){
 
 
-        g.setGlobalAlpha(0.76);
-        g.setFill(Color.BLACK);
-        g.fillRect(0.0, 0.0,WIDTH,HEIGHT);
-
-        g.setGlobalAlpha(1);
-        g.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 25 ));
-        String s = "P A U S E";
-        g.setFill(Color.WHITE);
-        g.fillText(s, canvas.getWidth() / 2 - textWidth(s), canvas.getHeight() / 2);
+        //Draw pause
+        public void drawPause(){
 
 
-    }
+            g.setGlobalAlpha(0.76);
+            g.setFill(Color.BLACK);
+            g.fillRect(0.0, 0.0,WIDTH,HEIGHT);
+
+            g.setGlobalAlpha(1);
+            g.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 25 ));
+            String s = "P A U S E";
+            g.setFill(Color.WHITE);
+            g.fillText(s, canvas.getWidth() / 2 - textWidth(s), canvas.getHeight() / 2);
+
+
+        }
+
+        //Pause Buttons
+        public void continueBtn(javafx.event.ActionEvent event) throws IOException {
+            pause = false;
+        }
+        public void restartBtn(javafx.event.ActionEvent event) throws IOException {
+            restart();
+        }
+
+        public void saveBtn(javafx.event.ActionEvent event) throws IOException {
+
+            try {
+                save.makeFile("test");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            save.save(player, (int) waveNumber);
+
+        }
+
+        public void loadBtn(javafx.event.ActionEvent event) throws IOException {
+
+            try (BufferedReader reader = new BufferedReader(new FileReader(new File("test")))) {
+                int lives = 0;
+                int score = 0;
+                int wave = 0;
+                int i = 0;
+                String line;
+                while ((line = reader.readLine()) != null){
+                    i++;
+                    if(i == 1){
+                        lives = Integer.parseInt(line);
+                    }
+                    if(i == 2){
+                        score = Integer.parseInt(line);
+                    }
+                    if(i == 3){
+                        wave = Integer.parseInt(line);
+                    }
+                }
+                load(lives,score,wave);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        public void mainBtn(javafx.event.ActionEvent event) throws IOException {
+            restart();
+            Parent tableViewParent = FXMLLoader.load(getClass().getResource("/View/mainPage.fxml"));
+            Scene tableViewScene = new Scene(tableViewParent);
+
+            Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
+            window.setScene(tableViewScene);
+            window.show();
+        }
+
+
 }
