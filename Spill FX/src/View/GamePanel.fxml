@@ -8,13 +8,13 @@
 <Pane fx:id="pane" stylesheets="/View/style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.GamePanelController">
    <children>
       <Canvas fx:id="canvas" focusTraversable="true" height="600.0" width="1000.0" />
-      <VBox fx:id="pauseMenu" alignment="CENTER" layoutX="488.0" layoutY="353.0" prefHeight="154.0" prefWidth="100.0" visible="false">
+      <VBox fx:id="pauseMenu" alignment="CENTER" layoutX="375" layoutY="200.0" prefHeight="350" prefWidth="250.0" visible="false">
          <children>
-            <Button fx:id="Continue" mnemonicParsing="false" onAction="#continueBtn" text="Continue" />
-            <Button mnemonicParsing="false" onAction="#restartBtn" text="Restart" textAlignment="CENTER" />
-            <Button mnemonicParsing="false" onAction="#saveBtn" text="Save" textAlignment="CENTER" />
-            <Button mnemonicParsing="false" onAction="#loadBtn" text="Load" textAlignment="CENTER" />
-            <Button mnemonicParsing="false" onAction="#mainMenuBtn" text="Main Meny" textAlignment="CENTER" />
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#continueBtn" prefHeight="70" prefWidth="250" text="Continue" textAlignment="CENTER" />
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#restartBtn" prefHeight="70" prefWidth="250" text="Restart" textAlignment="CENTER" />
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#saveBtn" prefHeight="70" prefWidth="250" text="Save" textAlignment="CENTER" />
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#loadBtn" prefHeight="70" prefWidth="250" text="Load" textAlignment="CENTER" />
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#mainBtn" prefHeight="70" prefWidth="250" text="Main Meny" textAlignment="CENTER" />
          </children>
       </VBox>
    </children>

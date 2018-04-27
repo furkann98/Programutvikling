@@ -17,6 +17,7 @@ public class GameSave {
         String life = String.valueOf(player.getLives());
         String score = String.valueOf(player.getScore());
         String wave = String.valueOf(waveNumber);
+        String power = String.valueOf(player.getPower());
 
         System.out.println(life);
         System.out.println(score);
@@ -27,6 +28,8 @@ public class GameSave {
         saveFile.write(score);
         saveFile.write(LINE);
         saveFile.write(wave);
+        saveFile.write(LINE);
+        saveFile.write(power);
         saveFile.close();
     }
 

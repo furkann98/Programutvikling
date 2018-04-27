@@ -169,6 +169,7 @@ public class GamePanelController implements Initializable {
                         int lives = 0;
                         int score = 0;
                         int wave = 0;
+                        int power = 0;
                         int i = 0;
                         String line;
                         while ((line = reader.readLine()) != null){
@@ -182,8 +183,12 @@ public class GamePanelController implements Initializable {
                             if(i == 3){
                                 wave = Integer.parseInt(line);
                             }
+                            if(i == 4){
+                                power = Integer.parseInt(line);
+                            }
+
                         }
-                        load(lives,score,wave);
+                        load(lives,score,wave, power);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -531,14 +536,6 @@ public class GamePanelController implements Initializable {
                 g.fillRect( 60 + (20 * i) , 40, 12, 12);
             }
 
-            /*  //Draw nuke Ready
-            if( powerLevel == 4){
-                g.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 25 ));
-                String s = "- NUKE READY -";
-                g.setFill(Color.YELLOW);
-                g.fillText(s, GamePanelController.WIDTH / 3, GamePanelController.HEIGHT / 2.5);
-            }
-            */
             //Draw player score
             g.setFill(Color.WHITE);
             g.setFont(new Font("Century Gothic", 14));
@@ -552,6 +549,11 @@ public class GamePanelController implements Initializable {
                 g.fillRect(0,0,WIDTH,HEIGHT);
                 g.setGlobalAlpha(1);
                 g.fillRect(20, 80, (int) (100 - 100.0 * slowDownTimerDiff / slowDownLength), 8);
+            }
+
+            //pause
+            if(pause == false) {
+                pauseMenu.setVisible(false);
             }
 
         }
@@ -673,7 +675,7 @@ public class GamePanelController implements Initializable {
             g.setFill(Color.BLACK);
             g.fillRect(0,0,canvas.getWidth(),canvas.getHeight());
 
-            //Gameover Text
+            //Victory Text
             g.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 25 ));
             String s = "V I C T O R Y !  Y o u r  s c o r e : " + player.getScore();
             g.setFill(Color.WHITE);
@@ -691,7 +693,7 @@ public class GamePanelController implements Initializable {
 
 
         //File handling
-        public void load(int lives, int score, int wave){
+        public void load(int lives, int score, int wave, int power){
             //Objects and arrays
             player = new Player();
             bullets = new ArrayList<Bullet>();;
@@ -702,6 +704,7 @@ public class GamePanelController implements Initializable {
 
             player.setLives(lives);
             player.setScore(score);
+            player.setPower(power);
 
             //Pause and gamover
             gameOver = false;
@@ -724,10 +727,10 @@ public class GamePanelController implements Initializable {
             g.fillRect(0.0, 0.0,WIDTH,HEIGHT);
 
             g.setGlobalAlpha(1);
-            g.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 25 ));
+            g.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 40 ));
             String s = "P A U S E";
             g.setFill(Color.WHITE);
-            g.fillText(s, canvas.getWidth() / 2 - textWidth(s), canvas.getHeight() / 2);
+            g.fillText(s, canvas.getWidth() / 2 - textWidth(s)*2 + 10, canvas.getHeight() / 6);
 
 
         }
@@ -735,9 +738,11 @@ public class GamePanelController implements Initializable {
         //Pause Buttons
         public void continueBtn(javafx.event.ActionEvent event) throws IOException {
             pause = false;
+            gameLoop.start();
         }
         public void restartBtn(javafx.event.ActionEvent event) throws IOException {
             restart();
+            gameLoop.start();
         }
 
         public void saveBtn(javafx.event.ActionEvent event) throws IOException {
@@ -757,6 +762,7 @@ public class GamePanelController implements Initializable {
                 int lives = 0;
                 int score = 0;
                 int wave = 0;
+                int power = 0;
                 int i = 0;
                 String line;
                 while ((line = reader.readLine()) != null){
@@ -770,11 +776,16 @@ public class GamePanelController implements Initializable {
                     if(i == 3){
                         wave = Integer.parseInt(line);
                     }
+                    if(i == 4){
+                        power = Integer.parseInt(line);
+                    }
                 }
-                load(lives,score,wave);
+                load(lives,score,wave, power);
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            pause = false;
+            gameLoop.start();
         }
 
         public void mainBtn(javafx.event.ActionEvent event) throws IOException {
