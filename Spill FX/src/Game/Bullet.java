@@ -27,7 +27,7 @@ public class Bullet {
         r = 4;
 
         rad = Math.toRadians(angle);
-        speed = 4;
+        speed = 8;
         dx = Math.cos(angle) * speed;
         dy = Math.sin(angle) * speed;
 

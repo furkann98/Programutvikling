@@ -3,7 +3,6 @@ package Controller;
 
 import Game.*;
 import Game.GameSave;
-import View.*;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,15 +15,19 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
-
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.fxml.FXMLLoader;
 
 //ubrukte
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
+import View.*;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
@@ -32,14 +35,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
+
 import javafx.stage.Window;
 
 
@@ -50,7 +50,6 @@ public class GamePanelController implements Initializable {
 
     //Node
     @FXML private Canvas canvas;
-    @FXML private Pane pane;
     @FXML private VBox pauseMenu;
 
 
@@ -80,6 +79,12 @@ public class GamePanelController implements Initializable {
     private long slowDownTimer;
     private long slowDownTimerDiff;
     private int slowDownLength = 6000; // 6 sekunder
+
+    //Gun heat
+    private long gunHeatTimer;
+    private long gunHeatTimerDiff;
+    private long gunHeatTimerLength = 2000; // 2 sekunder
+    private double gunHeatLength = 0;
 
     //Pause and gamover
     private boolean gameOver = false;
@@ -304,11 +309,11 @@ public class GamePanelController implements Initializable {
                     double random = Math.random();
                     if (random < 0.030) {
                         powerups.add(new PowerUp(1, e.getx(), e.gety()));
-                    } else if (random < 1.130) {
+                    } else if (random < 0.130) {
                         powerups.add(new PowerUp(2, e.getx(), e.gety()));
-                    } else if (random < 1.180) {
+                    } else if (random < 0.180) {
                         powerups.add(new PowerUp(3, e.getx(), e.gety()));
-                    } else if (random < 1.200) {
+                    } else if (random < 0.200) {
                         powerups.add(new PowerUp(4, e.getx(), e.gety()));
                     }
 
@@ -322,12 +327,6 @@ public class GamePanelController implements Initializable {
                 }
             }
 
-            // Check dead Player - Funker ikke
-            /*if (player.isDead()) {
-                System.out.println("test - player dead");
-                gameLoop.stop();
-                gameOver();
-            }*/
 
             //Player Enemy-Collision
             if (!player.isRecovering()) {
@@ -400,6 +399,7 @@ public class GamePanelController implements Initializable {
             //SlowDown Update
             if (slowDownTimer != 0) {
                 slowDownTimerDiff = (System.nanoTime() - slowDownTimer) / 1000000;
+                System.out.println(slowDownTimerDiff);
                 if (slowDownTimerDiff > slowDownLength) {
                     slowDownTimer = 0;
                     for (int t = 0; t < enemies.size(); t++) {
@@ -407,6 +407,11 @@ public class GamePanelController implements Initializable {
                     }
                 }
 
+            }
+
+            //pause
+            if(pause == false) {
+                pauseMenu.setVisible(false);
             }
 
         }
@@ -514,10 +519,41 @@ public class GamePanelController implements Initializable {
                 g.fillRect(20, 80, (int) (100 - 100.0 * slowDownTimerDiff / slowDownLength), 8);
             }
 
-            //pause
-            if(pause == false) {
-                pauseMenu.setVisible(false);
+            /*
+
+            //Draw gun heat
+            if(gunHeatLength > 120){
+                g.setFill(Color.RED);
+                g.fillRect(20, 400, (int) (120), 8);
+                gunHeatTimer = System.nanoTime() / 1000000;
             }
+            else if(player.getFiring()){
+                if (gunHeatLength != 150){
+                    gunHeatLength = gunHeatLength + 0.5;
+                }
+                g.setFill(Color.WHITE);
+                g.fillRect(20, 400, (int) (gunHeatLength), 8);
+            }
+            else{
+                if(gunHeatLength > 0){ gunHeatLength -= 1; }
+                g.setFill(Color.WHITE);
+                g.fillRect(20, 400, (int) (gunHeatLength) , 8);
+            }
+
+
+
+            //GunHeat Update
+            if (gunHeatTimer != 0) {
+                gunHeatTimerDiff = (System.nanoTime() - gunHeatTimer) / 1000000;
+                System.out.println("Timer Diff: " + gunHeatTimer);
+                if (gunHeatTimerDiff > gunHeatTimerLength) {
+                    System.out.println("i mål");
+                    gunHeatTimer = 0;
+                    gunHeatLength -= 1;
+                }
+
+            }
+            */
 
         }
 

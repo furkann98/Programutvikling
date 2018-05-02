@@ -98,9 +98,8 @@ public class Player {
     public void setLives(int lives){ this.lives = lives;}
     public void kill(){lives = 0;}
 
-    public void setFiring(boolean b){
-        firing = b;
-    }
+    public void setFiring(boolean b){ firing = b; }
+    public boolean getFiring(){ return firing;}
 
     public void addScore(int i){ score += i;}
 
@@ -128,8 +127,6 @@ public class Player {
             power -= requiredPower[powerLevel];
             powerLevel++;
         }
-
-        System.out.println(powerLevel);
     }
 
     public int getPowerLevel() { return powerLevel;}

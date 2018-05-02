@@ -3,6 +3,7 @@ package Game;
 
 import Controller.GamePanelController;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 
@@ -33,6 +34,14 @@ public class Enemy {
 
     private boolean slow;
 
+    private int i = 0;
+
+    private Image img;
+    private Image asteroid1 = new Image("View/img/Asteroid.png");
+    private Image asteroid2 = new Image("View/img/Asteroid2.png");
+    private Image asteroid3 = new Image("View/img/Asteroid3.png");
+    //private Image asteroid1 = new Image("View/img/Asteroid.png");
+
 
     //CONSTRUCTOR
     public Enemy(int type, int rank){
@@ -42,8 +51,8 @@ public class Enemy {
 
         //DEFAULT ENEMY TYPE
         if(type == 1){
-            color1 = Color.RED;
-            //color1 = new Color(0,0,255,128);
+            color1 = Color.TRANSPARENT;
+            img = asteroid1;
             if(rank == 1){
                 speed = 1;
                 r = 7;
@@ -68,8 +77,8 @@ public class Enemy {
 
         //Stronger, faster default
         if(type == 2){
-            color1 = Color.RED.darker();
-            //color1 = new Color(255,0,0,128);
+            color1 = Color.TRANSPARENT;
+            img = asteroid3;
             if (rank == 1) {
                 speed = 3;
                 r = 5;
@@ -93,8 +102,8 @@ public class Enemy {
         }
         //Slow, but hard to kill enemy
         if(type == 3){
-            color1 = Color.RED;
-            //color1 = new Color(0,255,0,128);
+            color1 = Color.TRANSPARENT;
+            img = asteroid2;
 
             if(rank == 1){
                 speed = 1.5;
@@ -141,6 +150,9 @@ public class Enemy {
 
         hit = false;
         hitTimer = 0;
+
+        r= r*2;
+        speed = speed * 0.6;
 
     }
 
@@ -247,25 +259,12 @@ public class Enemy {
             g.setFill(color1.darker());
             g.fillOval(x-r,y-r, 2 * r,2 * r);
 
-/*
-            g.fillOval(x-r,y-r, 2 * r,2 * r);
-            g.setFill(color1.darker());
-            g.setStroke(color1.darker());
-            g.setLineWidth(2);
-            g.stroke();
-
-*/
 
 
         }else{
             g.setFill(color1);
             g.fillOval(x-r,y-r, 2 * r,2 * r);
-
-/*
-            g.setStroke(color1);
-            g.setLineWidth(2);
-            g.stroke();
-*/
+            g.drawImage(img, x-r,y-r, 2 * r,2 * r);
         }
 
     }
