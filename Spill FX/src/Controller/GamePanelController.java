@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -52,6 +53,9 @@ public class GamePanelController implements Initializable {
     @FXML private Canvas canvas;
     @FXML private Pane pane;
     @FXML private VBox pauseMenu;
+    @FXML private HBox gameOverMenu;
+    @FXML private HBox victoryMenu;
+
 
 
     //Map Size
@@ -598,6 +602,8 @@ public class GamePanelController implements Initializable {
             //Pause and gamover
             gameOver = false;
             pause = false;
+            gameOverMenu.setVisible(false);
+            victoryMenu.setVisible(false);
 
             //Startverdier
             waveStartTimer = 0;
@@ -616,16 +622,22 @@ public class GamePanelController implements Initializable {
             g.fillRect(0,0,canvas.getWidth(),canvas.getHeight());
 
             //Gameover Text
-            g.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 22 ));
-            String s = "Y O U R    S C O R E :  " + player.getScore();
             g.setFill(Color.WHITE);
-            g.fillText(s, canvas.getWidth() / 2 - textWidth(s), canvas.getHeight() / 2);
+            g.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 30 ));
+            String s = "G A M E  O V E R ";
+            g.fillText(s, canvas.getWidth() / 2 - textWidth(s), canvas.getHeight() / 3 );
+            g.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 22 ));
+            String s1 = "Y O U R    S C O R E :  " + player.getScore();
+            g.fillText(s1, canvas.getWidth() / 2 - textWidth(s), canvas.getHeight() / 2);
+
             //Restart knapp
 
             //Stops the loop
             gameOver = true;
             gameLoop.stop();
 
+
+            gameOverMenu.setVisible(true);
 
             System.out.println("Test gameover end");
         }
@@ -652,6 +664,7 @@ public class GamePanelController implements Initializable {
 
 
             System.out.println("Test vixtory end");
+            victoryMenu.setVisible(true);
         }
 
 
