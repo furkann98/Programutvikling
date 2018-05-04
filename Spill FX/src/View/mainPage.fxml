@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -34,5 +35,11 @@
                </VBox.margin></Button>
          </children>
       </VBox>
+      <Region fx:id="picMainTitle" layoutX="137.0" layoutY="121.0" prefHeight="124.0" prefWidth="726.0" />
+      <Region fx:id="picShip" layoutX="175.0" layoutY="344.0" prefHeight="153.0" prefWidth="150.0" />
+      <Region fx:id="picMainPageAsteroid" layoutX="863.0" layoutY="343.0" prefHeight="85.0" prefWidth="80.0" />
+      <Region fx:id="picMainPageAsteroid" layoutX="741.0" layoutY="258.0" prefHeight="85.0" prefWidth="80.0" />
+      <Region fx:id="picMainPageAsteroid" layoutX="730.0" layoutY="399.0" prefHeight="85.0" prefWidth="80.0" />
+      <Region fx:id="picMainPageAsteroid" layoutX="863.0" layoutY="466.0" prefHeight="85.0" prefWidth="80.0" />
    </children>
 </AnchorPane>

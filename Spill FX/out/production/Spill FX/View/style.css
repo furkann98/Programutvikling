@@ -1,24 +1,49 @@
 
 
 #bgMainPage{
-    -fx-background-image: url("/View/img/fut1.jpg");
-    -fx-background-size: 100% 100%;
+    -fx-background-image: url("/View/img/spaceBkg.png");
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+}
+
+#picMainTitle{
+    -fx-background-image: url("/View/img/PEW-PEW.png");
+    -fx-background-size: 95%;
+    -fx-background-repeat: no-repeat;
+}
+
+#picMainPageAsteroid{
+    -fx-background-image: url("/View/img/Asteroid.png");
+    -fx-background-size: 95%;
+    -fx-background-repeat: no-repeat;
 }
 
 #bgHowToPlay{
-    -fx-background-image: url("/View/img/fut2.jpg");
+    -fx-background-image: url("/View/img/spaceBkg.png");
     -fx-background-size: 100% 100%;
 }
 
 
 #PicKeys{
-    -fx-background-image: url("/View/img/keys.png");
-    -fx-background-size: 100% 100%;
+    -fx-background-image: url("/View/img/keys2.png");
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+
 }
 
 #PicSpace{
         -fx-background-image: url("/View/img/space.png");
-        -fx-background-size: 100%;
+        -fx-background-size: 75% 75%;
+        -fx-background-repeat: no-repeat;
+        -fx-background-position: 50%;
+
+}
+
+#picShip{
+    -fx-background-image: url("/View/img/spaceShip.png");
+    -fx-background-size: 99% 105%  ;
+    -fx-background-repeat: no-repeat;
+
 }
 
 #pane{
@@ -26,3 +51,35 @@
     -fx-background-size: cover;
 }
 
+
+#picHeart{
+    -fx-background-image: url("/View/img/Heart.png");
+    -fx-background-size: 67% ;
+    -fx-background-repeat: no-repeat;
+    -fx-alignment: center ;
+
+}
+
+#picPower1{
+    -fx-background-image: url("/View/img/Heart.png");
+    -fx-background-size: 67%;
+    -fx-background-repeat: no-repeat;
+    -fx-alignment: center ;
+
+}
+
+#picPower2{
+    -fx-background-image: url("/View/img/Heart.png");
+    -fx-background-size: 67%;
+    -fx-background-repeat: no-repeat;
+    -fx-alignment: center ;
+
+}
+
+#picSlowtime{
+    -fx-background-image: url("/View/img/slowtime.png");
+    -fx-background-size: 67%;
+    -fx-background-repeat: no-repeat;
+    -fx-alignment: center ;
+
+}

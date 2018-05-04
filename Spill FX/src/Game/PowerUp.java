@@ -2,6 +2,7 @@ package Game;
 
 import Controller.GamePanelController;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 
@@ -21,6 +22,12 @@ public class PowerUp {
 
     private Color color1;
 
+    private Image img;
+    private Image powerup1 = new Image("View/img/Heart.png");
+    private Image powerup2 = new Image("View/img/Asteroid2.png");
+    private Image powerup3 = new Image("View/img/Asteroid3.png");
+    private Image powerup4 = new Image("View/img/slowtime.png");
+
 
     //Constructor
     public PowerUp(int type, double x, double y){
@@ -29,6 +36,7 @@ public class PowerUp {
         this.y = y;
 
         if(type == 1){
+            img = powerup1;
             color1 = Color.GREEN;
             r = 3;
         }
@@ -42,6 +50,7 @@ public class PowerUp {
             r = 5;
         }
         if(type == 4){
+            img = powerup4;
             color1 = Color.BLUE;
             r = 3;
         }
@@ -77,11 +86,18 @@ public class PowerUp {
     public void draw(GraphicsContext g){
 
         g.setFill(color1);
-        g.fillRect((int)(x-r),(int) (y-r), 2*r, 2*r);
+        if (type == 4){
+            g.fillRect((int)(x-r),(int) (y-r), 4*r, 4*r);
+            g.drawImage(img, x-1.4*r, y-1.4*r,5*r, 5*r);
+        } else{
+            g.fillOval((int)(x-r),(int) (y-r), 4*r, 4*r);
+            g.drawImage(img, x-1.5*r, y-1.5*r,5*r, 5*r);
+        }
 
-        g.setStroke(color1.darker());
-        g.setLineWidth(2);
-        g.stroke();
+
+        //g.setStroke(color1.darker());
+       // g.setLineWidth(2);
+       // g.stroke();
 
 
 

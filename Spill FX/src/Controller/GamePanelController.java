@@ -313,11 +313,11 @@ public class GamePanelController implements Initializable {
                     double random = Math.random();
                     if (random < 0.030) {
                         powerups.add(new PowerUp(1, e.getx(), e.gety()));
-                    } else if (random < 0.130) {
+                    } else if (random < 0.100) {
                         powerups.add(new PowerUp(2, e.getx(), e.gety()));
-                    } else if (random < 0.180) {
+                    } else if (random < 0.110) {
                         powerups.add(new PowerUp(3, e.getx(), e.gety()));
-                    } else if (random < 0.200) {
+                    } else if (random <0.030 ){
                         powerups.add(new PowerUp(4, e.getx(), e.gety()));
                     }
 
