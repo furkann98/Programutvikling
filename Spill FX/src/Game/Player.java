@@ -66,7 +66,7 @@ public class Player {
 
         firing = false;
         firingTimer = System.nanoTime(); //Current time
-        firingDelay = 120;  //Shots per second
+        firingDelay = 200;  //Shots per second
 
         recovering = false;
         recoveryTimer =0;

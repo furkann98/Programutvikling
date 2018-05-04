@@ -95,12 +95,6 @@ public class PowerUp {
         }
 
 
-        //g.setStroke(color1.darker());
-       // g.setLineWidth(2);
-       // g.stroke();
-
-
-
     }
 
 

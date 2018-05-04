@@ -19,9 +19,6 @@ public class HowToPlayController implements Initializable {
 
     }
 
-
-    ////OBSOBS MÅ OGSÅ LAGE EN PLAY-BUTTON
-
     public void buttonBack(javafx.event.ActionEvent event) throws IOException {
 
         Parent tableViewParent = FXMLLoader.load(getClass().getResource("/View/mainPage.fxml"));

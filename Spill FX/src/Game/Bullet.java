@@ -2,7 +2,11 @@ package Game;
 
 import Controller.GamePanelController;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+
+import java.io.File;
 
 
 public class Bullet {
@@ -18,6 +22,11 @@ public class Bullet {
     private double speed;
 
     private Color color1;
+
+    private String musicFile = "src/View/sound/pew.mp3";     // For example
+    Media sound = new Media(new File(musicFile).toURI().toString());
+    MediaPlayer mediaPlayer = new MediaPlayer(sound);
+
 
     //KONSTRUKTØR
 
@@ -55,6 +64,7 @@ public class Bullet {
     public void draw(GraphicsContext g){
         g.setFill(color1);
         g.fillOval((int)(x-r), (int)(y-r), 2*r, 2*r );
+        mediaPlayer.play();
     }
 
 
