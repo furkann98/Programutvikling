@@ -23,9 +23,9 @@ public class Bullet {
 
     private Color color1;
 
-    private String musicFile = "src/View/sound/pew.mp3";     // For example
-    Media sound = new Media(new File(musicFile).toURI().toString());
-    MediaPlayer mediaPlayer = new MediaPlayer(sound);
+    private String musicFile = "src/View/sound/pew2.mp3";     // For example
+    private Media sound = new Media(new File(musicFile).toURI().toString());
+    private MediaPlayer mediaPlayer = new MediaPlayer(sound);
 
 
     //KONSTRUKTØR

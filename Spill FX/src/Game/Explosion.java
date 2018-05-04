@@ -2,7 +2,11 @@ package Game;
 
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+
+import java.io.File;
 
 public class Explosion {
 
@@ -11,6 +15,10 @@ public class Explosion {
     private double y;
     private int r;
     private int maxRadius;
+
+    private String musicFile = "src/View/sound/gameover?.wav";     // For example
+    private Media sound = new Media(new File(musicFile).toURI().toString());
+    private MediaPlayer mediaPlayer = new MediaPlayer(sound);
 
     //CONSTRUCTOR
 
@@ -35,6 +43,8 @@ public class Explosion {
         g.setGlobalAlpha(0.4);
         g.strokeOval((int) (x-r), (int)(y-r), 2*r, 2*r);
         g.setGlobalAlpha(1);
+
+        mediaPlayer.play();
 
 
     }
