@@ -12,6 +12,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
@@ -100,6 +102,12 @@ public class GamePanelController implements Initializable {
     //File handling
     private GameSave save = new GameSave();
     private FileChooser filehandling = new FileChooser();
+
+    //Sound Effect
+
+    private String gameoverFile = "src/View/sound/gameover?.wav";
+    private Media gameoverSound = new Media(new File(gameoverFile).toURI().toString());
+    private MediaPlayer gameoverPlayer = new MediaPlayer(gameoverSound);
 
     //Animation timer - Gameloop
     AnimationTimer gameLoop = new AnimationTimer() {
@@ -650,8 +658,7 @@ public class GamePanelController implements Initializable {
 
         // GameOver
         private void gameOver(){
-            player.kill();
-            System.out.println("Test gameover");
+            //player.kill();
 
             //Background
             g.setFill(Color.BLACK);
@@ -666,7 +673,8 @@ public class GamePanelController implements Initializable {
             String s1 = "Y O U R    S C O R E :  " + player.getScore();
             g.fillText(s1, canvas.getWidth() / 2 - textWidth(s), canvas.getHeight() / 2);
 
-            //Restart knapp
+            //Sound
+            gameoverPlayer.play();
 
             //Stops the loop
             gameOver = true;
@@ -674,8 +682,6 @@ public class GamePanelController implements Initializable {
 
 
             gameOverMenu.setVisible(true);
-
-            System.out.println("Test gameover end");
         }
 
         // Victory
