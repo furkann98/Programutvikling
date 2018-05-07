@@ -21,7 +21,7 @@
       <HBox fx:id="gameOverMenu" layoutX="375" layoutY="340.0" prefHeight="150.0" prefWidth="250.0" visible="false">
          <children>
              <Button defaultButton="true" mnemonicParsing="false" onAction="#restartBtn" prefHeight="70" prefWidth="250" text="Restart" textAlignment="CENTER" />
-             <Button defaultButton="true" mnemonicParsing="false" onAction="#mainBtn" prefHeight="70" prefWidth="250" text="Main Meny" textAlignment="CENTER" />
+             <Button defaultButton="true" mnemonicParsing="false" onAction="#mainBtn" prefHeight="70" prefWidth="250" text="Main Menu" textAlignment="CENTER" />
          </children>
       </HBox>
       <HBox fx:id="victoryMenu" layoutX="375" layoutY="340.0" prefHeight="150.0" prefWidth="250.0" visible="false">

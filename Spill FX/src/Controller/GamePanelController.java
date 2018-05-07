@@ -112,19 +112,6 @@ public class GamePanelController implements Initializable {
     AudioClip shootSound = new AudioClip(getClass().getResource("../View/sound/pew2.mp3").toString());
     AudioClip explosionSound = new AudioClip(getClass().getResource("../View/sound/explosion.mp3").toString());
 
-
-    //Animation timer - Gameloop
-    AnimationTimer gameLoop = new AnimationTimer() {
-        @Override
-        public void handle(long now) {
-            gameUpdate();      //Positioning
-            gameRender();       //Image update
-            if (player.isDead()) gameOver();
-            if (waveNumber == 9) victory();
-        }
-    };
-
-
     //New thread for sound
     Thread soundThread = new Thread(new Runnable() {
         @Override
@@ -138,6 +125,8 @@ public class GamePanelController implements Initializable {
                         shootSound.play();
                         player.setFiringSound(false);
                     }
+                    if (player.isDead()) gameoverSound.play();
+                    
 
 
                 }
@@ -158,7 +147,20 @@ public class GamePanelController implements Initializable {
             t.play();
             */
         }
+
     });
+
+
+        //Animation timer - Gameloop
+        AnimationTimer gameLoop = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                gameUpdate();      //Positioning
+                gameRender();       //Image update
+                if (player.isDead()) gameOver();
+                if (waveNumber == 9) victory();
+            }
+        };
 
 
     @Override
