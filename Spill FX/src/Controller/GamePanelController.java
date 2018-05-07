@@ -106,11 +106,17 @@ public class GamePanelController implements Initializable {
     private GameSave save = new GameSave();
     private FileChooser filehandling = new FileChooser();
 
+    //power-up collision
+    private boolean powerUpCollect = false;
+    //public boolean getPowerUpSound(){ return powerUpSound;}
+    //public void setPowerUpSound(boolean b){ powerUpSound = b;}
+
     //Sound files
     AudioClip gameoverSound = new AudioClip(getClass().getResource("../View/sound/gameover.mp3").toString());
     AudioClip powerUpSound = new AudioClip(getClass().getResource("../View/sound/power.mp3").toString());
-    AudioClip shootSound = new AudioClip(getClass().getResource("../View/sound/pew2.mp3").toString());
+    AudioClip shootSound = new AudioClip(getClass().getResource("../View/sound/pew.mp3").toString());
     AudioClip explosionSound = new AudioClip(getClass().getResource("../View/sound/explosion.mp3").toString());
+
 
     //New thread for sound
     Thread soundThread = new Thread(new Runnable() {
@@ -125,9 +131,14 @@ public class GamePanelController implements Initializable {
                         shootSound.play();
                         player.setFiringSound(false);
                     }
-                    if (player.isDead()) gameoverSound.play();
-                    
-
+                    if (player.gameoverSound()){
+                        gameoverSound.play();
+                        player.setGameoverSound(false);
+                    }
+                    if(powerUpCollect){
+                        powerUpSound.play();
+                        powerUpCollect = false;
+                    }
 
                 }
             };
@@ -157,8 +168,12 @@ public class GamePanelController implements Initializable {
             public void handle(long now) {
                 gameUpdate();      //Positioning
                 gameRender();       //Image update
-                if (player.isDead()) gameOver();
+                if (player.isDead()){
+                    player.setGameoverSound(true);
+                    gameOver();
+                }
                 if (waveNumber == 9) victory();
+                if (waveNumber == 11) victoryBonus();
             }
         };
 
@@ -209,8 +224,6 @@ public class GamePanelController implements Initializable {
                     player.kill();
                     break;
                 case T:
-                    System.out.println("tester 2: " + pause);
-                    System.out.println("test");
                 }
             });
 
@@ -243,7 +256,7 @@ public class GamePanelController implements Initializable {
         waveStartTimer = 0;
         waveStartTimerDiff = 0;
         waveStart = true;
-        waveNumber = 0;
+        waveNumber = 9;
 
         //Starts gameloop
         gameLoop.start();
@@ -360,16 +373,27 @@ public class GamePanelController implements Initializable {
 
                     // POWER UP - Sannsynlighet
                     double random = Math.random();
-                    if (random < 0.030) {
-                        powerups.add(new PowerUp(1, e.getx(), e.gety()));
-                    } else if (random < 0.100) {
-                        powerups.add(new PowerUp(2, e.getx(), e.gety()));
-                    } else if (random < 0.110) {
-                        powerups.add(new PowerUp(3, e.getx(), e.gety()));
-                    } else if (random <0.030 ){
-                        powerups.add(new PowerUp(4, e.getx(), e.gety()));
+                    if (waveNumber > 5 ){
+                        if (random < 0.030) {
+                            powerups.add(new PowerUp(1, e.getx(), e.gety()));
+                        } else if (random < 0.100) {
+                            powerups.add(new PowerUp(2, e.getx(), e.gety()));
+                        } else if (random < 0.130) {
+                            powerups.add(new PowerUp(3, e.getx(), e.gety()));
+                        } else if (random <0.145 ){
+                            powerups.add(new PowerUp(4, e.getx(), e.gety()));
+                        }
+                    }else{
+                        if (random < 0.030) {
+                            powerups.add(new PowerUp(1, e.getx(), e.gety()));
+                        } else if (random < 0.150) {
+                            powerups.add(new PowerUp(2, e.getx(), e.gety()));
+                        } else if (random < 0.200) {
+                            powerups.add(new PowerUp(3, e.getx(), e.gety()));
+                        } else if (random <0.230 ){
+                            powerups.add(new PowerUp(4, e.getx(), e.gety()));
+                        }
                     }
-
 
                     player.addScore(e.getType() + e.getRank());
                     enemies.remove(i);
@@ -442,6 +466,7 @@ public class GamePanelController implements Initializable {
                         texts.add(new Text(player.getx(), player.gety(), 2000, "Slow Down"));
                     }
 
+                    powerUpCollect = true;
                     powerups.remove(i);
                     i--;
 
@@ -453,7 +478,6 @@ public class GamePanelController implements Initializable {
             //SlowDown Update
             if (slowDownTimer != 0) {
                 slowDownTimerDiff = (System.nanoTime() - slowDownTimer) / 1000000;
-                System.out.println(slowDownTimerDiff);
                 if (slowDownTimerDiff > slowDownLength) {
                     slowDownTimer = 0;
                     for (int t = 0; t < enemies.size(); t++) {
@@ -636,6 +660,22 @@ public class GamePanelController implements Initializable {
                 }
                 if (waveNumber == 9) {
                 }
+                if(waveNumber == 10){
+                    enemies.add(new Enemy(1, 3));
+                    for (int i = 0; i < 15; i++) {
+                        enemies.add(new Enemy(1, 1));
+                    }
+                    for (int i = 0; i < 8; i++) {
+                        enemies.add(new Enemy(2, 1));
+                        enemies.add(new Enemy(3, 1));
+                    }
+                    enemies.add(new Enemy(1, 4));
+                    enemies.add(new Enemy(2, 4));
+                    enemies.add(new Enemy(3, 4));
+                    enemies.add(new Enemy(1, 3));
+                    enemies.add(new Enemy(2, 3));
+                    enemies.add(new Enemy(3, 3));
+                }
 
             }
 
@@ -674,10 +714,10 @@ public class GamePanelController implements Initializable {
             g.setFill(Color.WHITE);
             g.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 30 ));
             String s = "G A M E  O V E R ";
-            g.fillText(s, canvas.getWidth() / 2 - textWidth(s), canvas.getHeight() / 3 );
+            g.fillText(s, canvas.getWidth() / 2 - textWidth(s) - 30, canvas.getHeight() / 3 );
             g.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 22 ));
             String s1 = "Y O U R    S C O R E :  " + player.getScore();
-            g.fillText(s1, canvas.getWidth() / 2 - textWidth(s), canvas.getHeight() / 2);
+            g.fillText(s1, canvas.getWidth() / 2 - textWidth(s) - 30, canvas.getHeight() / 2);
 
             //Stops the loop
             gameOver = true;
@@ -690,7 +730,6 @@ public class GamePanelController implements Initializable {
 
         // Victory
         private void victory(){
-            System.out.println("Test victory");
 
             //Background
             g.setFill(Color.BLACK);
@@ -707,9 +746,30 @@ public class GamePanelController implements Initializable {
             gameLoop.stop();
 
 
-            System.out.println("Test vixtory end");
             victoryMenu.setVisible(true);
         }
+
+        // Victory Bonus
+        private void victoryBonus(){
+
+            //Background
+            g.setFill(Color.BLACK);
+            g.fillRect(0,0,canvas.getWidth(),canvas.getHeight());
+
+            //Victory Text
+            g.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 25 ));
+            String s = "CONGRATULATIONS!! You completed the bonus wave!";
+            g.setFill(Color.WHITE);
+            g.fillText(s, canvas.getWidth() / 2 - textWidth(s), canvas.getHeight() / 2);
+
+            //Stops the loop
+            gameOver = true;
+            gameLoop.stop();
+
+
+            victoryMenu.setVisible(true);
+        }
+
 
 
         //File handling

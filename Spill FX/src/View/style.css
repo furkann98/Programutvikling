@@ -48,7 +48,10 @@
 
 #pane{
     -fx-background-image: url("img/bckg-space2.jpg");
-    -fx-background-size: cover;
+    -fx-background-repeat: stretch;
+    -fx-background-size: 1000 600;
+    -fx-background-position: left top;
+
 }
 
 

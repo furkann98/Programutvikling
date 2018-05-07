@@ -41,12 +41,13 @@ public class Player {
     private boolean recovering;
     private long recoveryTimer;
 
-    private int lives;
+    private int lives = 5;
+    private boolean gamoverSound = false;
     private Color color;
 
     private int score;
 
-    private int powerLevel;
+    private int powerLevel = 4;
     private int power;
     private int[] requiredPower = {1, 2, 3, 4, 5};
 
@@ -92,7 +93,12 @@ public class Player {
 
     public int getLives() {return lives;}
 
-    public boolean isDead(){return lives <= 0;}
+    public boolean isDead(){
+
+        return lives <= 0;
+    }
+    public boolean gameoverSound(){ return gamoverSound; }
+    public void setGameoverSound(boolean b){ gamoverSound = b;}
     public boolean isRecovering(){ return recovering;}
 
     public void setLeft(boolean b) {left = b;}

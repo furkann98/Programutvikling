@@ -29,12 +29,7 @@ public class PowerUp {
     private Image powerup1 = new Image("View/img/Heart.png");
     private Image powerup4 = new Image("View/img/slowtime.png");
 
-/*
 
-    private String powerUpFile = "src/View/sound/power.mp3";
-    private Media powerUpSound = new Media(new File(powerUpFile).toURI().toString());
-    private MediaPlayer powerUpPlayer = new MediaPlayer(powerUpSound);
-*/
     //Constructor
     public PowerUp(int type, double x, double y){
         this.type = type;
@@ -43,7 +38,7 @@ public class PowerUp {
 
         if(type == 1){
             img = powerup1;
-            color1 = Color.GREEN;
+            color1 = Color.TRANSPARENT;
             r = 3;
         }
 
@@ -57,7 +52,7 @@ public class PowerUp {
         }
         if(type == 4){
             img = powerup4;
-            color1 = Color.BLUE;
+            color1 = Color.TRANSPARENT;
             r = 3;
         }
 
