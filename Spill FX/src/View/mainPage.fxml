@@ -17,22 +17,34 @@
       </Text>
       <VBox alignment="CENTER" layoutX="250" layoutY="300.0" prefHeight="300" prefWidth="500">
          <children>
-            <Button mnemonicParsing="false" onAction="#buttonPlay" prefHeight="27.0" prefWidth="118.0" text="Play">
+            <Button mnemonicParsing="false" onAction="#buttonPlay" prefHeight="60.0" prefWidth="200.0" text="Play">
                <VBox.margin>
                   <Insets />
-               </VBox.margin></Button>
-            <Button mnemonicParsing="false" onAction="#buttonHowToPlay" prefHeight="27.0" prefWidth="117.0" text="How to Play">
+               </VBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font></Button>
+            <Button mnemonicParsing="false" onAction="#buttonHowToPlay" prefHeight="60.0" prefWidth="200.0" text="How to Play">
                <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin></Button>
-            <Button mnemonicParsing="false" onAction="#buttonLoad" prefHeight="27.0" prefWidth="112.0" text="Load">
+                  <Insets top="15.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font></Button>
+            <Button mnemonicParsing="false" onAction="#buttonLoad" prefHeight="60.0" prefWidth="200.0" text="Load">
                <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin></Button>
-            <Button mnemonicParsing="false" onAction="#buttonHighscores" prefHeight="27.0" prefWidth="132.0" text="Highscores">
+                  <Insets top="15.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font></Button>
+            <Button mnemonicParsing="false" onAction="#buttonHighscores" prefHeight="60.0" prefWidth="200.0" text="Highscores">
                <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin></Button>
+                  <Insets top="15.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font></Button>
          </children>
       </VBox>
       <Region fx:id="picMainTitle" layoutX="137.0" layoutY="121.0" prefHeight="124.0" prefWidth="726.0" />
