@@ -3,8 +3,11 @@ package Game;
 import Controller.GamePanelController;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 
+import java.io.File;
 
 
 public class PowerUp {
@@ -24,11 +27,14 @@ public class PowerUp {
 
     private Image img;
     private Image powerup1 = new Image("View/img/Heart.png");
-    private Image powerup2 = new Image("View/img/Asteroid2.png");
-    private Image powerup3 = new Image("View/img/Asteroid3.png");
     private Image powerup4 = new Image("View/img/slowtime.png");
 
+/*
 
+    private String powerUpFile = "src/View/sound/power.mp3";
+    private Media powerUpSound = new Media(new File(powerUpFile).toURI().toString());
+    private MediaPlayer powerUpPlayer = new MediaPlayer(powerUpSound);
+*/
     //Constructor
     public PowerUp(int type, double x, double y){
         this.type = type;
@@ -67,7 +73,10 @@ public class PowerUp {
     public double gety(){ return y; }
     public double getr(){ return r; }
 
-    public int getType(){return type;}
+    public int getType(){
+        //powerUpPlayer.play();
+        return type;
+    }
 
     public boolean update(){
 

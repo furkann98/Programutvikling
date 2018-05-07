@@ -5,11 +5,15 @@ package Game;
 import Controller.GamePanelController;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
+
+import java.io.File;
 
 public class Player {
     //DATAFELT
@@ -32,6 +36,7 @@ public class Player {
     private boolean firing;
     private long firingTimer;
     private long firingDelay;
+    private boolean firingSound = false;
 
     private boolean recovering;
     private long recoveryTimer;
@@ -50,6 +55,7 @@ public class Player {
 
 
 
+
     //KONSTRUKTØR
     public Player(){
         x = GamePanelController.WIDTH / 2;
@@ -58,7 +64,7 @@ public class Player {
 
         dx = 0;
         dy = 0;
-        speed = 4;
+        speed = 6;
 
         lives = 3;
 
@@ -86,7 +92,6 @@ public class Player {
 
     public int getLives() {return lives;}
 
-
     public boolean isDead(){return lives <= 0;}
     public boolean isRecovering(){ return recovering;}
 
@@ -100,6 +105,10 @@ public class Player {
 
     public void setFiring(boolean b){ firing = b; }
     public boolean getFiring(){ return firing;}
+
+    public void setFiringSound(boolean b){ firingSound = b; }
+    public boolean getFiringSound(){ return firingSound;}
+
 
     public void addScore(int i){ score += i;}
 
@@ -187,7 +196,11 @@ public class Player {
 
                 }
 
+                setFiringSound(true);
+
             }
+
+
         }
 
 

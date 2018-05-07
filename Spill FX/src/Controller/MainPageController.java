@@ -1,24 +1,31 @@
 package Controller;
 
+import Game.GameSave;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainPageController implements Initializable {
 
-
+    private GamePanelController gpc = new GamePanelController();
+    //File handling
+    private GameSave save = new GameSave();
+    private FileChooser filehandling = new FileChooser();
 
     @Override
     public void initialize(URL url, ResourceBundle rb){
-
 
     }
 
@@ -55,6 +62,42 @@ public class MainPageController implements Initializable {
 
         window.setScene(tableViewScene);
         window.show();
+
+        gpc.setPause(true);
+        //gpc.drawPause();
+/*
+        filehandling.setInitialDirectory(new File("src/Saved"));
+        try (BufferedReader reader = new BufferedReader(new FileReader(new File(String.valueOf(filehandling.showOpenDialog(null)))))) {
+            int lives = 0;
+            int score = 0;
+            int wave = 0;
+            int power = 0;
+            int i = 0;
+            String line;
+            while ((line = reader.readLine()) != null){
+                i++;
+                if(i == 1){
+                    lives = Integer.parseInt(line);
+                }
+                if(i == 2){
+                    score = Integer.parseInt(line);
+                }
+                if(i == 3){
+                    wave = Integer.parseInt(line);
+                }
+                if(i == 4){
+                    power = Integer.parseInt(line);
+                }
+            }
+            gpc.load(lives,score,wave, power);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        gpc.gameLoop.start();
+*/
     }
 
     public void buttonHighscores(javafx.event.ActionEvent event) throws IOException {

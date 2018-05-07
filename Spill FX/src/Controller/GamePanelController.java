@@ -3,7 +3,10 @@ package Controller;
 
 import Game.*;
 import Game.GameSave;
+import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -12,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
@@ -44,6 +48,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 import javafx.stage.Window;
+import javafx.util.Duration;
 
 
 public class GamePanelController implements Initializable {
@@ -86,15 +91,13 @@ public class GamePanelController implements Initializable {
     private long slowDownTimerDiff;
     private int slowDownLength = 6000; // 6 sekunder
 
-    //Gun heat
-    private long gunHeatTimer;
-    private long gunHeatTimerDiff;
-    private long gunHeatTimerLength = 2000; // 2 sekunder
-    private double gunHeatLength = 0;
-
     //Pause and gamover
     private boolean gameOver = false;
     private boolean pause = false;
+
+    public void setPause(boolean b){
+        this.pause = b;
+    }
 
     //Image
     private Image imgLife = new Image("View/img/Heart.png");
@@ -103,11 +106,12 @@ public class GamePanelController implements Initializable {
     private GameSave save = new GameSave();
     private FileChooser filehandling = new FileChooser();
 
-    //Sound Effect
+    //Sound files
+    AudioClip gameoverSound = new AudioClip(getClass().getResource("../View/sound/gameover.mp3").toString());
+    AudioClip powerUpSound = new AudioClip(getClass().getResource("../View/sound/power.mp3").toString());
+    AudioClip shootSound = new AudioClip(getClass().getResource("../View/sound/pew2.mp3").toString());
+    AudioClip explosionSound = new AudioClip(getClass().getResource("../View/sound/explosion.mp3").toString());
 
-    private String gameoverFile = "src/View/sound/gameover?.wav";
-    private Media gameoverSound = new Media(new File(gameoverFile).toURI().toString());
-    private MediaPlayer gameoverPlayer = new MediaPlayer(gameoverSound);
 
     //Animation timer - Gameloop
     AnimationTimer gameLoop = new AnimationTimer() {
@@ -119,6 +123,42 @@ public class GamePanelController implements Initializable {
             if (waveNumber == 9) victory();
         }
     };
+
+
+    //New thread for sound
+    Thread soundThread = new Thread(new Runnable() {
+        @Override
+        public void run(){
+
+            //Animation timer - SoundLoop
+            AnimationTimer soundLoop = new AnimationTimer() {
+                @Override
+                public void handle(long now) {
+                    if (player.getFiringSound()) {
+                        shootSound.play();
+                        player.setFiringSound(false);
+                    }
+
+
+                }
+            };
+
+            soundLoop.start();
+
+           /*
+            KeyFrame keyframe = new KeyFrame(Duration.millis(120), event -> {
+                if (player.getFiringSound()){
+                        System.out.println("Antall");
+                        shootSound.play();
+                        player.setFiringSound(false);
+                    }
+            });
+            Timeline t = new Timeline(keyframe);
+            t.setCycleCount(Animation.INDEFINITE);
+            t.play();
+            */
+        }
+    });
 
 
     @Override
@@ -156,15 +196,9 @@ public class GamePanelController implements Initializable {
                         pause = false;
                         gameLoop.start();
                         pauseMenu.setVisible(false);
-
-
                     } else {
-                        pause = true;
-                        pauseMenu.setVisible(true);
-                        gameLoop.stop();
                         drawPause();
                     }
-
                     break;
                 case R:
                     restart();
@@ -172,7 +206,9 @@ public class GamePanelController implements Initializable {
                 case Q:
                     player.kill();
                     break;
-
+                case T:
+                    System.out.println("tester 2: " + pause);
+                    System.out.println("test");
                 }
             });
 
@@ -209,6 +245,9 @@ public class GamePanelController implements Initializable {
 
         //Starts gameloop
         gameLoop.start();
+
+        //Starts thread
+        soundThread.start();
     }
 
 
@@ -403,6 +442,7 @@ public class GamePanelController implements Initializable {
 
                     powerups.remove(i);
                     i--;
+
                 }
 
             }
@@ -531,42 +571,6 @@ public class GamePanelController implements Initializable {
                 g.fillRect(20, 80, (int) (100 - 100.0 * slowDownTimerDiff / slowDownLength), 8);
             }
 
-            /*
-
-            //Draw gun heat
-            if(gunHeatLength > 120){
-                g.setFill(Color.RED);
-                g.fillRect(20, 400, (int) (120), 8);
-                gunHeatTimer = System.nanoTime() / 1000000;
-            }
-            else if(player.getFiring()){
-                if (gunHeatLength != 150){
-                    gunHeatLength = gunHeatLength + 0.5;
-                }
-                g.setFill(Color.WHITE);
-                g.fillRect(20, 400, (int) (gunHeatLength), 8);
-            }
-            else{
-                if(gunHeatLength > 0){ gunHeatLength -= 1; }
-                g.setFill(Color.WHITE);
-                g.fillRect(20, 400, (int) (gunHeatLength) , 8);
-            }
-
-
-
-            //GunHeat Update
-            if (gunHeatTimer != 0) {
-                gunHeatTimerDiff = (System.nanoTime() - gunHeatTimer) / 1000000;
-                System.out.println("Timer Diff: " + gunHeatTimer);
-                if (gunHeatTimerDiff > gunHeatTimerLength) {
-                    System.out.println("i mål");
-                    gunHeatTimer = 0;
-                    gunHeatLength -= 1;
-                }
-
-            }
-            */
-
         }
 
         //Calculate Length of text
@@ -658,7 +662,7 @@ public class GamePanelController implements Initializable {
 
         // GameOver
         private void gameOver(){
-            //player.kill();
+            player.kill();
 
             //Background
             g.setFill(Color.BLACK);
@@ -673,12 +677,10 @@ public class GamePanelController implements Initializable {
             String s1 = "Y O U R    S C O R E :  " + player.getScore();
             g.fillText(s1, canvas.getWidth() / 2 - textWidth(s), canvas.getHeight() / 2);
 
-            //Sound
-            gameoverPlayer.play();
-
             //Stops the loop
             gameOver = true;
             gameLoop.stop();
+            //Sound
 
 
             gameOverMenu.setVisible(true);
@@ -697,8 +699,6 @@ public class GamePanelController implements Initializable {
             String s = "V I C T O R Y !  Y o u r  s c o r e : " + player.getScore();
             g.setFill(Color.WHITE);
             g.fillText(s, canvas.getWidth() / 2 - textWidth(s), canvas.getHeight() / 2);
-
-            //Restart knapp
 
             //Stops the loop
             gameOver = true;
@@ -738,6 +738,9 @@ public class GamePanelController implements Initializable {
 
         //Draw pause
         public void drawPause(){
+            pauseMenu.setVisible(true);
+            gameLoop.stop();
+            pause = true;
 
 
             g.setGlobalAlpha(0.76);
@@ -763,9 +766,11 @@ public class GamePanelController implements Initializable {
             gameLoop.start();
         }
 
-        public void saveBtn(javafx.event.ActionEvent event) throws IOException {
+
+    public void saveBtn(javafx.event.ActionEvent event) throws IOException {
 
             try {
+                filehandling.setInitialDirectory(new File("src/Saved"));
                 save.makeFile(filehandling.showSaveDialog(null));
             } catch (IOException e) {
                 e.printStackTrace();
@@ -776,6 +781,7 @@ public class GamePanelController implements Initializable {
 
         public void loadBtn(javafx.event.ActionEvent event) throws IOException {
 
+            filehandling.setInitialDirectory(new File("src/Saved"));
             try (BufferedReader reader = new BufferedReader(new FileReader(new File(String.valueOf(filehandling.showOpenDialog(null)))))) {
                 int lives = 0;
                 int score = 0;

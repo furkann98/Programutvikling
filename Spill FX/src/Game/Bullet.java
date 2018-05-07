@@ -23,10 +23,6 @@ public class Bullet {
 
     private Color color1;
 
-    private String musicFile = "src/View/sound/pew2.mp3";     // For example
-    private Media sound = new Media(new File(musicFile).toURI().toString());
-    private MediaPlayer mediaPlayer = new MediaPlayer(sound);
-
 
     //KONSTRUKTØR
 
@@ -64,7 +60,6 @@ public class Bullet {
     public void draw(GraphicsContext g){
         g.setFill(color1);
         g.fillOval((int)(x-r), (int)(y-r), 2*r, 2*r );
-        mediaPlayer.play();
     }
 
 
