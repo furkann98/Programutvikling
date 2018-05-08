@@ -41,13 +41,16 @@ public class Player {
     private boolean recovering;
     private long recoveryTimer;
 
-    private int lives = 5;
+    private int lives;
+    private boolean livesSound = false;
+    public boolean getLivesSound(){return livesSound;}
+    public void setLivesSound(boolean b){livesSound = b;}
     private boolean gamoverSound = false;
     private Color color;
 
     private int score;
 
-    private int powerLevel = 4;
+    private int powerLevel;
     private int power;
     private int[] requiredPower = {1, 2, 3, 4, 5};
 
@@ -126,6 +129,7 @@ public class Player {
         lives--;
         recovering = true;
         recoveryTimer = System.nanoTime();
+        livesSound = true;
 
     }
 

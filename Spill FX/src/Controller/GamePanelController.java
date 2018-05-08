@@ -111,22 +111,26 @@ public class GamePanelController implements Initializable {
     //public boolean getPowerUpSound(){ return powerUpSound;}
     //public void setPowerUpSound(boolean b){ powerUpSound = b;}
 
+
+
     //Sound files
     AudioClip gameoverSound = new AudioClip(getClass().getResource("../View/sound/gameover.mp3").toString());
     AudioClip powerUpSound = new AudioClip(getClass().getResource("../View/sound/power.mp3").toString());
     AudioClip shootSound = new AudioClip(getClass().getResource("../View/sound/pew.mp3").toString());
-    AudioClip explosionSound = new AudioClip(getClass().getResource("../View/sound/explosion.mp3").toString());
-
+    AudioClip playerHitSound = new AudioClip(getClass().getResource("../View/sound/playerHit.mp3").toString());
+    AudioClip backgroundSound = new AudioClip(getClass().getResource("../View/sound/background.mp3").toString());
 
     //New thread for sound
     Thread soundThread = new Thread(new Runnable() {
         @Override
         public void run(){
 
+
             //Animation timer - SoundLoop
             AnimationTimer soundLoop = new AnimationTimer() {
                 @Override
                 public void handle(long now) {
+
                     if (player.getFiringSound()) {
                         shootSound.play();
                         player.setFiringSound(false);
@@ -138,6 +142,10 @@ public class GamePanelController implements Initializable {
                     if(powerUpCollect){
                         powerUpSound.play();
                         powerUpCollect = false;
+                    }
+                    if(player.getLivesSound()){
+                        playerHitSound.play();
+                        player.setLivesSound(false);
                     }
 
                 }
@@ -180,7 +188,7 @@ public class GamePanelController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        //backgroundSound.play();
 
         //Keylistener
         canvas.setOnKeyPressed(key -> {
@@ -256,7 +264,7 @@ public class GamePanelController implements Initializable {
         waveStartTimer = 0;
         waveStartTimerDiff = 0;
         waveStart = true;
-        waveNumber = 9;
+        waveNumber = 0;
 
         //Starts gameloop
         gameLoop.start();
