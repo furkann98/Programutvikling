@@ -55,17 +55,12 @@ public class MainPageController implements Initializable {
 
     public void buttonLoad(javafx.event.ActionEvent event) throws IOException {
 
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/View/GamePanel.fxml"));
-        Scene tableViewScene = new Scene(tableViewParent);
 
-        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
 
-        window.setScene(tableViewScene);
-        window.show();
+       // gpc.gameLoop.stop();  //STOP
+        //gpc.setPause(true);
+       // gpc.drawPause();   //Pause
 
-        gpc.setPause(true);
-        //gpc.drawPause();
-/*
         filehandling.setInitialDirectory(new File("src/Saved"));
         try (BufferedReader reader = new BufferedReader(new FileReader(new File(String.valueOf(filehandling.showOpenDialog(null)))))) {
             int lives = 0;
@@ -89,15 +84,26 @@ public class MainPageController implements Initializable {
                     power = Integer.parseInt(line);
                 }
             }
+
+            FXMLLoader loader = new FXMLLoader();
+            Parent tableViewParent = loader.load(getClass().getResource("/View/GamePanel.fxml").openStream());
+            Scene tableViewScene = new Scene(tableViewParent);
+
+            gpc = (GamePanelController) loader.getController();
+
+            Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
+            window.setScene(tableViewScene);
+            window.show();
             gpc.load(lives,score,wave, power);
 
+            gpc.gameLoop.start();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        gpc.gameLoop.start();
-*/
+
     }
 
     public void buttonHighscores(javafx.event.ActionEvent event) throws IOException {

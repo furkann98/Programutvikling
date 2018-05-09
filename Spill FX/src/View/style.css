@@ -91,6 +91,7 @@
     -fx-background-image: url("/View/img/btnPause.png");
     -fx-background-size: 100%;
     -fx-background-repeat: no-repeat;
+    -fx-background-radius: 50%;
 
 }
 

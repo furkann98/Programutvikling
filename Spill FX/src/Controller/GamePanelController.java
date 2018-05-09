@@ -894,4 +894,22 @@ public class GamePanelController implements Initializable {
         }
 
 
+
+
+
+    public void pauseBtn(javafx.event.ActionEvent event) throws IOException {
+        if(gameOver == true){
+            System.out.println("Du har tapt, kan ikke trykke på pause");
+        }
+        else if(pause == true) {
+            pause = false;
+            gameLoop.start();
+            pauseMenu.setVisible(false);
+        } else {
+            drawPause();
+        }
+
+    }
+
+
 }
