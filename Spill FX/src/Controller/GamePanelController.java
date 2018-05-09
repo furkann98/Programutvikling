@@ -113,7 +113,7 @@ public class GamePanelController implements Initializable {
     AudioClip powerUpSound = new AudioClip(getClass().getResource("../View/sound/power.mp3").toString());
     AudioClip shootSound = new AudioClip(getClass().getResource("../View/sound/pew.mp3").toString());
     AudioClip playerHitSound = new AudioClip(getClass().getResource("../View/sound/playerHit.mp3").toString());
-    AudioClip backgroundSound = new AudioClip(getClass().getResource("../View/sound/background.mp3").toString());
+    AudioClip backgroundSound = new AudioClip(getClass().getResource("../View/sound/background2_2.mp3").toString());
 
     //New thread for sound
     Thread soundThread = new Thread(new Runnable() {
@@ -170,7 +170,7 @@ public class GamePanelController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //backgroundSound.play();
+        backgroundSound.play();
 
         //Keylistener
         canvas.setOnKeyPressed(key -> {
