@@ -56,13 +56,12 @@ public class GamePanelController implements Initializable {
 
     //DATAFELT
 
-    //Node
+    //FXML
     @FXML private Canvas canvas;
     @FXML private VBox pauseMenu;
     @FXML private HBox gameOverMenu;
     @FXML private HBox victoryMenu;
-
-
+    @FXML private Button picPause;
 
     //Map Size
     public static int WIDTH = 1000;
@@ -94,12 +93,12 @@ public class GamePanelController implements Initializable {
     //Pause and gamover
     private boolean gameOver = false;
     private boolean pause = false;
-
     public void setPause(boolean b){
         this.pause = b;
     }
 
-    //Image
+
+    //Lives Image
     private Image imgLife = new Image("View/img/Heart.png");
 
     //File handling
@@ -108,10 +107,6 @@ public class GamePanelController implements Initializable {
 
     //power-up collision
     private boolean powerUpCollect = false;
-    //public boolean getPowerUpSound(){ return powerUpSound;}
-    //public void setPowerUpSound(boolean b){ powerUpSound = b;}
-
-
 
     //Sound files
     AudioClip gameoverSound = new AudioClip(getClass().getResource("../View/sound/gameover.mp3").toString());
@@ -152,19 +147,6 @@ public class GamePanelController implements Initializable {
             };
 
             soundLoop.start();
-
-           /*
-            KeyFrame keyframe = new KeyFrame(Duration.millis(120), event -> {
-                if (player.getFiringSound()){
-                        System.out.println("Antall");
-                        shootSound.play();
-                        player.setFiringSound(false);
-                    }
-            });
-            Timeline t = new Timeline(keyframe);
-            t.setCycleCount(Animation.INDEFINITE);
-            t.play();
-            */
         }
 
     });
@@ -223,6 +205,7 @@ public class GamePanelController implements Initializable {
                         pauseMenu.setVisible(false);
                     } else {
                         drawPause();
+
                     }
                     break;
                 case R:
@@ -269,18 +252,16 @@ public class GamePanelController implements Initializable {
         //Starts gameloop
         gameLoop.start();
 
-        //Starts thread
+        //Starts thread for soundLoop
         soundThread.start();
     }
 
 
 
         //METODER
-
-
         private void gameUpdate(){
 
-            //new Waves
+            //new Waves - with Wavedelay
             if (waveStartTimer == 0 && enemies.size() == 0) {
                 waveNumber++;
                 waveStart = false;
@@ -314,6 +295,7 @@ public class GamePanelController implements Initializable {
                     i--;
                 }
             }
+
             //Enemy Update
             for (int i = 0; i < enemies.size(); i++) {
                 enemies.get(i).update();
@@ -498,6 +480,10 @@ public class GamePanelController implements Initializable {
             //pause
             if(pause == false) {
                 pauseMenu.setVisible(false);
+                picPause.setVisible(true);
+            }
+            if(pause == true) {
+                picPause.setVisible(false);
             }
 
         }
@@ -757,7 +743,7 @@ public class GamePanelController implements Initializable {
             victoryMenu.setVisible(true);
         }
 
-        // Victory Bonus
+        // Victory Bonus game
         private void victoryBonus(){
 
             //Background
@@ -823,7 +809,6 @@ public class GamePanelController implements Initializable {
             g.setFill(Color.WHITE);
             g.fillText(s, canvas.getWidth() / 2 - textWidth(s)*2 + 10, canvas.getHeight() / 6);
 
-
         }
 
         //Pause Buttons
@@ -837,79 +822,84 @@ public class GamePanelController implements Initializable {
         }
 
 
-    public void saveBtn(javafx.event.ActionEvent event) throws IOException {
+        public void saveBtn(javafx.event.ActionEvent event) throws IOException {
 
-            try {
-                filehandling.setInitialDirectory(new File("src/Saved"));
-                save.makeFile(filehandling.showSaveDialog(null));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            save.save(player, (int) waveNumber);
-
-        }
-
-        public void loadBtn(javafx.event.ActionEvent event) throws IOException {
-
-            filehandling.setInitialDirectory(new File("src/Saved"));
-            try (BufferedReader reader = new BufferedReader(new FileReader(new File(String.valueOf(filehandling.showOpenDialog(null)))))) {
-                int lives = 0;
-                int score = 0;
-                int wave = 0;
-                int power = 0;
-                int i = 0;
-                String line;
-                while ((line = reader.readLine()) != null){
-                    i++;
-                    if(i == 1){
-                        lives = Integer.parseInt(line);
-                    }
-                    if(i == 2){
-                        score = Integer.parseInt(line);
-                    }
-                    if(i == 3){
-                        wave = Integer.parseInt(line);
-                    }
-                    if(i == 4){
-                        power = Integer.parseInt(line);
-                    }
+                try {
+                    filehandling.setInitialDirectory(new File("src/Saved"));
+                    save.makeFile(filehandling.showSaveDialog(null));
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                load(lives,score,wave, power);
-            } catch (IOException e) {
-                e.printStackTrace();
+                save.save(player, (int) waveNumber);
+
             }
-            pause = false;
-            gameLoop.start();
+
+            public void loadBtn(javafx.event.ActionEvent event) throws IOException {
+
+                filehandling.setInitialDirectory(new File("src/Saved"));
+                try (BufferedReader reader = new BufferedReader(new FileReader(new File(String.valueOf(filehandling.showOpenDialog(null)))))) {
+                    int lives = 0;
+                    int score = 0;
+                    int wave = 0;
+                    int power = 0;
+                    int i = 0;
+                    String line;
+                    while ((line = reader.readLine()) != null){
+                        i++;
+                        if(i == 1){
+                            lives = Integer.parseInt(line);
+                        }
+                        if(i == 2){
+                            score = Integer.parseInt(line);
+                        }
+                        if(i == 3){
+                            wave = Integer.parseInt(line);
+                        }
+                        if(i == 4){
+                            power = Integer.parseInt(line);
+                        }
+                    }
+                    load(lives,score,wave, power);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                pause = false;
+                gameLoop.start();
+            }
+
+            public void mainBtn(javafx.event.ActionEvent event) throws IOException {
+                restart();
+                Parent tableViewParent = FXMLLoader.load(getClass().getResource("/View/mainPage.fxml"));
+                Scene tableViewScene = new Scene(tableViewParent);
+
+                Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
+                window.setScene(tableViewScene);
+                window.show();
+            }
+
+
+
+
+
+        public void pauseBtn(javafx.event.ActionEvent event) throws IOException {
+                picPause.setVisible(false);
+                drawPause();
+
+        /*
+            if(gameOver == true){
+                System.out.println("Du har tapt, kan ikke trykke på pause");
+            }
+            else if(pause == true) {
+                pause = false;
+                gameLoop.start();
+                pauseMenu.setVisible(false);
+            } else {
+                drawPause();
+
+            }
+        */
         }
-
-        public void mainBtn(javafx.event.ActionEvent event) throws IOException {
-            restart();
-            Parent tableViewParent = FXMLLoader.load(getClass().getResource("/View/mainPage.fxml"));
-            Scene tableViewScene = new Scene(tableViewParent);
-
-            Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-
-            window.setScene(tableViewScene);
-            window.show();
-        }
-
-
-
-
-
-    public void pauseBtn(javafx.event.ActionEvent event) throws IOException {
-        if(gameOver == true){
-            System.out.println("Du har tapt, kan ikke trykke på pause");
-        }
-        else if(pause == true) {
-            pause = false;
-            gameLoop.start();
-            pauseMenu.setVisible(false);
-        } else {
-            drawPause();
-        }
-
-    }
 
 
 }
