@@ -35,7 +35,7 @@ import javafx.scene.control.Button;
  *
  * karniiii
  *
- * @author Muhammed Furkan Ergin s325881 / Pedram Rahdeirjoo s325906 / Anojh Thirukumar S325907
+ * @author Muhammed Furkan Ergin s325881 / Pedram Rahdeirjoo s325906
  */
 public class GamePanelController implements Initializable {
 

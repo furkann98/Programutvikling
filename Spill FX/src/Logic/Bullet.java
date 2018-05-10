@@ -14,8 +14,7 @@ import javafx.scene.paint.Color;
  *  Deretter tegner vi kulene som sirkler(oval) og setter inn farge.
  *
  *
- * @author Rjoo
- * */
+ * @author Muhammed Furkan Ergin s325881 / Pedram Rahdeirjoo s325906 * */
 
 public class Bullet {
 

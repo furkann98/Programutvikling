@@ -13,7 +13,7 @@ import javafx.scene.paint.Color;
  * blant annet, posisjon, fart, liv, rank, type, om de er døde, og størrelse.
  *
  *
- *
+ * @author Muhammed Furkan Ergin s325881 / Pedram Rahdeirjoo s325906
  * */
 
 
