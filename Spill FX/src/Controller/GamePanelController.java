@@ -166,7 +166,7 @@ public class GamePanelController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        backgroundSound.play();
+        //backgroundSound.play();
 
         //Keylistener
         canvas.setOnKeyPressed(key -> {
@@ -708,6 +708,8 @@ public class GamePanelController implements Initializable {
         // GameOver
         private void gameOver(){
             player.kill();
+
+            picPause.setVisible(false);
 
             //Background
             g.setFill(Color.BLACK);
