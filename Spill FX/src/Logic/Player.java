@@ -1,19 +1,14 @@
-package Game;
+package Logic;
 
 
 
 import Controller.GamePanelController;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Ellipse;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
-
-import java.io.File;
 
 public class Player {
     //DATAFELT

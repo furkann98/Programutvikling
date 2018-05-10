@@ -1,6 +1,6 @@
 package Controller;
 
-import Game.GameSave;
+import Logic.GameSave;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;

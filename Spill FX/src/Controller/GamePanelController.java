@@ -1,23 +1,17 @@
 package Controller;
 
 
-import Game.*;
-import Game.GameSave;
-import javafx.animation.Animation;
+import Logic.*;
+import Logic.GameSave;
 import javafx.animation.AnimationTimer;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
@@ -34,21 +28,7 @@ import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 
 //ubrukte
-import View.*;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Button;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.application.Platform;
-import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-
-import javafx.stage.Window;
-import javafx.util.Duration;
 
 
 public class GamePanelController implements Initializable {
