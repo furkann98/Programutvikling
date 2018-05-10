@@ -120,7 +120,6 @@ public class GamePanelController implements Initializable {
         @Override
         public void run(){
 
-
             //Animation timer - SoundLoop
             AnimationTimer soundLoop = new AnimationTimer() {
                 @Override
@@ -142,13 +141,10 @@ public class GamePanelController implements Initializable {
                         playerHitSound.play();
                         player.setLivesSound(false);
                     }
-
                 }
             };
-
             soundLoop.start();
         }
-
     });
 
 
@@ -257,8 +253,9 @@ public class GamePanelController implements Initializable {
     }
 
 
-
         //METODER
+
+    //JAVADOC
         private void gameUpdate(){
 
             //new Waves - with Wavedelay
@@ -489,7 +486,19 @@ public class GamePanelController implements Initializable {
         }
 
 
-        private void gameRender(){
+        //JAVADOC
+    /***
+     * Dette er gameRender Metoden,
+     * Dette er metoden hvor alt blir tegnet inn i canvaset.
+     * Her Tegner den Player, Bullets, Enemy, PowerUps, Explosions, Og all form av Text
+     *
+     *
+     *
+     *
+
+     */
+
+    private void gameRender(){
 
             //Clear the last drawn objects
             g.clearRect(0,0, WIDTH, HEIGHT);
@@ -885,20 +894,6 @@ public class GamePanelController implements Initializable {
         public void pauseBtn(javafx.event.ActionEvent event) throws IOException {
                 picPause.setVisible(false);
                 drawPause();
-
-        /*
-            if(gameOver == true){
-                System.out.println("Du har tapt, kan ikke trykke på pause");
-            }
-            else if(pause == true) {
-                pause = false;
-                gameLoop.start();
-                pauseMenu.setVisible(false);
-            } else {
-                drawPause();
-
-            }
-        */
         }
 
 
