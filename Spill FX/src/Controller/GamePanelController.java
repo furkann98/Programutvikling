@@ -30,7 +30,13 @@ import javafx.fxml.FXMLLoader;
 //ubrukte
 import javafx.scene.control.Button;
 
-
+/**
+ * GamePanelController er klassen som er koblet til GamePanel.fxml og implementerer metoder i "stage"-en.
+ *
+ * karniiii
+ *
+ * @author Muhammed Furkan Ergin s325881 / Pedram Rahdeirjoo s325906 / Anojh Thirukumar S325907
+ */
 public class GamePanelController implements Initializable {
 
 
@@ -77,7 +83,6 @@ public class GamePanelController implements Initializable {
         this.pause = b;
     }
 
-
     //Lives Image
     private Image imgLife = new Image("View/img/Heart.png");
 
@@ -93,8 +98,12 @@ public class GamePanelController implements Initializable {
     AudioClip powerUpSound = new AudioClip(getClass().getResource("../View/sound/power.mp3").toString());
     AudioClip shootSound = new AudioClip(getClass().getResource("../View/sound/pew.mp3").toString());
     AudioClip playerHitSound = new AudioClip(getClass().getResource("../View/sound/playerHit.mp3").toString());
-    AudioClip backgroundSound = new AudioClip(getClass().getResource("../View/sound/background2_2.mp3").toString());
+    AudioClip backgroundSound = new AudioClip(getClass().getResource("../View/sound/background2.mp3").toString());
 
+
+    /**
+     *
+     */
     //New thread for sound
     Thread soundThread = new Thread(new Runnable() {
         @Override
@@ -146,7 +155,7 @@ public class GamePanelController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //backgroundSound.play();
+        backgroundSound.play();
 
         //Keylistener
         canvas.setOnKeyPressed(key -> {
@@ -233,10 +242,17 @@ public class GamePanelController implements Initializable {
     }
 
 
+
         //METODER
 
-    //JAVADOC
-        private void gameUpdate(){
+
+    /**
+     * gameUpdate() metoden kjører i en AnimationTimer (60fps) "gameLoop",
+     * og beregner hele tiden objektenes nye posisjoner og bevegelser.
+     * Her blir Player, bullet, powerups, explosion, enemy og text oppdatert for hver "frame".
+     *
+     */
+    private void gameUpdate(){
 
             //new Waves - with Wavedelay
             if (waveStartTimer == 0 && enemies.size() == 0) {
@@ -252,13 +268,10 @@ public class GamePanelController implements Initializable {
                 }
             }
 
-
-
             //Create enemies
             if (waveStart && enemies.size() == 0) {
                 createNewEnemies();
             }
-
 
             //Player update
             player.update();
@@ -341,7 +354,7 @@ public class GamePanelController implements Initializable {
                     // POWER UP - Sannsynlighet
                     double random = Math.random();
                     if (waveNumber > 5 ){
-                        if (random < 0.030) {
+                        if (random < 0.030 && player.getLives() < 5) {
                             powerups.add(new PowerUp(1, e.getx(), e.gety()));
                         } else if (random < 0.100) {
                             powerups.add(new PowerUp(2, e.getx(), e.gety()));
@@ -351,7 +364,7 @@ public class GamePanelController implements Initializable {
                             powerups.add(new PowerUp(4, e.getx(), e.gety()));
                         }
                     }else{
-                        if (random < 0.030) {
+                        if (random < 0.030 && player.getLives() < 5) {
                             powerups.add(new PowerUp(1, e.getx(), e.gety()));
                         } else if (random < 0.150) {
                             powerups.add(new PowerUp(2, e.getx(), e.gety()));
@@ -466,16 +479,12 @@ public class GamePanelController implements Initializable {
         }
 
 
-        //JAVADOC
-    /***
+    /**
      * Dette er gameRender Metoden,
-     * Dette er metoden hvor alt blir tegnet inn i canvaset.
-     * Her Tegner den Player, Bullets, Enemy, PowerUps, Explosions, Og all form av Text
+     * Dette er metoden hvor alt blir tegnet inn i canvaset på nytt, etter å ha blitt oppdatert i gameUpdate().
+     * Først tommer den canvasen, og legger til alle nye objekter ved å bruke grapichscontext.
+     * Her Tegner den Player, Bullets, Enemy, PowerUps, Explosions, Og all form av Text.
      *
-     *
-     *
-     *
-
      */
 
     private void gameRender(){
@@ -582,15 +591,29 @@ public class GamePanelController implements Initializable {
 
         }
 
-        //Calculate Length of text
+
+    /**
+     * Metoden som regner ut bredden til en String variabel.
+     * Brukes til å midtstille Stringen på skjermen når det er nødvendig.
+     *
+     * @param s er en String variabel
+     * @return lengden til s i double
+     */
+    //Calculate Length of text
         public double textWidth(String s){
             javafx.scene.text.Text text = new javafx.scene.text.Text(s);
             double width = text.getBoundsInLocal().getWidth();
             return width;
         }
 
-        //Create enemies
-        private void createNewEnemies(){
+
+    /**
+     * Metoden som lager nye waves
+     * metoden sjekker nåværende waveNumber og legger inn ferdigstilte fiender.
+     * fiendene blir laget i enemies objektet og importert til canvasen.
+     */
+    //Create enemies
+    private void createNewEnemies(){
                 enemies.clear();
                 Enemy e;
                 if (waveNumber == 1) {
@@ -662,8 +685,13 @@ public class GamePanelController implements Initializable {
 
             }
 
-        //Restart
-        private void restart(){
+
+    /**
+     * Metoden restart starter spillet på nytt.
+     * metoden nullstiller alle variabler og tømmer alle lister, slik at man starter der man først begynte.
+     */
+    //Restart
+    private void restart(){
             //Objects and arrays
             player = new Player();
             bullets = new ArrayList<Bullet>();;
@@ -685,7 +713,13 @@ public class GamePanelController implements Initializable {
             waveNumber = 0;
         }
 
-        // GameOver
+    /**
+     * metoden gameover ender spillet.
+     * metoden gameover kjøres når spillerens liv er lik null.
+     * når livet er lik null, blir skjermen svart, samtidig som den gjør gameover-menyen synlig
+     */
+
+    // GameOver
         private void gameOver(){
             player.kill();
 
@@ -713,7 +747,13 @@ public class GamePanelController implements Initializable {
             gameOverMenu.setVisible(true);
         }
 
-        // Victory
+
+    /**
+     * Metoden victory kjøres når man vinner.
+     * metoden tegner en svart skjerm og gir en gratulasjonstekst til brukeren, med antall poeng.
+     * gjør victory menyen synlig.
+     */
+    // Victory
         private void victory(){
 
             //Background
@@ -734,7 +774,12 @@ public class GamePanelController implements Initializable {
             victoryMenu.setVisible(true);
         }
 
-        // Victory Bonus game
+    /**
+     * Metoden victoryBonus kjøres når man vinner bonusspillet.
+     * metoden tegner en svart skjerm og gir en gratulasjonstekst til brukeren, med antall poeng.
+     * gjør victory menyen synlig.
+     */
+    // Victory Bonus game
         private void victoryBonus(){
 
             //Background
@@ -756,6 +801,16 @@ public class GamePanelController implements Initializable {
         }
 
 
+    /**
+     * Metoden load laster inn lagrede spill.
+     * metoden tar inn variabler som man får fra en textfil, og får spillet til å starte der man slapp.
+     * bytter variablene i spillet med de tilsvarende parameterne
+     *
+     * @param lives int variabel som tilsvarer livet til avataren
+     * @param score int variabel som tilsvarer poengscore til avatar
+     * @param wave int varibale som tilsvarer wavenumber i spillet
+     * @param power int variabel som tilsvarer power til avatar
+     */
 
         //File handling
         public void load(int lives, int score, int wave, int power){
@@ -782,7 +837,11 @@ public class GamePanelController implements Initializable {
             waveNumber = wave - 1;
         }
 
-
+    /**
+     * metoden pause stopper spillet og alle objekter.
+     * Stopper gameloopen som få bevegelser i gang og får opp en pausemeny.
+     * starter spillet igjen når boolean variabelen: pause = false.
+     */
         //Draw pause
         public void drawPause(){
             pauseMenu.setVisible(true);
@@ -802,30 +861,57 @@ public class GamePanelController implements Initializable {
 
         }
 
-        //Pause Buttons
+    /**
+     * Metode som fortsetter spiller når den er satt i pause.
+     *
+     * @param event bruker onClick event på knappen
+     * @throws IOException kaster IOExeption ved input og output
+     */
+    //Pause Buttons
         public void continueBtn(javafx.event.ActionEvent event) throws IOException {
             pause = false;
             gameLoop.start();
         }
-        public void restartBtn(javafx.event.ActionEvent event) throws IOException {
+
+
+    /**
+     * Metode som restarter spiller når den er satt i pause
+     *
+     * @param event bruker onClick event på knappen
+     * @throws IOException kaster IOExeption ved input og output
+     */
+    public void restartBtn(javafx.event.ActionEvent event) throws IOException {
             restart();
             gameLoop.start();
         }
 
+    /**
+     * metode som saver spillet når den er satt i pause
+     *
+     * @param event bruker onClick event på knappen
+     * @throws IOException kaster IOExeption ved input og output
+     */
+    public void saveBtn(javafx.event.ActionEvent event) throws IOException {
 
-        public void saveBtn(javafx.event.ActionEvent event) throws IOException {
-
-                try {
-                    filehandling.setInitialDirectory(new File("src/Saved"));
-                    save.makeFile(filehandling.showSaveDialog(null));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                save.save(player, (int) waveNumber);
-
+            try {
+                filehandling.setInitialDirectory(new File("src/Saved"));
+                save.makeFile(filehandling.showSaveDialog(null));
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+            save.save(player, (int) waveNumber);
 
-            public void loadBtn(javafx.event.ActionEvent event) throws IOException {
+        }
+
+    /**
+     * Metode som loader spillet når den er satt i pause
+     *
+     * @param event bruker onClick event på knappen
+     * @throws IOException kaster IOExeption ved input og output
+     */
+
+
+    public void loadBtn(javafx.event.ActionEvent event) throws IOException {
 
                 filehandling.setInitialDirectory(new File("src/Saved"));
                 try (BufferedReader reader = new BufferedReader(new FileReader(new File(String.valueOf(filehandling.showOpenDialog(null)))))) {
@@ -858,7 +944,14 @@ public class GamePanelController implements Initializable {
                 gameLoop.start();
             }
 
-            public void mainBtn(javafx.event.ActionEvent event) throws IOException {
+
+    /**
+     * metode som går tilbake til startsiden, når spillet er i pause
+     *
+     * @param event bruker onClick event på knappen
+     * @throws IOException kaster IOExeption ved input og output
+     */
+    public void mainBtn(javafx.event.ActionEvent event) throws IOException {
                 restart();
                 Parent tableViewParent = FXMLLoader.load(getClass().getResource("/View/mainPage.fxml"));
                 Scene tableViewScene = new Scene(tableViewParent);
@@ -870,8 +963,12 @@ public class GamePanelController implements Initializable {
             }
 
 
-
-
+    /**
+     * metode som setter spillet i pause
+     *
+     * @param event bruker onClick event på knappen
+     * @throws IOException kaster IOExeption ved input og output
+     */
 
         public void pauseBtn(javafx.event.ActionEvent event) throws IOException {
                 picPause.setVisible(false);

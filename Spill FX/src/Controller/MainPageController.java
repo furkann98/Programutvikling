@@ -21,7 +21,7 @@ public class MainPageController implements Initializable {
 
     private GamePanelController gpc = new GamePanelController();
     //File handling
-    private GameSave save = new GameSave();
+
     private FileChooser filehandling = new FileChooser();
 
     @Override
@@ -62,47 +62,47 @@ public class MainPageController implements Initializable {
        // gpc.drawPause();   //Pause
 
         filehandling.setInitialDirectory(new File("src/Saved"));
-        try (BufferedReader reader = new BufferedReader(new FileReader(new File(String.valueOf(filehandling.showOpenDialog(null)))))) {
-            int lives = 0;
-            int score = 0;
-            int wave = 0;
-            int power = 0;
-            int i = 0;
-            String line;
-            while ((line = reader.readLine()) != null){
-                i++;
-                if(i == 1){
-                    lives = Integer.parseInt(line);
+            try (BufferedReader reader = new BufferedReader(new FileReader(new File(String.valueOf(filehandling.showOpenDialog(null))))))  {
+                int lives = 0;
+                int score = 0;
+                int wave = 0;
+                int power = 0;
+                int i = 0;
+                String line;
+                while ((line = reader.readLine()) != null){
+                    i++;
+                    if(i == 1){
+                        lives = Integer.parseInt(line);
+                    }
+                    if(i == 2){
+                        score = Integer.parseInt(line);
+                    }
+                    if(i == 3){
+                        wave = Integer.parseInt(line);
+                    }
+                    if(i == 4){
+                        power = Integer.parseInt(line);
+                    }
                 }
-                if(i == 2){
-                    score = Integer.parseInt(line);
-                }
-                if(i == 3){
-                    wave = Integer.parseInt(line);
-                }
-                if(i == 4){
-                    power = Integer.parseInt(line);
-                }
+
+                FXMLLoader loader = new FXMLLoader();
+                Parent tableViewParent = loader.load(getClass().getResource("/View/GamePanel.fxml").openStream());
+                Scene tableViewScene = new Scene(tableViewParent);
+
+                gpc = (GamePanelController) loader.getController();
+
+                Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
+                window.setScene(tableViewScene);
+                window.show();
+                gpc.load(lives,score,wave, power);
+
+                gpc.gameLoop.start();
+
+            } catch (IOException e) {
+                System.out.println("Closed the  filechooser ");
+                //e.printStackTrace();  prints out the stack trace.
             }
-
-            FXMLLoader loader = new FXMLLoader();
-            Parent tableViewParent = loader.load(getClass().getResource("/View/GamePanel.fxml").openStream());
-            Scene tableViewScene = new Scene(tableViewParent);
-
-            gpc = (GamePanelController) loader.getController();
-
-            Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-
-            window.setScene(tableViewScene);
-            window.show();
-            gpc.load(lives,score,wave, power);
-
-            gpc.gameLoop.start();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
 
     }
 
