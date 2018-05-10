@@ -8,6 +8,14 @@ import javafx.scene.paint.Color;
 
 
 
+/**
+ * Dette er Enemy-klassen, her blir fiendene tegnet opp med alle sine ulike verdier,
+ * blant annet, posisjon, fart, liv, rank, type, om de er døde, og størrelse.
+ *
+ *
+ *
+ * */
+
 
 public class Enemy {
     //DATAFELT
@@ -167,10 +175,24 @@ public class Enemy {
 
     public Color getColor() { return color1; }
 
+
     public void setSlow(boolean b){slow = b;}
 
     public boolean isDead(){ return dead; }
 
+
+
+    /**
+     *  Enemy Hit/Collisjon
+     *  Her er Hit-metoden som ser om fienden treffer Player eller ikke, og hva som skjer
+     *  om de blir truffet.
+     *
+     *  Hvis Fienden blir truffet vil Livet(Health) til Player minke med en for hver gang,
+     *  hvis livet er null eller mindre vil variabelen "dead" bli true og Player blir død,
+     *  deretter får du hit = true.
+     *
+     *
+     * */
     public void hit(){
         health--;
         if(health <= 0){
@@ -180,6 +202,23 @@ public class Enemy {
         hitTimer = System.nanoTime();
 
     }
+
+    /**
+     * Explode-metoden
+     *
+     * Dette er metoden som viser "animasjonen" av en eksplosjon som skjer når fienden blir skutt.
+     *
+     *
+     * Når en Fiende dør går den gjennom en if-test, for å se hvilken type den er i,
+     * dersom den er i typen 1 til 3 vil de større fiendene spre seg til mindre fiender,
+     * alt ettersom hvilken type de er i.
+     *
+     * Deretter går vi gjennom en for-løkke som kjører en animasjon fra fiendens posisjon
+     * og tegner en sirkel som øker med radiusen til fienden.
+     *
+     *
+     *
+     * */
 
     public void explode(){
 
@@ -218,6 +257,24 @@ public class Enemy {
 
     }
 
+    /**
+     *
+     *
+     * Oppdaterer fiendens posisjon.
+     *
+     * Kjører en if-test for å se om "slow" variabelen er aktivert, dersom den er aktivert beveger
+     * fiendene seg saktere.
+     *
+     *
+     * Får fiendene til å bevege på seg og har to if-tester som sørger for at fiendene
+     * ikke går ut av banen. Dette har vi gjort ved å gruppe selve canvaset sin lengde og bredde.
+     *  Dersom fiendene treffer banen vil deres x- og y-koordinater forandre seg til motsatt.
+     *
+     *
+     *
+     *
+     *
+     * */
 
     public void update(){
 
@@ -253,19 +310,18 @@ public class Enemy {
 
     }
 
+    /**
+     * Tegner Fiender
+     *
+     * Tegner inn fienden med bestemt farge og størrelse, deretter setter inn et bilde
+     * over med samme størrelse og posisjon som sirkelen under.
+     * */
+
     public void draw(GraphicsContext g){
 
-        if(hit){
-            g.setFill(color1.darker());
-            g.fillOval(x-r,y-r, 2 * r,2 * r);
-
-
-
-        }else{
-            g.setFill(color1);
-            g.fillOval(x-r,y-r, 2 * r,2 * r);
-            g.drawImage(img, x-r,y-r, 2 * r,2 * r);
-        }
+        g.setFill(color1);
+        g.fillOval(x-r,y-r, 2 * r,2 * r);
+        g.drawImage(img, x-r,y-r, 2 * r,2 * r);
 
     }
 
