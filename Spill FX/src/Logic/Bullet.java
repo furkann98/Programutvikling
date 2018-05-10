@@ -29,7 +29,7 @@ public class Bullet {
     private double rad;
     private double speed;
 
-    private Color color1;
+    private Color color;
 
 
     //KONSTRUKTØR
@@ -46,7 +46,7 @@ public class Bullet {
 
 
 
-        color1 = Color.LIGHTGREEN;
+        color = Color.LIGHTGREEN;
     }
 
     //FUNKSJON
@@ -77,13 +77,13 @@ public class Bullet {
     /**
      * Her blir kullene tegnet
      *
-     * Gir kulene fargen "color1" som er fargen lysegrønn
+     * Gir kulene fargen "color" som er fargen lysegrønn
      * og tegner dem som en sirket(oval) med en lengde og bredde.
      *
      * @author
      * */
     public void draw(GraphicsContext g){
-        g.setFill(color1);
+        g.setFill(color);
         g.fillOval((int)(x-r), (int)(y-r), 2*r, 2*r );
     }
 
