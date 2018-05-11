@@ -205,16 +205,13 @@ public class Enemy {
 
     /**
      * Explode-metoden
-     *
-     * Dette er metoden som viser "animasjonen" av en eksplosjon som skjer når fienden blir skutt.
+     *Denne metoden får fiender til å splitte seg til mindre fiender.
      *
      *
      * Når en Fiende dør går den gjennom en if-test, for å se hvilken type den er i,
      * dersom den er i typen 1 til 3 vil de større fiendene spre seg til mindre fiender,
      * alt ettersom hvilken type de er i.
      *
-     * Deretter går vi gjennom en for-løkke som kjører en animasjon fra fiendens posisjon
-     * og tegner en sirkel som øker med radiusen til fienden.
      *
      *
      *

@@ -5,7 +5,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
-
+/**
+ *
+ */
 public class PowerUp {
 
     //Datafelt
@@ -26,6 +28,12 @@ public class PowerUp {
     private Image powerup4 = new Image("View/img/slowtime.png");
 
 
+    /**
+     *
+     * @param type   Hva slags type powerUp
+     * @param x  x-koordinaten til powerUp
+     * @param y  y-koordinaten til powerUp
+     */
     //Constructor
     public PowerUp(int type, double x, double y){
         this.type = type;
@@ -64,14 +72,28 @@ public class PowerUp {
     public double gety(){ return y; }
     public double getr(){ return r; }
 
+    /**
+     * getType metoden
+     *
+     * getType metoden blir brukt for å hente/finne ut hvilken type powerUp som
+     * blir plukket opp av Player.
+     *
+     * @return type hva slags type powerUp som blir hentet/plukket opp
+     */
     public int getType(){
         //powerUpPlayer.play();
         return type;
     }
 
+    /**
+     *
+     *
+     *
+     * @return true/false Hvilken verdi som stemmer passer til PowerUp sin koordinater.
+     *
+     */
     public boolean update(){
 
-        //denne må byttes til x
         x -= 0.5;
 
         if(y > GamePanelController.HEIGHT + r){
@@ -83,6 +105,16 @@ public class PowerUp {
 
     }
 
+    /**
+     *
+     * Tegner Powerups
+     *
+     * Tegner powerUps, sørger for at alle
+     *
+     * @param g GraphicsContext
+     *
+     * @see Image et bildet av powerup, ettersom, hvilken type det er.
+     */
     public void draw(GraphicsContext g){
 
         g.setFill(color1);
@@ -93,9 +125,5 @@ public class PowerUp {
             g.fillOval((int)(x-r),(int) (y-r), 4*r, 4*r);
             g.drawImage(img, x-1.5*r, y-1.5*r,5*r, 5*r);
         }
-
-
     }
-
-
 }
