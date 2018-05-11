@@ -1,0 +1,98 @@
+
+
+#bgMainPage{
+    -fx-background-image: url("/View/img/spaceBkg.png");
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+}
+
+#picMainTitle{
+    -fx-background-image: url("/View/img/PEW-PEW.png");
+    -fx-background-size: 95%;
+    -fx-background-repeat: no-repeat;
+}
+
+#picMainPageAsteroid{
+    -fx-background-image: url("/View/img/Asteroid.png");
+    -fx-background-size: 95%;
+    -fx-background-repeat: no-repeat;
+}
+
+#bgHowToPlay{
+    -fx-background-image: url("/View/img/spaceBkg.png");
+    -fx-background-size: 100% 100%;
+}
+
+
+#PicKeys{
+    -fx-background-image: url("/View/img/keys2.png");
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+
+}
+
+#PicSpace{
+        -fx-background-image: url("/View/img/space.png");
+        -fx-background-size: 75% 75%;
+        -fx-background-repeat: no-repeat;
+        -fx-background-position: 50%;
+
+}
+
+#picShip{
+    -fx-background-image: url("/View/img/spaceShip.png");
+    -fx-background-size: 99% 105%  ;
+    -fx-background-repeat: no-repeat;
+
+}
+
+#pane{
+    -fx-background-image: url("img/bckg-space2.jpg");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 1000 600;
+    -fx-background-position: left top;
+
+}
+
+
+#picHeart{
+    -fx-background-image: url("/View/img/Heart.png");
+    -fx-background-size: 67% ;
+    -fx-background-repeat: no-repeat;
+    -fx-alignment: center ;
+
+}
+
+#picPower1{
+    -fx-background-image: url("/View/img/power1.png");
+    -fx-background-size: 67%;
+    -fx-background-repeat: no-repeat;
+    -fx-alignment: center ;
+
+}
+
+#picPower2{
+    -fx-background-image: url("/View/img/power2.png");
+    -fx-background-size: 67%;
+    -fx-background-repeat: no-repeat;
+    -fx-alignment: center;
+
+}
+
+#picSlowtime{
+    -fx-background-image: url("/View/img/slowtime.png");
+    -fx-background-size: 67%;
+    -fx-background-repeat: no-repeat;
+    -fx-alignment: center ;
+
+}
+
+#picPause{
+    -fx-background-image: url("/View/img/btnPause.png");
+    -fx-background-size: 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-color: Transparent;
+    -fx-opacity: 0.8;
+
+}
+

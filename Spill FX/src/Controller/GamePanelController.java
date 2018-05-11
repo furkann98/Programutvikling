@@ -103,6 +103,8 @@ public class GamePanelController implements Initializable {
 
     /**
      *
+     *
+     *
      */
     //New thread for sound
     Thread soundThread = new Thread(new Runnable() {
@@ -898,6 +900,8 @@ public class GamePanelController implements Initializable {
      */
     public void saveBtn(javafx.event.ActionEvent event) throws IOException {
 
+        File file = filehandling.showOpenDialog(null);
+        if (file != null) {
             try {
                 filehandling.setInitialDirectory(new File("src/Saved"));
                 save.makeFile(filehandling.showSaveDialog(null));
@@ -907,6 +911,7 @@ public class GamePanelController implements Initializable {
             save.save(player, (int) waveNumber);
 
         }
+    }
 
     /**
      * Metode som loader spillet når den er satt i pause
@@ -943,10 +948,13 @@ public class GamePanelController implements Initializable {
                     }
                     load(lives,score,wave, power);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                  //  e.printStackTrace();
                 }
-                pause = false;
-                gameLoop.start();
+
+        //pause = true;
+        //gameLoop.stop();
+                pause = true;
+                gameLoop.stop();
             }
 
 

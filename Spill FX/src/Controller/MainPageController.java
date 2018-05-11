@@ -61,29 +61,32 @@ public class MainPageController implements Initializable {
         //gpc.setPause(true);
        // gpc.drawPause();   //Pause
 
-        filehandling.setInitialDirectory(new File("src/Saved"));
-            try (BufferedReader reader = new BufferedReader(new FileReader(new File(String.valueOf(filehandling.showOpenDialog(null))))))  {
+        filehandling.setInitialDirectory(new File(System.getProperty("user.home")));
+        File file = filehandling.showOpenDialog(null);
+        if (file != null) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
                 int lives = 0;
                 int score = 0;
                 int wave = 0;
                 int power = 0;
                 int i = 0;
                 String line;
-                while ((line = reader.readLine()) != null){
+                while ((line = reader.readLine()) != null) {
                     i++;
-                    if(i == 1){
+                    if (i == 1) {
                         lives = Integer.parseInt(line);
                     }
-                    if(i == 2){
+                    if (i == 2) {
                         score = Integer.parseInt(line);
                     }
-                    if(i == 3){
+                    if (i == 3) {
                         wave = Integer.parseInt(line);
                     }
-                    if(i == 4){
+                    if (i == 4) {
                         power = Integer.parseInt(line);
                     }
                 }
+
 
                 FXMLLoader loader = new FXMLLoader();
                 Parent tableViewParent = loader.load(getClass().getResource("/View/GamePanel.fxml").openStream());
@@ -91,24 +94,25 @@ public class MainPageController implements Initializable {
 
                 gpc = (GamePanelController) loader.getController();
 
-                Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
                 window.setScene(tableViewScene);
                 window.show();
-                gpc.load(lives,score,wave, power);
+                gpc.load(lives, score, wave, power);
 
                 gpc.gameLoop.start();
 
             } catch (IOException e) {
-                System.out.println("Closed the  filechooser ");
+                //System.out.println("Closed the  filechooser ");
                 //e.printStackTrace();  prints out the stack trace.
             }
+        }
 
     }
 
-    public void buttonHighscores(javafx.event.ActionEvent event) throws IOException {
+    public void buttonChoseWave(javafx.event.ActionEvent event) throws IOException {
 
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/View/HowToPlay.fxml"));
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/View/chooseWave.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
         Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();

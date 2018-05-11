@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="bgMainPage" prefHeight="600.0" prefWidth="1000.0" stylesheets="/View/style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainPageController">
+   <children>
+      <VBox alignment="CENTER" layoutX="415" layoutY="300.0" prefHeight="150" prefWidth="170">
+         <children>
+            <Button mnemonicParsing="false" onAction="#buttonPlay" prefHeight="50.0" prefWidth="170.0" text="Play">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font></Button>
+            <Button mnemonicParsing="false" onAction="#buttonHowToPlay" prefHeight="50.0" prefWidth="170.0" text="How to Play">
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font></Button>
+            <Button mnemonicParsing="false" onAction="#buttonLoad" prefHeight="50.0" prefWidth="170.0" text="Load">
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font></Button>
+
+         </children>
+      </VBox>
+      <Region fx:id="picMainTitle" layoutX="137.0" layoutY="121.0" prefHeight="124.0" prefWidth="726.0" />
+      <Region fx:id="picShip" layoutX="175.0" layoutY="344.0" prefHeight="153.0" prefWidth="150.0" />
+      <Region fx:id="picMainPageAsteroid" layoutX="863.0" layoutY="343.0" prefHeight="85.0" prefWidth="80.0" />
+      <Region fx:id="picMainPageAsteroid" layoutX="741.0" layoutY="258.0" prefHeight="85.0" prefWidth="80.0" />
+      <Region fx:id="picMainPageAsteroid" layoutX="730.0" layoutY="399.0" prefHeight="85.0" prefWidth="80.0" />
+      <Region fx:id="picMainPageAsteroid" layoutX="863.0" layoutY="466.0" prefHeight="85.0" prefWidth="80.0" />
+   </children>
+</AnchorPane>
