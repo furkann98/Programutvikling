@@ -33,7 +33,7 @@ import javafx.scene.control.Button;
 /**
  * GamePanelController er klassen som er koblet til GamePanel.fxml og implementerer metoder i "stage"-en.
  *
- * karniiii
+ *
  *
  * @author Muhammed Furkan Ergin s325881 / Pedram Rahdeirjoo s325906
  */
@@ -153,6 +153,11 @@ public class GamePanelController implements Initializable {
         };
 
 
+    /**
+     *
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         backgroundSound.play();
