@@ -49,8 +49,8 @@ public class Player {
     private int power;
     private int[] requiredPower = {1, 2, 3, 4, 5};
 
-    private Image img = new Image("View/img/spaceShip.png");
-    private Image imgRecovering = new Image("View/img/spaceShip2.png");
+    private Image img = new Image("/View/img/spaceShip.png");
+    private Image imgRecovering = new Image("/View/img/spaceShip2.png");
 
 
 

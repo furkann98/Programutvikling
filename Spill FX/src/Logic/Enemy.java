@@ -45,9 +45,9 @@ public class Enemy {
     private int i = 0;
 
     private Image img;
-    private Image asteroid1 = new Image("View/img/Asteroid.png");
-    private Image asteroid2 = new Image("View/img/Asteroid2.png");
-    private Image asteroid3 = new Image("View/img/Asteroid3.png");
+    private Image asteroid1 = new Image("/View/img/Asteroid.png");
+    private Image asteroid2 = new Image("/View/img/Asteroid2.png");
+    private Image asteroid3 = new Image("/View/img/Asteroid3.png");
     //private Image asteroid1 = new Image("View/img/Asteroid.png");
 
 

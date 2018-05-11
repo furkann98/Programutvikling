@@ -24,8 +24,8 @@ public class PowerUp {
     private Color color1;
 
     private Image img;
-    private Image powerup1 = new Image("View/img/Heart.png");
-    private Image powerup4 = new Image("View/img/slowtime.png");
+    private Image powerup1 = new Image("/View/img/Heart.png");
+    private Image powerup4 = new Image("/View/img/slowtime.png");
 
 
     /**

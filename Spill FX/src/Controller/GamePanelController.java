@@ -84,7 +84,7 @@ public class GamePanelController implements Initializable {
     }
 
     //Lives Image
-    private Image imgLife = new Image("View/img/Heart.png");
+    private Image imgLife = new Image("/View/img/Heart.png");
 
     //File handling
     private GameSave save = new GameSave();
@@ -94,11 +94,11 @@ public class GamePanelController implements Initializable {
     private boolean powerUpCollect = false;
 
     //Sound files
-    AudioClip gameoverSound = new AudioClip(getClass().getResource("../View/sound/gameover.mp3").toString());
-    AudioClip powerUpSound = new AudioClip(getClass().getResource("../View/sound/power.mp3").toString());
-    AudioClip shootSound = new AudioClip(getClass().getResource("../View/sound/pew.mp3").toString());
-    AudioClip playerHitSound = new AudioClip(getClass().getResource("../View/sound/playerHit.mp3").toString());
-    AudioClip backgroundSound = new AudioClip(getClass().getResource("../View/sound/background2.mp3").toString());
+    AudioClip gameoverSound = new AudioClip(getClass().getResource("/View/sound/gameover.mp3").toString());
+    AudioClip powerUpSound = new AudioClip(getClass().getResource("/View/sound/power.mp3").toString());
+    AudioClip shootSound = new AudioClip(getClass().getResource("/View/sound/pew.mp3").toString());
+    AudioClip playerHitSound = new AudioClip(getClass().getResource("/View/sound/playerHit.mp3").toString());
+    AudioClip backgroundSound = new AudioClip(getClass().getResource("/View/sound/background2.mp3").toString());
 
 
     /**
