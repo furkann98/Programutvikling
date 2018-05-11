@@ -33,6 +33,14 @@ public class Bullet {
 
     //KONSTRUKTØR
 
+    /**
+     * Konstruktær til Bullet
+     * Setter inn posisjon, størrelse, fart og vinkel til kula.
+     *
+     * @param angle vinkel til kula
+     * @param x x-posisjon til kula
+     * @param y y-posisjon til kula
+     */
     public Bullet(double angle, int x, int y){
         this.x = x;
         this.y = y;
@@ -42,8 +50,6 @@ public class Bullet {
         speed = 8;
         dx = Math.cos(angle) * speed;
         dy = Math.sin(angle) * speed;
-
-
 
         color = Color.LIGHTGREEN;
     }
@@ -59,8 +65,6 @@ public class Bullet {
      *  Dersom kulen går utenfor banens Lengde eller Bredde vil den ikke eksistere lenger.
      *
      *  @return  true/false   ettersom hva kulens posisjon er.
-     *
-     *
      *
      * */
     public boolean update(){

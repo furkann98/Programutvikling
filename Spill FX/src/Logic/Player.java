@@ -56,6 +56,15 @@ public class Player {
 
 
     //KONSTRUKTØR
+
+    /**
+     * Konstruktør Player
+     *  Setter inn alle verdier for Player.
+     * Setter inn posisjonen for spilleren, radius, farten, farge, og
+     * skyte-variabler
+     *
+     *
+     */
     public Player(){
         x = GamePanelController.WIDTH / 2;
         y = GamePanelController.HEIGHT / 2;
@@ -91,6 +100,10 @@ public class Player {
 
     public int getLives() {return lives;}
 
+    /**
+     * Blir aktivert dersom spilleren er død.
+     * @return lives  returnerer at Player sine liv er null
+     */
     public boolean isDead(){
 
         return lives <= 0;
@@ -120,6 +133,14 @@ public class Player {
         lives++;
     }
 
+    /**
+     * Metode som sørger for at spilleren mister et liv for hver kollisjon.
+     *
+     *Dersom en spiller blir truffet av en fiende blir denne metoden aktivert og fjerner et av
+     * spillerens liv, setter spiller i en "recovery" mode.
+     *
+     *
+     */
     public void loseLife(){
         lives--;
         recovering = true;
@@ -128,6 +149,14 @@ public class Player {
 
     }
 
+    /**
+     *increasePower er en metode som øker powerLevel hver gang den en spiller plukker en opp.
+     *
+     * Sørger for at hver gang en spiller plukker opp en powerUp så øker den powerLevel til
+     * Spilleren helt til den når maks PowerLevel som er 4.
+     *
+     * @param i integer som sørger for å øke med i
+     */
     public void increasePower(int i){
 
         power += i;
@@ -155,7 +184,23 @@ public class Player {
     public void setNukeTrue(){nuke = true;}
 
 
-
+    /**
+     *Oppdaterer Spillerens posisjon og spillerens skudd
+     *
+     *
+     * Har Booleans som sørger for at spillerens posisjon tilsvarer en retning og fart.
+     * Den øker/minker gradvis hele tiden
+     *
+     * Har Laget if-tester som sørger for at den er alltid innenfor spillets lengde og bredde,
+     * Kan aldri gå ut av banen.
+     *
+     *
+     * Har fikset firing med en delay så det blir jevne mellomrom for hvert skudd.
+     *
+     * Har også gjort at dersom Player sin PowerLevel øker, økes også skuddene, og de vil skyte
+     * flere skudd i flere vinkler, alt ettersom Player sin powerLevel
+     *
+     */
     public void update(){
         if(left){
             dx = -speed;
@@ -237,7 +282,23 @@ public class Player {
     }
 
 
-
+    /**
+     *Metode som tegner Player
+     *
+     *
+     * Denne metoden tegner player to ganger, den ene er når Player er på banen,
+     * og den andre er når Player har blitt truffet av en fiende.
+     *
+     * Dersom en fiende treffer Player, vil Player gå i en "Recovering" mode som får player til å
+     * bytte farge som indikerer at han har blitt truffet.
+     *
+     *
+     *  Dersom PowerLevel er på sitt maks nivå, vil det komme opp en tekst på skjermen som sier at
+     *  En "Nuke" er klar til å brukes.
+     *
+     *
+     * @param g GraphicsContext
+     */
     public void draw(GraphicsContext g){
         if(recovering){
 
