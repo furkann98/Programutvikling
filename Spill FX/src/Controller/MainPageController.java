@@ -110,9 +110,9 @@ public class MainPageController implements Initializable {
 
     }
 
-    public void buttonChoseWave(javafx.event.ActionEvent event) throws IOException {
+    public void buttonChooseWave(javafx.event.ActionEvent event) throws IOException {
 
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/View/chooseWave.fxml"));
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("/View/ChooseWave.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
         Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
