@@ -842,6 +842,8 @@ public class GamePanelController implements Initializable {
             waveStartTimerDiff = 0;
             waveStart = true;
             waveNumber = wave - 1;
+
+            pause = false;
         }
 
     /**
