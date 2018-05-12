@@ -1,6 +1,6 @@
 
 
-#bgMainPage{
+#bkgMainPage{
     -fx-background-image: url("/View/img/spaceBkg.png");
     -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
@@ -18,7 +18,7 @@
     -fx-background-repeat: no-repeat;
 }
 
-#bgHowToPlay{
+#bkgGeneral{
     -fx-background-image: url("/View/img/spaceBkg.png");
     -fx-background-size: 100% 100%;
 }
@@ -81,7 +81,7 @@
 
 #picSlowtime{
     -fx-background-image: url("/View/img/slowtime.png");
-    -fx-background-size: 67%;
+    -fx-background-size: 60%;
     -fx-background-repeat: no-repeat;
     -fx-alignment: center ;
 
@@ -93,6 +93,11 @@
     -fx-background-repeat: no-repeat;
     -fx-background-color: Transparent;
     -fx-opacity: 0.8;
+
+}
+#picChooseMain{
+    -fx-background-image: url("/View/img/spaceBkg.png");
+    -fx-background-size: 100% 100%;
 
 }
 

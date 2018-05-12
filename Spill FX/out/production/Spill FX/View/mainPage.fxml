@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="bgMainPage" prefHeight="600.0" prefWidth="1000.0" stylesheets="/View/style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainPageController">
+<AnchorPane fx:id="bkgMainPage" prefHeight="600.0" prefWidth="1000.0" stylesheets="/View/style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainPageController">
    <children>
       <VBox alignment="CENTER" layoutX="415" layoutY="300.0" prefHeight="150" prefWidth="170">
          <children>
@@ -26,6 +26,13 @@
                   <Font size="20.0" />
                </font></Button>
             <Button mnemonicParsing="false" onAction="#buttonLoad" prefHeight="50.0" prefWidth="170.0" text="Load">
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font></Button>
+            <Button mnemonicParsing="false" onAction="#buttonChooseWave" prefHeight="50.0" prefWidth="170.0" text="Choose Wave">
                <VBox.margin>
                   <Insets top="15.0" />
                </VBox.margin>
