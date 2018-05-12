@@ -56,11 +56,6 @@ public class MainPageController implements Initializable {
     public void buttonLoad(javafx.event.ActionEvent event) throws IOException {
 
 
-
-       // gpc.gameLoop.stop();  //STOP
-        //gpc.setPause(true);
-       // gpc.drawPause();   //Pause
-
         filehandling.setInitialDirectory(new File(System.getProperty("user.home")));
         File file = filehandling.showOpenDialog(null);
         if (file != null) {
@@ -101,6 +96,7 @@ public class MainPageController implements Initializable {
                 gpc.load(lives, score, wave, power);
 
                 gpc.gameLoop.start();
+
 
             } catch (IOException e) {
                 //System.out.println("Closed the  filechooser ");

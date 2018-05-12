@@ -924,6 +924,7 @@ public class GamePanelController implements Initializable {
 
 
     public void loadBtn(javafx.event.ActionEvent event) throws IOException {
+        
 
                 filehandling.setInitialDirectory(new File("src/Saved"));
                 try (BufferedReader reader = new BufferedReader(new FileReader(new File(String.valueOf(filehandling.showOpenDialog(null)))))) {
