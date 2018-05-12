@@ -902,10 +902,10 @@ public class GamePanelController implements Initializable {
      */
     public void saveBtn(javafx.event.ActionEvent event) throws IOException {
 
-        File file = filehandling.showOpenDialog(null);
+        File file = filehandling.showSaveDialog(null);
         if (file != null) {
             try {
-                filehandling.setInitialDirectory(new File("src/Saved"));
+                filehandling.setInitialDirectory(new File("user.home"));
                 save.makeFile(filehandling.showSaveDialog(null));
             } catch (IOException e) {
                 e.printStackTrace();
@@ -925,40 +925,42 @@ public class GamePanelController implements Initializable {
 
     public void loadBtn(javafx.event.ActionEvent event) throws IOException {
 
-
-                filehandling.setInitialDirectory(new File("src/Saved"));
-                try (BufferedReader reader = new BufferedReader(new FileReader(new File(String.valueOf(filehandling.showOpenDialog(null)))))) {
-                    int lives = 0;
-                    int score = 0;
-                    int wave = 0;
-                    int power = 0;
-                    int i = 0;
-                    String line;
-                    while ((line = reader.readLine()) != null){
-                        i++;
-                        if(i == 1){
-                            lives = Integer.parseInt(line);
-                        }
-                        if(i == 2){
-                            score = Integer.parseInt(line);
-                        }
-                        if(i == 3){
-                            wave = Integer.parseInt(line);
-                        }
-                        if(i == 4){
-                            power = Integer.parseInt(line);
-                        }
+        filehandling.setInitialDirectory(new File(System.getProperty("user.home")));
+        File file = filehandling.showOpenDialog(null);
+        if (file != null) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                int lives = 0;
+                int score = 0;
+                int wave = 0;
+                int power = 0;
+                int i = 0;
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    i++;
+                    if (i == 1) {
+                        lives = Integer.parseInt(line);
                     }
-                    load(lives,score,wave, power);
-                } catch (IOException e) {
-                  //  e.printStackTrace();
+                    if (i == 2) {
+                        score = Integer.parseInt(line);
+                    }
+                    if (i == 3) {
+                        wave = Integer.parseInt(line);
+                    }
+                    if (i == 4) {
+                        power = Integer.parseInt(line);
+                    }
                 }
-
-        //pause = true;
-        //gameLoop.stop();
-                pause = true;
-                gameLoop.stop();
+                load(lives, score, wave, power);
+            } catch (IOException e) {
+                //  e.printStackTrace();
             }
+
+            //pause = true;
+            //gameLoop.stop();
+            pause = true;
+            gameLoop.stop();
+        }
+    }
 
 
     /**

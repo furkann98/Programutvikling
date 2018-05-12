@@ -6,6 +6,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -66,7 +68,7 @@ public class MainPageController implements Initializable {
                 int power = 0;
                 int i = 0;
                 String line;
-                while ((line = reader.readLine()) != null) {
+                while ((line = reader.readLine()) != null && line.matches("^[0-9]*$")) {
                     i++;
                     if (i == 1) {
                         lives = Integer.parseInt(line);
@@ -81,23 +83,26 @@ public class MainPageController implements Initializable {
                         power = Integer.parseInt(line);
                     }
                 }
+                if (i != 4){
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "The file is corrupt, please try another file", ButtonType.OK);
+                    alert.showAndWait();
+                }
+                else{
+                    FXMLLoader loader = new FXMLLoader();
+                    Parent tableViewParent = loader.load(getClass().getResource("/View/GamePanel.fxml").openStream());
+                    Scene tableViewScene = new Scene(tableViewParent);
 
+                    gpc = (GamePanelController) loader.getController();
 
-                FXMLLoader loader = new FXMLLoader();
-                Parent tableViewParent = loader.load(getClass().getResource("/View/GamePanel.fxml").openStream());
-                Scene tableViewScene = new Scene(tableViewParent);
+                    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-                gpc = (GamePanelController) loader.getController();
+                    window.setScene(tableViewScene);
+                    window.show();
+                    gpc.load(lives, score, wave, power);
 
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    gpc.gameLoop.start();
 
-                window.setScene(tableViewScene);
-                window.show();
-                gpc.load(lives, score, wave, power);
-
-                gpc.gameLoop.start();
-
-
+                }
             } catch (IOException e) {
                 //System.out.println("Closed the  filechooser ");
                 //e.printStackTrace();  prints out the stack trace.
