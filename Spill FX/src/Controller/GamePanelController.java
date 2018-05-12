@@ -194,10 +194,10 @@ public class GamePanelController implements Initializable {
                     else if(pause == true) {
                         pause = false;
                         gameLoop.start();
-                        pauseMenu.setVisible(false);
                     } else {
+                        pauseMenu.setVisible(true);
                         drawPause();
-
+                        picPause.setVisible(false);
                     }
                     break;
                 case R:
@@ -984,8 +984,8 @@ public class GamePanelController implements Initializable {
      */
 
         public void pauseBtn(javafx.event.ActionEvent event) throws IOException {
-                picPause.setVisible(false);
                 drawPause();
+                picPause.setVisible(false);
         }
 
 
