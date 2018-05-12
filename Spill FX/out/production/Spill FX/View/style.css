@@ -95,9 +95,10 @@
     -fx-opacity: 0.8;
 
 }
-#picChooseMain{
-    -fx-background-image: url("/View/img/spaceBkg.png");
-    -fx-background-size: 100% 100%;
+#picChooseMainTitle{
+    -fx-background-image: url("/View/img/Choose-Wave.png");
+    -fx-background-size: 100%;
+    -fx-background-repeat: no-repeat;
 
 }
 
