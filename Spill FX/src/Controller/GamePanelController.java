@@ -99,7 +99,7 @@ public class GamePanelController implements Initializable {
 
     //power-up collision
     private boolean powerUpCollect = false;
-    
+
     //Sound files
     AudioClip gameoverSound = new AudioClip(getClass().getResource("/View/sound/gameover.mp3").toString());
     AudioClip powerUpSound = new AudioClip(getClass().getResource("/View/sound/power.mp3").toString());
@@ -914,20 +914,15 @@ public class GamePanelController implements Initializable {
      */
     public void saveBtn(javafx.event.ActionEvent event) throws IOException {
 
-        //File file = filehandling.showSaveDialog(null);
-       // if (file!= null) {
+        File file = filehandling.showSaveDialog(null);
+        if (file!= null) {
             try {
-                System.out.println("hei");
-                filehandling.setInitialDirectory(new File("src/Saved"));
-                save.makeFile(filehandling.showSaveDialog(null));
+                save.makeFile(file);
             } catch (IOException e) {
                 e.printStackTrace();
             }
             save.save(player, (int) waveNumber);
-
-       // }
-
-
+        }
 
     }
 
@@ -941,7 +936,7 @@ public class GamePanelController implements Initializable {
 
     public void loadBtn(javafx.event.ActionEvent event) throws IOException {
 
-        filehandling.setInitialDirectory(new File(System.getProperty("user.home")));
+        //filehandling.setInitialDirectory(new File(System.getProperty("user.home")));
         File file = filehandling.showOpenDialog(null);
         if (file != null) {
             try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
