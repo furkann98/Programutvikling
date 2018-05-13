@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -31,9 +33,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 
 /**
- * GamePanelController er klassen som er koblet til GamePanel.fxml og implementerer metoder i "stage"-en.
  *
+ * GamePanelController er controlleren til Gamepanel.fxml og implementerer Initializable
  *
+ * Importerer canvas, HBox, VBox og Buttons fra gamepanel.fxml
+ * Setter bane Størelsen som int verdier ( WIDTH og HEIGHT )
+ * Implementerer GrapichsContext, Player og bullets, enemies, powerups, explosions og text i en ArrayList.
+ * Implementerer wavestart, slowdown, pause, gameover, Image, Sound variabler som er nødvendig for spillets funskjoner.
+ * Lager en ny Thread for bedre effektivitet og bedre ytelse, hvor alt av lydfiler blir satt inn
  *
  * @author Muhammed Furkan Ergin s325881 / Pedram Rahdeirjoo s325906
  */
@@ -92,6 +99,8 @@ public class GamePanelController implements Initializable {
 
     //power-up collision
     private boolean powerUpCollect = false;
+
+    private boolean backgroundMusicPlay = false;
 
     //Sound files
     AudioClip gameoverSound = new AudioClip(getClass().getResource("/View/sound/gameover.mp3").toString());
@@ -162,7 +171,7 @@ public class GamePanelController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        backgroundSound.play();
+       // backgroundSound.play();
 
         //Keylistener
         canvas.setOnKeyPressed(key -> {
@@ -230,6 +239,11 @@ public class GamePanelController implements Initializable {
 
             }
         });
+
+        //Background Music
+        backgroundSound.stop();
+        backgroundSound.play();
+        backgroundSound.setCycleCount(1);
 
 
         //Grapichscontext
@@ -902,17 +916,21 @@ public class GamePanelController implements Initializable {
      */
     public void saveBtn(javafx.event.ActionEvent event) throws IOException {
 
-        File file = filehandling.showSaveDialog(null);
-        if (file != null) {
+        //File file = filehandling.showSaveDialog(null);
+       // if (file!= null) {
             try {
-                filehandling.setInitialDirectory(new File("user.home"));
+                System.out.println("hei");
+                filehandling.setInitialDirectory(new File("src/Saved"));
                 save.makeFile(filehandling.showSaveDialog(null));
             } catch (IOException e) {
                 e.printStackTrace();
             }
             save.save(player, (int) waveNumber);
 
-        }
+       // }
+
+
+
     }
 
     /**
@@ -935,7 +953,7 @@ public class GamePanelController implements Initializable {
                 int power = 0;
                 int i = 0;
                 String line;
-                while ((line = reader.readLine()) != null) {
+                while ((line = reader.readLine()) != null && line.matches("^[0-9]*$")) {
                     i++;
                     if (i == 1) {
                         lives = Integer.parseInt(line);
@@ -950,15 +968,21 @@ public class GamePanelController implements Initializable {
                         power = Integer.parseInt(line);
                     }
                 }
-                load(lives, score, wave, power);
+                if (i != 4){
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "The file is corrupt, please try another file", ButtonType.OK);
+                    alert.showAndWait();
+                } else{
+                    load(lives, score, wave, power);
+                }
+
             } catch (IOException e) {
                 //  e.printStackTrace();
             }
 
             //pause = true;
             //gameLoop.stop();
-            pause = true;
-            gameLoop.stop();
+            pause = false;
+            gameLoop.start();
         }
     }
 
