@@ -58,7 +58,7 @@ public class MainPageController implements Initializable {
     public void buttonLoad(javafx.event.ActionEvent event) throws IOException {
 
 
-        filehandling.setInitialDirectory(new File(System.getProperty("user.home")));
+        //filehandling.setInitialDirectory(new File(System.getProperty("user.home")));
         File file = filehandling.showOpenDialog(null);
         if (file != null) {
             try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
