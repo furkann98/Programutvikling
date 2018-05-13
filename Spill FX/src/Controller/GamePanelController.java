@@ -99,9 +99,7 @@ public class GamePanelController implements Initializable {
 
     //power-up collision
     private boolean powerUpCollect = false;
-
-    private boolean backgroundMusicPlay = false;
-
+    
     //Sound files
     AudioClip gameoverSound = new AudioClip(getClass().getResource("/View/sound/gameover.mp3").toString());
     AudioClip powerUpSound = new AudioClip(getClass().getResource("/View/sound/power.mp3").toString());
@@ -973,16 +971,14 @@ public class GamePanelController implements Initializable {
                     alert.showAndWait();
                 } else{
                     load(lives, score, wave, power);
+                    pause = false;
+                    gameLoop.start();
                 }
 
             } catch (IOException e) {
                 //  e.printStackTrace();
             }
 
-            //pause = true;
-            //gameLoop.stop();
-            pause = false;
-            gameLoop.start();
         }
     }
 
