@@ -602,7 +602,7 @@ public class GamePanelController implements Initializable {
             //Draw slowDown meter
             if (slowDownTimer != 0) {
                 g.setFill(Color.WHITE);
-                g.setGlobalAlpha(0.15);
+                g.setGlobalAlpha(0.08);
                 g.fillRect(0,0,WIDTH,HEIGHT);
                 g.setGlobalAlpha(1);
                 g.fillRect(20, 80, (int) (100 - 100.0 * slowDownTimerDiff / slowDownLength), 8);

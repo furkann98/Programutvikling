@@ -104,7 +104,6 @@ public class MainPageController implements Initializable {
 
                 }
             } catch (IOException e) {
-                //System.out.println("Closed the  filechooser ");
                 //e.printStackTrace();  prints out the stack trace.
             }
         }
