@@ -19,6 +19,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Denne Controller-klassen er for FXML-filen MainPage
+ * Dette er forsiden til spillet, her kan du velge mellom fire knapper som sender deg videre til andre filer.
+ * Play-Knappen, How to Play-knappen, load-knappen og Choose wave-knappen
+ *
+ */
+
+
 public class MainPageController implements Initializable {
 
     private GamePanelController gpc = new GamePanelController();
@@ -31,6 +39,13 @@ public class MainPageController implements Initializable {
 
     }
 
+    /**
+     * Kjører spillet,
+     * bytter til GamePanel.FXML
+     *
+     * @param event bruker onClick event på knappen
+     * @throws IOException kaster IOExeption ved input og output
+     */
     public void buttonPlay(javafx.event.ActionEvent event) throws IOException {
 
         Parent tableViewParent = FXMLLoader.load(getClass().getResource("/View/GamePanel.fxml"));
@@ -43,7 +58,13 @@ public class MainPageController implements Initializable {
     }
 
 
-
+    /**
+     *  HowToPlay metoden sender brukeren til fxml filen HowToPlay,
+     *  der er det informasjon om hvordan spilleren skal styre avataren.
+     *
+     * @param event bruker onClick event på knappen
+     * @throws IOException kaster IOExeption ved input og output
+     */
     public void buttonHowToPlay(javafx.event.ActionEvent event) throws IOException {
 
         Parent tableViewParent = FXMLLoader.load(getClass().getResource("/View/HowToPlay.fxml"));
@@ -54,6 +75,16 @@ public class MainPageController implements Initializable {
         window.setScene(tableViewScene);
         window.show();
     }
+
+
+
+    /**
+     * Load knappen gir brukeren en sjanse til å få frem og åpne andre/fremtidige lagrede filer.
+
+     *
+     * @param event bruker onClick event på knappen
+     * @throws IOException kaster IOExeption ved input og output
+     */
 
     public void buttonLoad(javafx.event.ActionEvent event) throws IOException {
 
@@ -109,6 +140,17 @@ public class MainPageController implements Initializable {
         }
 
     }
+
+
+    /**
+     *
+     *
+     * ChooseWave sender deg til ChooseWave.fxml
+     *
+     *
+     * @param event bruker onClick event på knappen
+     * @throws IOException kaster IOExeption ved input og output
+     */
 
     public void buttonChooseWave(javafx.event.ActionEvent event) throws IOException {
 

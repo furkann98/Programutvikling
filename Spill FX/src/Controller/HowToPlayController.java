@@ -10,6 +10,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+
+/**
+ * Controller-klassen for HowToPlay.fxml
+ *
+ * her er knappen som er i HowToPlay klassen.
+ */
 public class HowToPlayController implements Initializable {
 
 
@@ -19,6 +25,12 @@ public class HowToPlayController implements Initializable {
 
     }
 
+    /**
+     *Sender brukeren tilbake til hovedMenyen.
+     *
+     * @param event bruker onClick event på knappen
+     * @throws IOException kaster IOExeption ved input og output
+     */
     public void buttonBack(javafx.event.ActionEvent event) throws IOException {
 
         Parent tableViewParent = FXMLLoader.load(getClass().getResource("/View/mainPage.fxml"));
