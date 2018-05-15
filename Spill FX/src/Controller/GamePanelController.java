@@ -256,7 +256,7 @@ public class GamePanelController implements Initializable {
         //Background Music
         backgroundSound.stop();
         backgroundSound.play();
-        backgroundSound.setCycleCount(AudioClip.INDEFINEITE);
+        backgroundSound.setCycleCount(AudioClip.INDEFINITE);
 
 
         //Grapichscontext
