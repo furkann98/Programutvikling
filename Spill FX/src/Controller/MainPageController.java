@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
  * @author Muhammed Furkan Ergin s325881 / Pedram Rahdeirjoo s325906  */
 
 
-public class MainPageController implements Initializable {
+public class MainPageController {
 
     private GamePanelController gpc = new GamePanelController();
 
