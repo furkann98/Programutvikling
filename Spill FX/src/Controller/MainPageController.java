@@ -143,8 +143,6 @@ public class MainPageController implements Initializable {
 
 
     /**
-     *
-     *
      * ChooseWave sender deg til ChooseWave.fxml
      *
      *

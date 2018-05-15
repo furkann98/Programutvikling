@@ -40,7 +40,10 @@ import javafx.scene.control.Button;
  * Setter bane Størelsen som int verdier ( WIDTH og HEIGHT )
  * Implementerer GrapichsContext, Player og bullets, enemies, powerups, explosions og text i en ArrayList.
  * Implementerer wavestart, slowdown, pause, gameover, Image, Sound variabler som er nødvendig for spillets funskjoner.
- * Lager en ny Thread for bedre effektivitet og bedre ytelse, hvor alt av lydfiler blir satt inn
+ * Implementerer en ny Thread for bedre effektivitet og bedre ytelse, hvor alt av lydfiler blir satt inn
+ * Setter inn verdier på variabler og starter funksjoner inn i initialize funskjonen, slik at spillet starter.
+ * Implementerer hovedmetodene GameUpdate, GameRender, createNewEnemies, gameover, restart, filehandling, save og load.
+ * Implementerer on-click funskjoner på alle knapper i gamePanel.fxml
  *
  * @author Muhammed Furkan Ergin s325881 / Pedram Rahdeirjoo s325906
  */
@@ -108,13 +111,16 @@ public class GamePanelController implements Initializable {
     AudioClip backgroundSound = new AudioClip(getClass().getResource("/View/sound/background2.mp3").toString());
 
 
-    /**
-     *
-     *
-     *
-     */
     //New thread for sound
     Thread soundThread = new Thread(new Runnable() {
+
+        /**
+         * Run metoden starter med thread`en og kjører Soundloopen i form av AnimationTimer
+         *
+         * Her blir alt av lydfiler spilt , når det skjer kolisjoner i en egen thread og loop.
+         * Det gir "spill-logikken" mindre belastning da lydfilene kjøres i en egen thread.
+         * Dette brukes for å unngå lag og skape bedre effektivitet og ytelse.
+         */
         @Override
         public void run(){
 
@@ -148,6 +154,19 @@ public class GamePanelController implements Initializable {
 
         //Animation timer - Gameloop
         AnimationTimer gameLoop = new AnimationTimer() {
+
+            /**
+             * Handle skaper en timer som blir kjørt hver frame så lenge den er aktiv.
+             *
+             * Kjører (GameUpdate() og GameRender()) som setter sammen Logikken og kontrolleren i gameLoop.
+             * gameUpdate(): er hvor alle objektenes siste posisjon, funksjoner, kolisjoner beregnes.
+             * GameRender(): er hvor alle objekter tegnes i canvaset etter at de har blitt oppdatert.
+             * if-test på om player har flere liv og om player er i siste wave.
+             *
+             *
+             * @param now blir kalt inn i hver frame. Lar loopen få mulighet til å Stoppe og Starte.
+             */
+
             @Override
             public void handle(long now) {
                 gameUpdate();      //Positioning
@@ -162,11 +181,6 @@ public class GamePanelController implements Initializable {
         };
 
 
-    /**
-     *
-     * @param url
-     * @param rb
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        // backgroundSound.play();
