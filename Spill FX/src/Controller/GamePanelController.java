@@ -805,6 +805,8 @@ public class GamePanelController implements Initializable {
 
 
             victoryMenu.setVisible(true);
+            picPause.setVisible(false);
+
         }
 
     /**
@@ -831,6 +833,8 @@ public class GamePanelController implements Initializable {
 
 
             victoryMenu.setVisible(true);
+            picPause.setVisible(false);
+
         }
 
 
