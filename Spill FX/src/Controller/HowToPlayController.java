@@ -15,15 +15,13 @@ import java.util.ResourceBundle;
  * Controller-klassen for HowToPlay.fxml
  *
  * her er knappen som er i HowToPlay klassen.
- */
+ *
+ *
+ * @author Muhammed Furkan Ergin s325881 / Pedram Rahdeirjoo s325906 */
+
+
 public class HowToPlayController implements Initializable {
 
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb){
-
-
-    }
 
     /**
      *Sender brukeren tilbake til hovedMenyen.

@@ -35,12 +35,13 @@ import javafx.scene.control.Button;
 /**
  *
  * GamePanelController er controlleren til Gamepanel.fxml og implementerer Initializable
+ * Dette er den hovedkontrolleren for selve spillet "pewpew". Eneste klassen som bruker logikken.
  *
  * Importerer canvas, HBox, VBox og Buttons fra gamepanel.fxml
  * Setter bane Størelsen som int verdier ( WIDTH og HEIGHT )
  * Implementerer GrapichsContext, Player og bullets, enemies, powerups, explosions og text i en ArrayList.
  * Implementerer wavestart, slowdown, pause, gameover, Image, Sound variabler som er nødvendig for spillets funskjoner.
- * Implementerer en ny Thread for bedre effektivitet og bedre ytelse, hvor alt av lydfiler blir satt inn
+ * Implementerer en ny Thread for bedre effektivitet og bedre ytelse, hvor alt av lydfiler blir satt inn.
  * Setter inn verdier på variabler og starter funksjoner inn i initialize funskjonen, slik at spillet starter.
  * Implementerer hovedmetodene GameUpdate, GameRender, createNewEnemies, gameover, restart, filehandling, save og load.
  * Implementerer on-click funskjoner på alle knapper i gamePanel.fxml

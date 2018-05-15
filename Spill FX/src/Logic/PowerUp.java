@@ -6,8 +6,13 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 /**
+ * klasse for powerUP
  *
- */
+ * implementerer alle nødvendige variabler i datafeltet
+ * lager konstruktør og setter opp alle metoder.
+ *
+ * @author Muhammed Furkan Ergin s325881 / Pedram Rahdeirjoo s325906  */
+
 public class PowerUp {
 
     //Datafelt
@@ -107,11 +112,10 @@ public class PowerUp {
 
     /**
      *
-     * Tegner Powerups
+     * Tegner powerUps på canvasen med graphicscontext i form av sirkel.
+     * dersom powerup er av type 4 blir det satt inn et bilde og figuren blir av typen rektangel.
      *
-     * Tegner powerUps, sørger for at alle
-     *
-     * @param g GraphicsContext
+     * @param g GraphicsContext verktøyet for å sette inn bilde på canvaset.
      *
      * @see Image et bildet av powerup, ettersom, hvilken type det er.
      */

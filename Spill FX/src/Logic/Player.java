@@ -10,11 +10,21 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 
+/**
+ * Player klassen er avatarens klasse.
+ *
+ * Her blir alt av verdier implementert på et Datafelt.
+ * posisjons-variabler, bevegelse-boolean, skyte-boolean, lyd-boolean og en liste for skuddstyrke.
+ *
+ * @author Muhammed Furkan Ergin s325881 / Pedram Rahdeirjoo s325906  */
+
+
+
+
 public class Player {
+
+
     //DATAFELT
-
-
-
     private int x;
     private int y;
     private int r; //radius
@@ -59,10 +69,9 @@ public class Player {
 
     /**
      * Konstruktør Player
-     *  Setter inn alle verdier for Player.
+     * Setter inn alle verdier for Player.
      * Setter inn posisjonen for spilleren, radius, farten, farge, og
      * skyte-variabler
-     *
      *
      */
     public Player(){
@@ -101,6 +110,7 @@ public class Player {
     public int getLives() {return lives;}
 
     /**
+     * En boolean metode som sender spillerens leve-status.
      * Blir aktivert dersom spilleren er død.
      * @return lives  returnerer at Player sine liv er null
      */

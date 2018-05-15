@@ -24,23 +24,19 @@ import java.util.ResourceBundle;
  * Dette er forsiden til spillet, her kan du velge mellom fire knapper som sender deg videre til andre filer.
  * Play-Knappen, How to Play-knappen, load-knappen og Choose wave-knappen
  *
- */
+ * @author Muhammed Furkan Ergin s325881 / Pedram Rahdeirjoo s325906  */
 
 
 public class MainPageController implements Initializable {
 
     private GamePanelController gpc = new GamePanelController();
-    //File handling
 
+    //File handling
     private FileChooser filehandling = new FileChooser();
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb){
-
-    }
 
     /**
-     * Kjører spillet,
+     * play-knappen Kjører spillet,
      * bytter til GamePanel.FXML
      *
      * @param event bruker onClick event på knappen
@@ -80,7 +76,14 @@ public class MainPageController implements Initializable {
 
     /**
      * Load knappen gir brukeren en sjanse til å få frem og åpne andre/fremtidige lagrede filer.
-
+     *
+     * Implementerer en fil(File) og bruker Filechooser til å åpne en fil-åpnings-dialog.
+     * Implementerer en leser/BufferReader som går gjennom alle linjene på en txt-fil,
+     * og sørger for at alle linjer tilsvarer implementerte variabler.
+     *
+     *
+     * Dersom filen har andre verdier enn tall, eller er korrupte, så vil det komme en feilmelding(Alert),
+     * Hvis ikke vil filen brukes i Load-metoden.
      *
      * @param event bruker onClick event på knappen
      * @throws IOException kaster IOExeption ved input og output
@@ -89,7 +92,6 @@ public class MainPageController implements Initializable {
     public void buttonLoad(javafx.event.ActionEvent event) throws IOException {
 
 
-        //filehandling.setInitialDirectory(new File(System.getProperty("user.home")));
         File file = filehandling.showOpenDialog(null);
         if (file != null) {
             try (BufferedReader reader = new BufferedReader(new FileReader(file))) {

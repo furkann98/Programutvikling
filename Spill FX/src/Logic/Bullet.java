@@ -14,7 +14,7 @@ import javafx.scene.paint.Color;
  *  Deretter tegner vi kulene som sirkler(oval) og setter inn farge.
  *
  *
- * @author Muhammed Furkan Ergin s325881 / Pedram Rahdeirjoo s325906 * */
+ * @author Muhammed Furkan Ergin s325881 / Pedram Rahdeirjoo s325906 */
 
 public class Bullet {
 
@@ -32,7 +32,6 @@ public class Bullet {
 
 
     //KONSTRUKTØR
-
     /**
      * Konstruktær til Bullet
      * Setter inn posisjon, størrelse, fart og vinkel til kula.
@@ -55,7 +54,6 @@ public class Bullet {
     }
 
     //FUNKSJON
-
     public double getx() {return x;}
     public double gety() {return y;}
     public double getr() {return r;}
@@ -78,19 +76,17 @@ public class Bullet {
     }
 
     /**
-     * Her blir kullene tegnet
+     * Her blir kulene tegnet
      *
      * Gir kulene fargen "color" som er fargen lysegrønn
      * og tegner dem som en sirket(oval) med en lengde og bredde.
      *
-     * @author
+     * Tegnet etter Update metoden.
+     *
+     *
      * */
     public void draw(GraphicsContext g){
         g.setFill(color);
         g.fillOval((int)(x-r), (int)(y-r), 2*r, 2*r );
     }
-
-
-
-
 }

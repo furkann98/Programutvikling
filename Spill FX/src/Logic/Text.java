@@ -13,7 +13,8 @@ import javafx.scene.text.FontWeight;
  * Dette er tekst-klassen for powerups.
  *  Når powerUps blir plukket opp så skal det komme en tekst.
  *
- */
+ * @author Muhammed Furkan Ergin s325881 / Pedram Rahdeirjoo s325906  */
+
 
 public class Text {
 

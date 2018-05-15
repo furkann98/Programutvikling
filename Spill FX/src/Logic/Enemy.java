@@ -48,10 +48,20 @@ public class Enemy {
     private Image asteroid1 = new Image("/View/img/Asteroid.png");
     private Image asteroid2 = new Image("/View/img/Asteroid2.png");
     private Image asteroid3 = new Image("/View/img/Asteroid3.png");
-    //private Image asteroid1 = new Image("View/img/Asteroid.png");
 
 
     //CONSTRUCTOR
+
+    /**
+     * Konstruktør til Enemy-objektet
+     *
+     *  Gir fiendenen fart, størrelse, og liv alt ettersom hvilken "rank" og "type" de er.
+     *
+     *  Gir fiender tilfelig startsposisjon og startsvinkel.
+     *
+     * @param type hva slags type fiende
+     * @param rank hva slags rank(nivå) fienden er.
+     */
     public Enemy(int type, int rank){
         this.type = type;
         this.rank = rank;
@@ -140,15 +150,10 @@ public class Enemy {
         y = Math.random() * (GamePanelController.HEIGHT-GamePanelController.HEIGHT/8)+GamePanelController.HEIGHT / 8;
 
 
-
-        // MÅ BYTTE ANGLE til et tall mellom 120-240
-        //double angle =  Math.random() * 340 + 200;
         double angle =  Math.random() * 240 + 120;
 
 
         rad = Math.toRadians(angle);
-
-        // MÅ KANSKJE BYTTE HER OGSÅ
 
         dx = Math.sin(rad) * speed;
         dy = Math.cos(rad) * speed;
@@ -159,7 +164,7 @@ public class Enemy {
         hit = false;
         hitTimer = 0;
 
-        r= r*2;
+        r = r*2;
         speed = speed * 0.6;
 
     }
@@ -187,8 +192,8 @@ public class Enemy {
      *  Her er Hit-metoden som ser om fienden treffer Player eller ikke, og hva som skjer
      *  om de blir truffet.
      *
-     *  Hvis Fienden blir truffet vil Livet(Health) til Player minke med en for hver gang,
-     *  hvis livet er null eller mindre vil variabelen "dead" bli true og Player blir død,
+     *  Hvis Fienden blir truffet vil Livet(Health) til Enemy minke med en for hver gang,
+     *  hvis livet er null eller mindre vil variabelen "dead" bli true og Enemy dør,
      *  deretter får du hit = true.
      *
      *
@@ -265,7 +270,7 @@ public class Enemy {
      *
      * Får fiendene til å bevege på seg og har to if-tester som sørger for at fiendene
      * ikke går ut av banen. Dette har vi gjort ved å gruppe selve canvaset sin lengde og bredde.
-     *  Dersom fiendene treffer banen vil deres x- og y-koordinater forandre seg til motsatt.
+     *  Dersom fiendene treffer banen vil deres x- og y-koordinater forandre seg til motsatt retning.
      *
      *
      *
@@ -276,8 +281,8 @@ public class Enemy {
     public void update(){
 
         if(slow){
-            x += dx * 0.3;
-            y += dy * 0.3;
+            x += dx * 0.5;
+            y += dy * 0.5;
         }else{
             x += 2 * dx;
             y += 2* dy;
@@ -312,6 +317,7 @@ public class Enemy {
      *
      * Tegner inn fienden med bestemt farge og størrelse, deretter setter inn et bilde
      * over med samme størrelse og posisjon som sirkelen under.
+     *
      * */
 
     public void draw(GraphicsContext g){

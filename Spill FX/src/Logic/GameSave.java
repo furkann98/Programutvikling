@@ -8,7 +8,8 @@ import java.io.PrintWriter;
  * Denne klassen blir kalt på når spillet skal lagre verdier.
  *
  *
- */
+ * @author Muhammed Furkan Ergin s325881 / Pedram Rahdeirjoo s325906  */
+
 public class GameSave {
 
     //Datafelt
@@ -19,7 +20,7 @@ public class GameSave {
      *  lager en fil.
      *
      * @param fileName navnet på filen
-     * @throws IOException throws IOException
+     * @throws IOException
      */
     public void makeFile(File fileName) throws IOException{
         saveFile = new PrintWriter(fileName, "UTF-8");
@@ -35,8 +36,8 @@ public class GameSave {
      * level på PowerLevel.
      *
      *
-     * @param player verdier for spiller
-     * @param waveNumber
+     * @param player Player-objekt brukes til å importere verdier, med get-metoder
+     * @param waveNumber spillerens nåværende wave
      */
     public void save(Player player, int waveNumber){
         String life = String.valueOf(player.getLives());

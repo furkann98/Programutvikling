@@ -9,8 +9,8 @@ import javafx.scene.paint.Color;
  *
  *
  *
- *
- */
+ * @author Muhammed Furkan Ergin s325881 / Pedram Rahdeirjoo s325906  */
+
 public class Explosion {
 
     //Datafelt
@@ -21,7 +21,17 @@ public class Explosion {
 
 
     //CONSTRUCTOR
-
+    /**
+     * Konstruktør for eksplosjonsobjektet
+     *
+     * Her setter vi inn x- og y-posisjonen til døende fiende,
+     * og setter inn radiusen som eksplosjonen skal både starte på, "r", og slutte på, "max".
+     *
+     * @param x x-posjon til fienden som dør
+     * @param y y-posjon til fienden som dør
+     * @param r radius til fienden som dør
+     * @param max max-radiusen til eksplosjon som skjer.
+     */
     public Explosion(double x, double y, int r, int max){
         this.x = x;
         this.y = y;
@@ -31,6 +41,7 @@ public class Explosion {
 
     /**
      * Denne metoden oppdaterer sirkelen(animasjonen) med lengde 2 for hver gang.
+     *
      * @return true/false returnerer verdien ettersom animasjonen starter/slutter
      */
     public boolean update(){

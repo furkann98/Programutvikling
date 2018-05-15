@@ -11,20 +11,20 @@ import java.io.IOException;
 
 
 /**
- * Denne klassen/Controller er for fxml-filen/siden til "Choose wave"
- * Her er alle knappene og deres funksjoner til alle knappene som synes på FXML-en.
+ * Denne klassen er Controller for fxml-filen til "Choose wave"
+ *
+ * I denne controlleren er alle funksjoner til alle knappene som synes på FXML-en.
  *
  *
- */
+ *
+ *  @author Muhammed Furkan Ergin s325881 / Pedram Rahdeirjoo s325906  */
+
+
 
 
 public class ChooseWaveController {
 
     private GamePanelController gpc = new GamePanelController();
-    //File handling
-
-    //private FileChooser filehandling = new FileChooser();
-
 
     /**
      * Metode som kjører spillet i Wave 1
