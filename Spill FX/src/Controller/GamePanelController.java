@@ -28,6 +28,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaPlayer.Status;
+import javafx.scene.media.*;
+
 
 //ubrukte
 import javafx.scene.control.Button;
@@ -105,11 +110,39 @@ public class GamePanelController implements Initializable {
     private boolean powerUpCollect = false;
 
     //Sound files
+    java.net.URL backResource = getClass().getResource("/View/sound/background2.mp3");
+    Media backgroundSound = new Media(backResource.toString());
+    MediaPlayer backgroundPlayer = new MediaPlayer(backgroundSound);
+
+    java.net.URL gameoverResource = getClass().getResource("/View/sound/gameover.mp3");
+    Media gameoverSound = new Media(gameoverResource.toString());
+    MediaPlayer gameoverPlayer = new MediaPlayer(gameoverSound);
+
+    java.net.URL powerResource = getClass().getResource("/View/sound/power.mp3");
+    Media powerSound = new Media(powerResource.toString());
+    MediaPlayer powerPlayer = new MediaPlayer(powerSound);
+
+    java.net.URL shootResource = getClass().getResource("/View/sound/pew.mp3");
+    Media shootSound = new Media(shootResource.toString());
+    MediaPlayer shootPlayer = new MediaPlayer(shootSound);
+
+    java.net.URL hitResource = getClass().getResource("/View/sound/playerHit.mp3");
+    Media hitSound = new Media(hitResource.toString());
+    MediaPlayer hitPlayer = new MediaPlayer(hitSound);
+
+
+    /**
+     *Vi brukte orginalt Audiclip, da vi hadde små lydfiler/effekter.
+     * Men på grunn av feillagring innenfor Jar-fil, var det ikke mulig å bruke AudiClips.
+     * Derfor har vi byttet til Mediaplayer, now som også funker, men ikke like effektivt, med tanke på ytelse.
+     */
+ /*
     AudioClip gameoverSound = new AudioClip(getClass().getResource("/View/sound/gameover.mp3").toString());
     AudioClip powerUpSound = new AudioClip(getClass().getResource("/View/sound/power.mp3").toString());
     AudioClip shootSound = new AudioClip(getClass().getResource("/View/sound/pew.mp3").toString());
     AudioClip playerHitSound = new AudioClip(getClass().getResource("/View/sound/playerHit.mp3").toString());
     AudioClip backgroundSound = new AudioClip(getClass().getResource("/View/sound/background2.mp3").toString());
+*/
 
 
     //New thread for sound
@@ -131,20 +164,27 @@ public class GamePanelController implements Initializable {
                 public void handle(long now) {
 
                     if (player.getFiringSound()) {
-                        shootSound.play();
+                        shootPlayer.stop();
+                        shootPlayer.play();
                         player.setFiringSound(false);
                     }
                     if (player.gameoverSound()){
-                        gameoverSound.play();
+                        gameoverPlayer.stop();
+                        gameoverPlayer.play();
                         player.setGameoverSound(false);
                     }
                     if(powerUpCollect){
-                        powerUpSound.play();
+                        powerPlayer.stop();
+                        powerPlayer.play();
                         powerUpCollect = false;
                     }
                     if(player.getLivesSound()){
-                        playerHitSound.play();
+                        hitPlayer.stop();
+                        hitPlayer.play();
                         player.setLivesSound(false);
+                    }
+                    if(backgroundPlayer.getStatus().equals(Status.STOPPED)){
+                        backgroundPlayer.play();
                     }
                 }
             };
@@ -184,7 +224,6 @@ public class GamePanelController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       // backgroundSound.play();
 
         //Keylistener
         canvas.setOnKeyPressed(key -> {
@@ -228,7 +267,6 @@ public class GamePanelController implements Initializable {
                 case Q:
                     player.kill();
                     break;
-                case T:
                 }
             });
 
@@ -254,10 +292,8 @@ public class GamePanelController implements Initializable {
         });
 
         //Background Music
-        backgroundSound.stop();
-        backgroundSound.play();
-        backgroundSound.setCycleCount(AudioClip.INDEFINITE);
-
+        backgroundPlayer.stop();
+        backgroundPlayer.play();
 
         //Grapichscontext
         g = canvas.getGraphicsContext2D();
@@ -739,8 +775,10 @@ public class GamePanelController implements Initializable {
             pause = false;
             gameOverMenu.setVisible(false);
             victoryMenu.setVisible(false);
+            backgroundPlayer.stop();
 
-            //Startverdier
+
+        //Startverdier
             waveStartTimer = 0;
             waveStartTimerDiff = 0;
             waveStart = true;
@@ -954,6 +992,7 @@ public class GamePanelController implements Initializable {
 
 
     public void loadBtn(javafx.event.ActionEvent event) throws IOException {
+        backgroundPlayer.stop();
 
         //filehandling.setInitialDirectory(new File(System.getProperty("user.home")));
         File file = filehandling.showOpenDialog(null);
